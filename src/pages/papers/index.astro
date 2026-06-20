@@ -1,0 +1,63 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const allPapers = await getCollection('papers');
+const byYear = allPapers
+  .sort((a, b) => b.data.year - a.data.year)
+  .reduce<Record<number, typeof allPapers>>((acc, paper) => {
+    (acc[paper.data.year] ??= []).push(paper);
+    return acc;
+  }, {});
+
+const years = Object.keys(byYear).map(Number).sort((a, b) => b - a);
+---
+
+<Layout title="Papers" description="Publications and research papers by Merwan Birem">
+
+  <div class="mb-12">
+    <h1 class="text-2xl font-semibold tracking-tight mb-2">Papers</h1>
+    <p class="text-[var(--color-muted)]">
+      Research publications, preprints, and technical reports.
+    </p>
+  </div>
+
+  {years.length === 0 ? (
+    <p class="text-[var(--color-muted)] text-sm italic">
+      No papers yet — drop a PDF into <code class="font-mono text-xs bg-zinc-100 px-1.5 py-0.5 rounded">inbox/papers/</code> to publish one automatically.
+    </p>
+  ) : (
+    <div class="space-y-12">
+      {years.map(year => (
+        <section>
+          <h2 class="text-xs font-medium uppercase tracking-widest text-[var(--color-faint)] mb-6">{year}</h2>
+          <ul class="space-y-8">
+            {byYear[year].map(paper => (
+              <li class="group">
+                <a href={`/papers/${paper.id}`} class="block">
+                  <h3 class="text-base font-medium group-hover:text-[var(--color-accent)] transition-colors mb-1">
+                    {paper.data.title}
+                  </h3>
+                  <p class="text-sm text-[var(--color-muted)] mb-2">
+                    {paper.data.authors.join(', ')}
+                    {paper.data.venue && <> · <em>{paper.data.venue}</em></>}
+                  </p>
+                  <p class="text-sm text-[var(--color-faint)] line-clamp-2">{paper.data.abstract}</p>
+                  <div class="flex gap-2 mt-3">
+                    {paper.data.tags.map(tag => (
+                      <span class="text-xs px-2 py-0.5 bg-zinc-100 text-zinc-500 rounded-full">{tag}</span>
+                    ))}
+                    {paper.data.pdf_url && (
+                      <span class="text-xs px-2 py-0.5 bg-blue-50 text-blue-500 rounded-full">PDF</span>
+                    )}
+                  </div>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))}
+    </div>
+  )}
+
+</Layout>

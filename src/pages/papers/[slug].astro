@@ -1,0 +1,73 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const papers = await getCollection('papers');
+  return papers.map(paper => ({
+    params: { slug: paper.id },
+    props: { paper },
+  }));
+}
+
+const { paper } = Astro.props;
+const { Content } = await render(paper);
+---
+
+<Layout title={paper.data.title} description={paper.data.abstract}>
+
+  <div class="mb-4">
+    <a href="/papers" class="text-xs text-[var(--color-muted)] hover:text-[var(--color-accent)] transition-colors">
+      ← All papers
+    </a>
+  </div>
+
+  <article>
+    <header class="mb-10">
+      <h1 class="text-2xl font-semibold tracking-tight leading-snug mb-4">
+        {paper.data.title}
+      </h1>
+      <p class="text-sm text-[var(--color-muted)] mb-1">
+        {paper.data.authors.join(', ')}
+      </p>
+      <p class="text-sm text-[var(--color-faint)]">
+        {paper.data.year}
+        {paper.data.venue && <> · <em>{paper.data.venue}</em></>}
+        {paper.data.doi && (
+          <> · DOI: <a href={`https://doi.org/${paper.data.doi}`} target="_blank" rel="noopener noreferrer" class="text-[var(--color-accent)] hover:underline">{paper.data.doi}</a></>
+        )}
+      </p>
+
+      <div class="flex gap-3 mt-5">
+        {paper.data.pdf_url && (
+          <a
+            href={paper.data.pdf_url}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-sm px-4 py-2 bg-[var(--color-accent)] text-white rounded-md hover:bg-[var(--color-accent-hover)] transition-colors"
+          >
+            Download PDF
+          </a>
+        )}
+      </div>
+
+      {paper.data.tags.length > 0 && (
+        <div class="flex flex-wrap gap-2 mt-5">
+          {paper.data.tags.map(tag => (
+            <span class="text-xs px-2 py-0.5 bg-zinc-100 text-zinc-500 rounded-full">{tag}</span>
+          ))}
+        </div>
+      )}
+    </header>
+
+    <div class="border-t border-[var(--color-border)] pt-8 mb-8">
+      <h2 class="text-xs font-medium uppercase tracking-widest text-[var(--color-faint)] mb-4">Abstract</h2>
+      <p class="text-[var(--color-muted)] leading-relaxed">{paper.data.abstract}</p>
+    </div>
+
+    <div class="prose prose-zinc max-w-none prose-headings:font-semibold prose-a:text-[var(--color-accent)]">
+      <Content />
+    </div>
+  </article>
+
+</Layout>

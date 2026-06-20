@@ -1,0 +1,118 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const allItems = await getCollection('impossible-list');
+
+// Private items: show the category + locked state, but no title or details
+const publicItems = allItems.filter(i => i.data.visibility === 'public');
+const privateCount = allItems.filter(i => i.data.visibility === 'private').length;
+
+const categories = ['travel', 'learning', 'physical', 'professional', 'family', 'creative', 'social'] as const;
+
+const grouped = categories.reduce<Record<string, typeof publicItems>>((acc, cat) => {
+  const items = publicItems.filter(i => i.data.category === cat);
+  if (items.length) acc[cat] = items.sort((a, b) => {
+    const order = { done: 0, 'in-progress': 1, todo: 2 };
+    return order[a.data.status] - order[b.data.status];
+  });
+  return acc;
+}, {});
+
+const stats = {
+  total: allItems.length,
+  done: allItems.filter(i => i.data.status === 'done').length,
+  inProgress: allItems.filter(i => i.data.status === 'in-progress').length,
+};
+---
+
+<Layout title="Impossible List" description="The impossible list — things to achieve before I die. Merwan Birem">
+
+  <div class="mb-10">
+    <h1 class="text-2xl font-semibold tracking-tight mb-2">Impossible List</h1>
+    <p class="text-[var(--color-muted)] max-w-xl leading-relaxed">
+      Not a bucket list. A living document of things that seem impossible until they're not —
+      goals that push limits, build identity, and leave something behind.
+    </p>
+  </div>
+
+  <!-- Stats bar -->
+  {allItems.length > 0 && (
+    <div class="flex gap-6 mb-12 p-4 bg-[var(--color-surface)] rounded-lg border border-[var(--color-border)]">
+      <div class="text-center">
+        <div class="text-2xl font-semibold">{stats.total}</div>
+        <div class="text-xs text-[var(--color-faint)] mt-0.5">Total</div>
+      </div>
+      <div class="w-px bg-[var(--color-border)]"></div>
+      <div class="text-center">
+        <div class="text-2xl font-semibold text-emerald-600">{stats.done}</div>
+        <div class="text-xs text-[var(--color-faint)] mt-0.5">Done</div>
+      </div>
+      <div class="w-px bg-[var(--color-border)]"></div>
+      <div class="text-center">
+        <div class="text-2xl font-semibold text-amber-600">{stats.inProgress}</div>
+        <div class="text-xs text-[var(--color-faint)] mt-0.5">In progress</div>
+      </div>
+      {privateCount > 0 && (
+        <>
+          <div class="w-px bg-[var(--color-border)]"></div>
+          <div class="text-center">
+            <div class="text-2xl font-semibold text-zinc-400">{privateCount}</div>
+            <div class="text-xs text-[var(--color-faint)] mt-0.5">Private</div>
+          </div>
+        </>
+      )}
+    </div>
+  )}
+
+  {Object.keys(grouped).length === 0 ? (
+    <p class="text-[var(--color-muted)] text-sm italic">
+      List in progress — this space will grow.
+    </p>
+  ) : (
+    <div class="space-y-12">
+      {Object.entries(grouped).map(([category, items]) => (
+        <section>
+          <h2 class="text-xs font-medium uppercase tracking-widest text-[var(--color-faint)] mb-5 capitalize">
+            {category}
+          </h2>
+          <ul class="space-y-3">
+            {items.map(item => (
+              <li class="flex items-start gap-3">
+                <!-- Status indicator -->
+                {item.data.status === 'done' ? (
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 text-emerald-500 shrink-0 mt-0.5">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm3.857-9.809a.75.75 0 0 0-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 1 0-1.06 1.061l2.5 2.5a.75.75 0 0 0 1.137-.089l4-5.5Z" clip-rule="evenodd" />
+                  </svg>
+                ) : item.data.status === 'in-progress' ? (
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 text-amber-400 shrink-0 mt-0.5">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm.75-11.25a.75.75 0 0 0-1.5 0v4.59L7.3 9.24a.75.75 0 0 0-1.1 1.02l3.25 3.5a.75.75 0 0 0 1.1 0l3.25-3.5a.75.75 0 1 0-1.1-1.02l-1.95 2.1V6.75Z" clip-rule="evenodd" />
+                  </svg>
+                ) : (
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 text-zinc-300 shrink-0 mt-0.5">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm0-2a6 6 0 1 1 0-12 6 6 0 0 1 0 12Z" clip-rule="evenodd" />
+                  </svg>
+                )}
+
+                <div class="flex-1 min-w-0">
+                  <span class={`text-sm ${item.data.status === 'done' ? 'line-through text-[var(--color-faint)]' : 'text-[var(--color-ink)]'}`}>
+                    {item.data.title}
+                  </span>
+                  {item.data.status === 'done' && item.data.date_achieved && (
+                    <span class="ml-2 text-xs text-emerald-500 font-mono">
+                      ✓ {item.data.date_achieved.toLocaleDateString('en-GB', { month: 'short', year: 'numeric' })}
+                    </span>
+                  )}
+                  {item.data.summary && (
+                    <p class="text-xs text-[var(--color-faint)] mt-0.5">{item.data.summary}</p>
+                  )}
+                </div>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))}
+    </div>
+  )}
+
+</Layout>

@@ -1,0 +1,69 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = 'Merwan Birem — Researcher & Engineer' } = Astro.props;
+
+const nav = [
+  { label: 'Papers', href: '/papers' },
+  { label: 'Blog', href: '/blog' },
+  { label: 'Milestones', href: '/milestones' },
+  { label: 'Impossible List', href: '/impossible-list' },
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title === 'Home' ? 'Merwan Birem' : `${title} — Merwan Birem`}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  </head>
+  <body class="min-h-screen flex flex-col">
+
+    <header class="border-b border-[var(--color-border)] sticky top-0 bg-white/95 backdrop-blur-sm z-10">
+      <div class="max-w-3xl mx-auto px-6 h-14 flex items-center justify-between">
+        <a href="/" class="text-sm font-medium tracking-tight text-[var(--color-ink)] hover:text-[var(--color-accent)] transition-colors">
+          MB
+        </a>
+        <nav class="flex items-center gap-6">
+          {nav.map(({ label, href }) => (
+            <a
+              href={href}
+              class={`text-sm transition-colors ${
+                currentPath.startsWith(href)
+                  ? 'text-[var(--color-accent)] font-medium'
+                  : 'text-[var(--color-muted)] hover:text-[var(--color-ink)]'
+              }`}
+            >
+              {label}
+            </a>
+          ))}
+        </nav>
+      </div>
+    </header>
+
+    <main class="flex-1 max-w-3xl mx-auto w-full px-6 py-16">
+      <slot />
+    </main>
+
+    <footer class="border-t border-[var(--color-border)] mt-auto">
+      <div class="max-w-3xl mx-auto px-6 py-8 flex items-center justify-between text-xs text-[var(--color-faint)]">
+        <span>© {new Date().getFullYear()} Merwan Birem</span>
+        <span>Built with Astro · Hosted on GitHub Pages</span>
+      </div>
+    </footer>
+
+  </body>
+</html>
