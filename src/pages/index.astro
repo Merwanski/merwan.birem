@@ -19,11 +19,11 @@ const experience = [
     period: 'Apr 2022 – Present',
     location: 'Leuven, Belgium',
     highlights: [
-      'Lead large-scale AI R&D programs at national and EU level, including the 4M ALARMM SBO project (4 research groups, 7 industrial partners)',
-      'Manage and coordinate cross-functional teams of 3–12 members across academia, industry, and public research',
-      'Drive development of AI systems in computer vision, visual SLAM, and sensor fusion for industrial environments',
-      'Achieved 4× technology transfer from research to industry in the most recent completed project (2025)',
-      'Oversee full project lifecycle: opportunity scouting, consortium building, proposal writing, technical execution, and technology transfer',
+      'Lead large-scale AI R&D programs including the 4M€ ALARMM SBO project (4 research groups, 7 industrial partners)',
+      'Manage cross-functional teams of 3–12 across academia, industry, and public research',
+      'Drive AI systems development in computer vision, visual SLAM, and sensor fusion for industrial environments',
+      '4× technology transfer from research to industry in the most recent completed project (2025)',
+      'Full lifecycle ownership: opportunity scouting, consortium building, proposal writing, technical execution',
     ],
   },
   {
@@ -54,9 +54,9 @@ const experience = [
 ];
 
 const education = [
-  { degree: 'PhD in Electronics & System Architecture', institution: 'Blaise Pascal University', year: '2011–2015', location: 'France' },
-  { degree: 'MSc in Robotics & Multisensory Perception', institution: 'Blaise Pascal University', year: '2010–2011', location: 'France' },
-  { degree: 'Engineering Degree in Electronics', institution: 'National Polytechnic School', year: '2005–2010', location: 'Algeria' },
+  { degree: 'PhD · Electronics & System Architecture', institution: 'Blaise Pascal University', year: '2011–2015', location: 'France' },
+  { degree: 'MSc · Robotics & Multisensory Perception', institution: 'Blaise Pascal University', year: '2010–2011', location: 'France' },
+  { degree: 'Engineering · Electronics', institution: 'National Polytechnic School', year: '2005–2010', location: 'Algeria' },
 ];
 
 const languages = [
@@ -70,235 +70,294 @@ const projects = [
   {
     title: 'ALARMM SBO – Visual SLAM for Large Environments',
     period: '2025 – Present',
-    description: 'Leading a 4M€ multi-partner research project on low-cost, accurate, and robust visual SLAM systems. Focus on robust perception in complex industrial environments.',
+    description: 'Leading a 4M€ multi-partner project on low-cost, accurate, and robust visual SLAM systems for complex industrial environments.',
     tags: ['Visual SLAM', 'Computer Vision', 'Industrial AI'],
   },
   {
     title: 'QUALMA ICON – AI-Augmented Quality Assurance',
     period: '2022 – 2025',
-    description: 'Led development of a modular AI framework for large-scale manual assembly inspection. Integrated computer vision (detection, pose estimation, tracking) with AR guidance. Improved inspection accuracy and reduced cycle time.',
+    description: 'Modular AI framework for large-scale manual assembly inspection — combining detection, pose estimation, and tracking with AR guidance.',
     tags: ['Quality Inspection', 'AR/VR', 'Pose Estimation', 'Deep Learning'],
   },
   {
-    title: 'FROGS ICON – CAD2GraspMonitor: Robotic Grasp Validation',
+    title: 'FROGS ICON – CAD2GraspMonitor',
     period: '2021 – 2023',
-    description: 'Developed a vision-based system for post-grasp validation in robotic kitting. Combined YOLO-based detection, ICP pose estimation, and sensor fusion for high reliability in industrial pick-and-place operations.',
+    description: 'Vision-based post-grasp validation for robotic kitting using YOLO detection, ICP pose estimation, and sensor fusion.',
     tags: ['Robotics', 'YOLO', 'ICP', 'Sensor Fusion'],
   },
 ];
+
+const leftNav = [
+  { label: 'About', href: '#about' },
+  { label: 'Projects', href: '#projects' },
+  { label: 'Experience', href: '#experience' },
+  { label: 'Publications', href: '#publications' },
+  { label: 'Milestones', href: '#milestones' },
+];
+
+const leftNavPages = [
+  { label: 'Now', href: '/now' },
+  { label: 'Papers', href: '/papers' },
+  { label: 'Blog', href: '/blog' },
+  { label: 'Impossible List', href: '/impossible-list' },
+];
 ---
 
-<Layout title="Home">
+<Layout title="Home" wide={true}>
+  <div class="grid grid-cols-1 lg:grid-cols-[180px_1fr_220px] gap-x-10 gap-y-12">
 
-  <!-- Identity -->
-  <section class="mb-14">
-    <h1 class="text-3xl font-semibold tracking-tight mb-1">Merwan Birem</h1>
-    <p class="text-[var(--color-muted)] mb-1">
-      AI Innovation Leader · Computer Vision, Industrial AI Systems &amp; Autonomous Perception
-    </p>
-    <p class="text-sm text-[var(--color-faint)] mb-7">
-      Sterrebeek, Belgium · Flanders Make
-    </p>
-    <p class="text-[var(--color-ink)] leading-relaxed max-w-2xl mb-3">
-      AI Innovation Leader with 10+ years of experience in computer vision, robotics, and industrial AI systems.
-      Proven track record of leading multi-million euro R&amp;D programs (4M€+) and delivering applied AI solutions
-      from research to industrial deployment.
-    </p>
-    <p class="text-[var(--color-muted)] leading-relaxed max-w-2xl">
-      Specialized in perception systems, AI-driven quality inspection for complex manufacturing environments,
-      and visual SLAM. Expanding expertise in AI systems engineering, MLOps, and workflow automation to bridge
-      advanced research with scalable real-world deployment.
-    </p>
-  </section>
-
-  <!-- Links -->
-  <section class="mb-14 flex flex-wrap gap-3">
-    {[
-      { label: 'LinkedIn', href: 'https://www.linkedin.com/in/merwan-birem-600a593a/' },
-      { label: 'Google Scholar', href: 'https://scholar.google.com/citations?user=oikUY4YAAAAJ' },
-      { label: 'CV / Résumé', href: '/cv/CV___Merwan_BIREM_20260501.pdf' },
-      { label: 'GitHub', href: 'https://github.com/merwanbirem' },
-      { label: 'Medium', href: '#' },
-    ].map(({ label, href }) => (
-      <a
-        href={href}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="inline-flex items-center gap-1.5 text-sm px-3 py-1.5 border border-[var(--color-border)] rounded-md text-[var(--color-muted)] hover:text-[var(--color-accent)] hover:border-[var(--color-accent)] transition-colors"
-      >
-        {label}
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-3 h-3 opacity-50">
-          <path d="M6.22 8.72a.75.75 0 0 0 1.06 1.06l5.22-5.22v1.69a.75.75 0 0 0 1.5 0v-3.5a.75.75 0 0 0-.75-.75h-3.5a.75.75 0 0 0 0 1.5h1.69L6.22 8.72Z" />
-          <path d="M3.5 6.75c0-.69.56-1.25 1.25-1.25H7A.75.75 0 0 0 7 4H4.75A2.75 2.75 0 0 0 2 6.75v4.5A2.75 2.75 0 0 0 4.75 14h4.5A2.75 2.75 0 0 0 12 11.25V9a.75.75 0 0 0-1.5 0v2.25c0 .69-.56 1.25-1.25 1.25h-4.5c-.69 0-1.25-.56-1.25-1.25v-4.5Z" />
-        </svg>
-      </a>
-    ))}
-  </section>
-
-  <!-- Core Competencies -->
-  <section class="mb-14">
-    <h2 class="text-xs font-medium uppercase tracking-widest text-[var(--color-faint)] mb-6">Core Competencies</h2>
-    <div class="space-y-4">
-      <div>
-        <p class="text-xs text-[var(--color-faint)] mb-2">AI &amp; Perception</p>
-        <div class="flex flex-wrap gap-2">
-          {skills.core.map(s => (
-            <span class="text-xs px-2.5 py-1 bg-blue-50 text-blue-700 border border-blue-100 rounded-full">{s}</span>
-          ))}
-        </div>
-      </div>
-      <div>
-        <p class="text-xs text-[var(--color-faint)] mb-2">Tools &amp; Frameworks</p>
-        <div class="flex flex-wrap gap-2">
-          {skills.tools.map(s => (
-            <span class="text-xs px-2.5 py-1 bg-zinc-100 text-zinc-600 rounded-full">{s}</span>
-          ))}
-        </div>
-      </div>
-      <div>
-        <p class="text-xs text-[var(--color-faint)] mb-2">Emerging Focus</p>
-        <div class="flex flex-wrap gap-2">
-          {skills.emerging.map(s => (
-            <span class="text-xs px-2.5 py-1 border border-dashed border-[var(--color-border)] text-[var(--color-muted)] rounded-full">{s}</span>
-          ))}
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Key Projects -->
-  <section class="mb-14">
-    <h2 class="text-xs font-medium uppercase tracking-widest text-[var(--color-faint)] mb-6">Key Projects</h2>
-    <div class="space-y-6">
-      {projects.map(p => (
-        <div class="border border-[var(--color-border)] rounded-lg p-5">
-          <div class="flex items-start justify-between gap-4 mb-2">
-            <h3 class="text-sm font-medium text-[var(--color-ink)]">{p.title}</h3>
-            <span class="text-xs font-mono text-[var(--color-faint)] shrink-0">{p.period}</span>
-          </div>
-          <p class="text-sm text-[var(--color-muted)] leading-relaxed mb-3">{p.description}</p>
-          <div class="flex flex-wrap gap-1.5">
-            {p.tags.map(t => (
-              <span class="text-xs px-2 py-0.5 bg-zinc-100 text-zinc-500 rounded-full">{t}</span>
+    <!-- ── LEFT NAV ── -->
+    <aside class="hidden lg:block">
+      <div class="sticky top-24 space-y-6">
+        <div>
+          <p class="text-[10px] font-medium uppercase tracking-widest text-[var(--color-faint)] mb-3">On this page</p>
+          <ul class="space-y-1">
+            {leftNav.map(({ label, href }) => (
+              <li>
+                <a href={href} class="block text-sm text-[var(--color-muted)] hover:text-[var(--color-accent)] transition-colors py-0.5">
+                  {label}
+                </a>
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
-      ))}
-    </div>
-  </section>
-
-  <!-- Experience -->
-  <section class="mb-14">
-    <h2 class="text-xs font-medium uppercase tracking-widest text-[var(--color-faint)] mb-6">Experience</h2>
-    <ol class="relative border-l border-[var(--color-border)] ml-3 space-y-8">
-      {experience.map(role => (
-        <li class="ml-6">
-          <span class="absolute -left-1.5 w-3 h-3 rounded-full bg-white border-2 border-[var(--color-border)] mt-1"></span>
-          <div class="flex flex-wrap items-baseline gap-x-3 gap-y-0.5 mb-1">
-            <h3 class="text-sm font-medium text-[var(--color-ink)]">{role.title}</h3>
-            <span class="text-sm text-[var(--color-accent)]">{role.org}</span>
-          </div>
-          <p class="text-xs text-[var(--color-faint)] font-mono mb-2">{role.period} · {role.location}</p>
-          {role.highlights.length > 0 && (
-            <ul class="space-y-1">
-              {role.highlights.map(h => (
-                <li class="flex items-start gap-2 text-sm text-[var(--color-muted)]">
-                  <span class="mt-2 w-1 h-1 rounded-full bg-[var(--color-faint)] shrink-0"></span>
-                  {h}
-                </li>
-              ))}
-            </ul>
-          )}
-        </li>
-      ))}
-    </ol>
-  </section>
-
-  <!-- Education -->
-  <section class="mb-14">
-    <h2 class="text-xs font-medium uppercase tracking-widest text-[var(--color-faint)] mb-6">Education</h2>
-    <ul class="space-y-4">
-      {education.map(e => (
-        <li class="flex gap-4">
-          <span class="text-xs font-mono text-[var(--color-faint)] pt-0.5 shrink-0 w-20">{e.year}</span>
-          <div>
-            <p class="text-sm font-medium text-[var(--color-ink)]">{e.degree}</p>
-            <p class="text-sm text-[var(--color-muted)]">{e.institution} · {e.location}</p>
-          </div>
-        </li>
-      ))}
-    </ul>
-  </section>
-
-  <!-- Languages -->
-  <section class="mb-14">
-    <h2 class="text-xs font-medium uppercase tracking-widest text-[var(--color-faint)] mb-6">Languages</h2>
-    <ul class="space-y-2">
-      {languages.map(({ name, level }) => (
-        <li class="flex items-center gap-4">
-          <span class="text-sm text-[var(--color-muted)] w-16">{name}</span>
-          <div class="flex gap-1">
-            {Array.from({ length: 5 }).map((_, i) => (
-              <span class={`w-2.5 h-2.5 rounded-full ${i < level ? 'bg-[var(--color-ink)]' : 'bg-[var(--color-border)]'}`} />
+        <div class="border-t border-[var(--color-border)] pt-5">
+          <p class="text-[10px] font-medium uppercase tracking-widest text-[var(--color-faint)] mb-3">Explore</p>
+          <ul class="space-y-1">
+            {leftNavPages.map(({ label, href }) => (
+              <li>
+                <a href={href} class="flex items-center gap-1 text-sm text-[var(--color-muted)] hover:text-[var(--color-accent)] transition-colors py-0.5">
+                  {label}
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" fill="currentColor" class="w-2.5 h-2.5 opacity-40">
+                    <path d="M6.5 1.75a.75.75 0 0 0 0-1.5h-5A.75.75 0 0 0 .75 1v5a.75.75 0 0 0 1.5 0V2.56l7.22 7.22a.75.75 0 1 0 1.06-1.06L3.31 1.5H6.5Z"/>
+                  </svg>
+                </a>
+              </li>
             ))}
-          </div>
-        </li>
-      ))}
-    </ul>
-  </section>
-
-  <!-- Featured Papers -->
-  {sortedPapers.length > 0 && (
-    <section class="mb-14">
-      <div class="flex items-center justify-between mb-6">
-        <h2 class="text-xs font-medium uppercase tracking-widest text-[var(--color-faint)]">Selected Publications</h2>
-        <a href="/papers" class="text-xs text-[var(--color-accent)] hover:underline">All 20 papers →</a>
+          </ul>
+        </div>
       </div>
-      <ul class="space-y-6">
-        {sortedPapers.map(paper => (
-          <li>
-            <a href={`/papers/${paper.id}`} class="group block">
-              <p class="text-sm font-medium group-hover:text-[var(--color-accent)] transition-colors mb-1">
-                {paper.data.title}
-              </p>
-              <p class="text-xs text-[var(--color-faint)]">
-                {paper.data.authors.join(', ')} · {paper.data.year}
-                {paper.data.venue && ` · ${paper.data.venue}`}
-                {paper.data.citations && paper.data.citations > 0 && ` · ${paper.data.citations} citations`}
-              </p>
+    </aside>
+
+    <!-- ── MAIN CONTENT ── -->
+    <div class="min-w-0 space-y-14">
+
+      <!-- Identity -->
+      <section id="about">
+        <h1 class="text-3xl font-semibold tracking-tight mb-1">Merwan Birem</h1>
+        <p class="text-[var(--color-muted)] mb-1">
+          AI Innovation Leader · Computer Vision, Industrial AI &amp; Autonomous Perception
+        </p>
+        <p class="text-sm text-[var(--color-faint)] mb-7">Sterrebeek, Belgium · Flanders Make</p>
+        <p class="text-[var(--color-ink)] leading-relaxed mb-3">
+          AI Innovation Leader with 10+ years of experience in computer vision, robotics, and industrial AI systems.
+          Proven track record of leading multi-million euro R&amp;D programs (4M€+) and delivering applied AI solutions
+          from research to industrial deployment.
+        </p>
+        <p class="text-[var(--color-muted)] leading-relaxed">
+          Specialized in perception systems, AI-driven quality inspection, and visual SLAM. Expanding into
+          AI systems engineering, MLOps, and workflow automation to bridge advanced research with scalable real-world deployment.
+        </p>
+
+        <!-- Links -->
+        <div class="flex flex-wrap gap-2.5 mt-7">
+          {[
+            { label: 'LinkedIn', href: 'https://www.linkedin.com/in/merwan-birem-600a593a/' },
+            { label: 'Google Scholar', href: 'https://scholar.google.com/citations?user=oikUY4YAAAAJ' },
+            { label: 'CV / Résumé', href: '/cv/CV___Merwan_BIREM_20260501.pdf' },
+            { label: 'GitHub', href: 'https://github.com/merwanbirem' },
+            { label: 'Medium', href: '#' },
+          ].map(({ label, href }) => (
+            <a
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-1.5 text-sm px-3 py-1.5 border border-[var(--color-border)] rounded-md text-[var(--color-muted)] hover:text-[var(--color-accent)] hover:border-[var(--color-accent)] transition-colors"
+            >
+              {label}
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-3 h-3 opacity-40">
+                <path d="M6.22 8.72a.75.75 0 0 0 1.06 1.06l5.22-5.22v1.69a.75.75 0 0 0 1.5 0v-3.5a.75.75 0 0 0-.75-.75h-3.5a.75.75 0 0 0 0 1.5h1.69L6.22 8.72Z" />
+                <path d="M3.5 6.75c0-.69.56-1.25 1.25-1.25H7A.75.75 0 0 0 7 4H4.75A2.75 2.75 0 0 0 2 6.75v4.5A2.75 2.75 0 0 0 4.75 14h4.5A2.75 2.75 0 0 0 12 11.25V9a.75.75 0 0 0-1.5 0v2.25c0 .69-.56 1.25-1.25 1.25h-4.5c-.69 0-1.25-.56-1.25-1.25v-4.5Z" />
+              </svg>
             </a>
-          </li>
-        ))}
-      </ul>
-    </section>
-  )}
+          ))}
+        </div>
+      </section>
 
-  <!-- Featured Milestones -->
-  {milestones.length > 0 && (
-    <section class="mb-14">
-      <div class="flex items-center justify-between mb-6">
-        <h2 class="text-xs font-medium uppercase tracking-widest text-[var(--color-faint)]">Recent Milestones</h2>
-        <a href="/milestones" class="text-xs text-[var(--color-accent)] hover:underline">All milestones →</a>
+      <!-- Key Projects -->
+      <section id="projects">
+        <h2 class="text-xs font-medium uppercase tracking-widest text-[var(--color-faint)] mb-5">Key Projects</h2>
+        <div class="space-y-4">
+          {projects.map(p => (
+            <div class="border border-[var(--color-border)] rounded-lg p-5 hover:border-zinc-300 transition-colors">
+              <div class="flex items-start justify-between gap-4 mb-1.5">
+                <h3 class="text-sm font-medium text-[var(--color-ink)]">{p.title}</h3>
+                <span class="text-xs font-mono text-[var(--color-faint)] shrink-0">{p.period}</span>
+              </div>
+              <p class="text-sm text-[var(--color-muted)] leading-relaxed mb-3">{p.description}</p>
+              <div class="flex flex-wrap gap-1.5">
+                {p.tags.map(t => (
+                  <span class="text-xs px-2 py-0.5 bg-zinc-100 text-zinc-500 rounded-full">{t}</span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- Experience -->
+      <section id="experience">
+        <h2 class="text-xs font-medium uppercase tracking-widest text-[var(--color-faint)] mb-5">Experience</h2>
+        <ol class="relative border-l border-[var(--color-border)] ml-3 space-y-8">
+          {experience.map(role => (
+            <li class="ml-6">
+              <span class="absolute -left-1.5 w-3 h-3 rounded-full bg-white border-2 border-[var(--color-border)] mt-1"></span>
+              <div class="flex flex-wrap items-baseline gap-x-2 gap-y-0.5 mb-0.5">
+                <h3 class="text-sm font-medium text-[var(--color-ink)]">{role.title}</h3>
+                <span class="text-sm text-[var(--color-accent)]">· {role.org}</span>
+              </div>
+              <p class="text-xs text-[var(--color-faint)] font-mono mb-2">{role.period} · {role.location}</p>
+              {role.highlights.length > 0 && (
+                <ul class="space-y-1.5">
+                  {role.highlights.map(h => (
+                    <li class="flex items-start gap-2 text-sm text-[var(--color-muted)]">
+                      <span class="mt-2 w-1 h-1 rounded-full bg-[var(--color-faint)] shrink-0"></span>
+                      {h}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      <!-- Featured Papers -->
+      <section id="publications">
+        <div class="flex items-center justify-between mb-5">
+          <h2 class="text-xs font-medium uppercase tracking-widest text-[var(--color-faint)]">Selected Publications</h2>
+          <a href="/papers" class="text-xs text-[var(--color-accent)] hover:underline">All 20 papers →</a>
+        </div>
+        <ul class="space-y-5">
+          {sortedPapers.map(paper => (
+            <li>
+              <a href={`/papers/${paper.id}`} class="group block">
+                <p class="text-sm font-medium group-hover:text-[var(--color-accent)] transition-colors mb-1">
+                  {paper.data.title}
+                </p>
+                <p class="text-xs text-[var(--color-faint)]">
+                  {paper.data.authors.join(', ')} · {paper.data.year}
+                  {paper.data.venue && ` · ${paper.data.venue}`}
+                  {paper.data.citations && paper.data.citations > 0 && ` · ${paper.data.citations} citations`}
+                </p>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <!-- Milestones -->
+      {milestones.length > 0 && (
+        <section id="milestones">
+          <div class="flex items-center justify-between mb-5">
+            <h2 class="text-xs font-medium uppercase tracking-widest text-[var(--color-faint)]">Recent Milestones</h2>
+            <a href="/milestones" class="text-xs text-[var(--color-accent)] hover:underline">All →</a>
+          </div>
+          <ul class="space-y-3">
+            {milestones.map(m => (
+              <li class="flex items-start gap-4">
+                <span class="text-xs text-[var(--color-faint)] font-mono pt-0.5 shrink-0">
+                  {m.data.date.toLocaleDateString('en-GB', { month: 'short', year: 'numeric' })}
+                </span>
+                <span class="text-sm text-[var(--color-ink)]">{m.data.summary}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      <!-- Philosophy -->
+      <blockquote class="border-l-2 border-[var(--color-border)] pl-5 pt-2">
+        <p class="text-sm italic text-[var(--color-faint)] leading-relaxed">
+          "Life is like riding a bicycle. To keep your balance, you must keep moving."
+        </p>
+        <footer class="text-xs text-[var(--color-faint)] mt-2">— Albert Einstein</footer>
+      </blockquote>
+
+    </div>
+
+    <!-- ── RIGHT SIDEBAR ── -->
+    <aside class="hidden lg:block">
+      <div class="sticky top-24 space-y-8">
+
+        <!-- Languages -->
+        <div>
+          <p class="text-[10px] font-medium uppercase tracking-widest text-[var(--color-faint)] mb-4">Languages</p>
+          <ul class="space-y-2.5">
+            {languages.map(({ name, level }) => (
+              <li class="flex items-center justify-between gap-3">
+                <span class="text-xs text-[var(--color-muted)]">{name}</span>
+                <div class="flex gap-1">
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <span class={`w-2 h-2 rounded-full ${i < level ? 'bg-[var(--color-ink)]' : 'bg-[var(--color-border)]'}`} />
+                  ))}
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="border-t border-[var(--color-border)]"></div>
+
+        <!-- Core Competencies -->
+        <div>
+          <p class="text-[10px] font-medium uppercase tracking-widest text-[var(--color-faint)] mb-4">Competencies</p>
+          <div class="space-y-3">
+            <div>
+              <p class="text-[10px] text-[var(--color-faint)] mb-1.5">AI & Perception</p>
+              <div class="flex flex-wrap gap-1.5">
+                {skills.core.map(s => (
+                  <span class="text-[10px] px-1.5 py-0.5 bg-blue-50 text-blue-600 border border-blue-100 rounded">{s}</span>
+                ))}
+              </div>
+            </div>
+            <div>
+              <p class="text-[10px] text-[var(--color-faint)] mb-1.5">Tools</p>
+              <div class="flex flex-wrap gap-1.5">
+                {skills.tools.map(s => (
+                  <span class="text-[10px] px-1.5 py-0.5 bg-zinc-100 text-zinc-500 rounded">{s}</span>
+                ))}
+              </div>
+            </div>
+            <div>
+              <p class="text-[10px] text-[var(--color-faint)] mb-1.5">Emerging</p>
+              <div class="flex flex-wrap gap-1.5">
+                {skills.emerging.map(s => (
+                  <span class="text-[10px] px-1.5 py-0.5 border border-dashed border-[var(--color-border)] text-[var(--color-faint)] rounded">{s}</span>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="border-t border-[var(--color-border)]"></div>
+
+        <!-- Education -->
+        <div>
+          <p class="text-[10px] font-medium uppercase tracking-widest text-[var(--color-faint)] mb-4">Education</p>
+          <ul class="space-y-3">
+            {education.map(e => (
+              <li>
+                <p class="text-xs font-medium text-[var(--color-ink)] leading-snug">{e.degree}</p>
+                <p class="text-[10px] text-[var(--color-faint)] mt-0.5">{e.institution}</p>
+                <p class="text-[10px] text-[var(--color-faint)]">{e.year} · {e.location}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+
       </div>
-      <ul class="space-y-4">
-        {milestones.map(m => (
-          <li class="flex items-start gap-4">
-            <span class="text-xs text-[var(--color-faint)] font-mono pt-0.5 shrink-0">
-              {m.data.date.toLocaleDateString('en-GB', { month: 'short', year: 'numeric' })}
-            </span>
-            <span class="text-sm text-[var(--color-ink)]">{m.data.summary}</span>
-          </li>
-        ))}
-      </ul>
-    </section>
-  )}
+    </aside>
 
-  <!-- Philosophy -->
-  <blockquote class="border-l-2 border-[var(--color-border)] pl-5 mt-16">
-    <p class="text-sm italic text-[var(--color-faint)] leading-relaxed">
-      "Life is like riding a bicycle. To keep your balance, you must keep moving."
-    </p>
-    <footer class="text-xs text-[var(--color-faint)] mt-2">— Albert Einstein</footer>
-  </blockquote>
-
+  </div>
 </Layout>

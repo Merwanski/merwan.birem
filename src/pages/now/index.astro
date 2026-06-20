@@ -1,0 +1,123 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+// Update this date whenever you update the page
+const lastUpdated = '2026-06-21';
+---
+
+<Layout title="Now" description="What Merwan Birem is currently working on, learning, and thinking about.">
+
+  <div class="mb-10">
+    <h1 class="text-2xl font-semibold tracking-tight mb-2">Now</h1>
+    <p class="text-sm text-[var(--color-faint)]">
+      What I'm focused on right now —
+      <time datetime={lastUpdated}>
+        last updated {new Date(lastUpdated).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}
+      </time>.
+      Inspired by <a href="https://nownownow.com/about" target="_blank" rel="noopener noreferrer" class="text-[var(--color-accent)] hover:underline">the /now movement</a>.
+    </p>
+  </div>
+
+  <div class="space-y-12">
+
+    <!-- Working on -->
+    <section>
+      <h2 class="text-xs font-medium uppercase tracking-widest text-[var(--color-faint)] mb-5">Working On</h2>
+      <ul class="space-y-5">
+        {[
+          {
+            title: 'ALARMM SBO — Visual SLAM for Large Environments',
+            body: 'Leading a 4M€ multi-partner research project on robust, low-cost visual SLAM systems for industrial environments. Coordinating 4 research groups and 7 industrial partners at national and EU level.',
+            tag: 'Research',
+          },
+          {
+            title: 'This website — personal brand & legacy',
+            body: 'Building a living portfolio that brings together my research, projects, writing, and personal milestones. Exploring automation to make publishing frictionless.',
+            tag: 'Personal',
+          },
+        ].map(item => (
+          <li class="flex gap-5">
+            <div class="flex-1">
+              <div class="flex items-center gap-2 mb-1">
+                <h3 class="text-sm font-medium">{item.title}</h3>
+                <span class="text-xs px-1.5 py-0.5 bg-zinc-100 text-zinc-500 rounded">{item.tag}</span>
+              </div>
+              <p class="text-sm text-[var(--color-muted)] leading-relaxed">{item.body}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <!-- Learning -->
+    <section>
+      <h2 class="text-xs font-medium uppercase tracking-widest text-[var(--color-faint)] mb-5">Learning</h2>
+      <ul class="space-y-5">
+        {[
+          {
+            title: 'AI Workflow Automation — n8n',
+            body: 'Building automated pipelines to orchestrate AI tasks, notifications, and data flows without constant manual intervention. Exploring how to wire LLMs into practical daily workflows.',
+            tag: 'AI Tooling',
+          },
+          {
+            title: 'AI Agents & MCP',
+            body: 'Digging into the Model Context Protocol and agentic frameworks — understanding how to design multi-step AI systems that can reason, plan, and act across tools and APIs.',
+            tag: 'AI Engineering',
+          },
+          {
+            title: 'LLM Applications in industrial R&D',
+            body: 'Exploring where large language models genuinely add value in research workflows — from literature review and report drafting to code assistance and knowledge management.',
+            tag: 'Applied AI',
+          },
+        ].map(item => (
+          <li>
+            <div class="flex items-center gap-2 mb-1">
+              <h3 class="text-sm font-medium">{item.title}</h3>
+              <span class="text-xs px-1.5 py-0.5 bg-blue-50 text-blue-500 rounded">{item.tag}</span>
+            </div>
+            <p class="text-sm text-[var(--color-muted)] leading-relaxed">{item.body}</p>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <!-- Reading / Thinking -->
+    <section>
+      <h2 class="text-xs font-medium uppercase tracking-widest text-[var(--color-faint)] mb-5">Reading & Thinking About</h2>
+      <ul class="space-y-3">
+        {[
+          'How AI will reshape R&D workflows in applied research institutes',
+          'The gap between academic AI research and industrial-grade deployment',
+          'Building teams that bridge deep expertise and fast execution',
+          'Legacy — what work and life mean beyond the immediate deliverable',
+        ].map(item => (
+          <li class="flex items-start gap-2.5 text-sm text-[var(--color-muted)]">
+            <span class="mt-2 w-1 h-1 rounded-full bg-[var(--color-faint)] shrink-0"></span>
+            {item}
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <!-- Where -->
+    <section>
+      <h2 class="text-xs font-medium uppercase tracking-widest text-[var(--color-faint)] mb-5">Where</h2>
+      <p class="text-sm text-[var(--color-muted)] leading-relaxed">
+        Based in <strong class="text-[var(--color-ink)] font-medium">Sterrebeek, Belgium</strong>, working out of
+        <strong class="text-[var(--color-ink)] font-medium">Flanders Make</strong> in Leuven.
+        Occasionally travelling for conferences and project meetings across Europe.
+      </p>
+    </section>
+
+    <!-- Not doing -->
+    <section class="border-t border-[var(--color-border)] pt-10">
+      <h2 class="text-xs font-medium uppercase tracking-widest text-[var(--color-faint)] mb-5">Not Currently Taking</h2>
+      <p class="text-sm text-[var(--color-muted)] leading-relaxed">
+        Not available for freelance or consulting engagements at the moment — fully committed to ongoing research programs.
+        Happy to connect on LinkedIn to discuss ideas, collaborations, or future opportunities.
+      </p>
+    </section>
+
+  </div>
+
+</Layout>
