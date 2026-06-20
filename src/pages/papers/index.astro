@@ -42,13 +42,18 @@ const years = Object.keys(byYear).map(Number).sort((a, b) => b - a);
                     {paper.data.authors.join(', ')}
                     {paper.data.venue && <> · <em>{paper.data.venue}</em></>}
                   </p>
-                  <p class="text-sm text-[var(--color-faint)] line-clamp-2">{paper.data.abstract}</p>
-                  <div class="flex gap-2 mt-3">
+                  <p class="text-sm text-[var(--color-faint)] line-clamp-2 mb-3">{paper.data.abstract}</p>
+                  <div class="flex flex-wrap items-center gap-2">
                     {paper.data.tags.map(tag => (
                       <span class="text-xs px-2 py-0.5 bg-zinc-100 text-zinc-500 rounded-full">{tag}</span>
                     ))}
                     {paper.data.pdf_url && (
                       <span class="text-xs px-2 py-0.5 bg-blue-50 text-blue-500 rounded-full">PDF</span>
+                    )}
+                    {paper.data.citations != null && paper.data.citations > 0 && (
+                      <span class="ml-auto text-xs text-[var(--color-faint)] font-mono">
+                        {paper.data.citations} citations
+                      </span>
                     )}
                   </div>
                 </a>

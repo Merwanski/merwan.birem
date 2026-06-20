@@ -4,8 +4,8 @@ authors:
   - "Merwan Birem"
   - "François Berry"
 year: 2014
-venue: "Journal of Systems Architecture"
-abstract: "DreamCam is a modular FPGA-based smart camera architecture designed for real-time visual feature extraction. The system decouples image acquisition, processing, and communication into independent reconfigurable modules, enabling flexible deployment across embedded vision applications requiring low latency and high throughput."
+venue: "Journal of Systems Architecture 60(6), 519–527"
+abstract: "DreamCam is a modular FPGA-based smart camera architecture for real-time visual feature extraction. The system decouples image acquisition, processing, and communication into independent reconfigurable modules, enabling flexible reuse and low-latency deployment across diverse embedded vision applications."
 pdf_url: null
 doi: null
 tags:
@@ -15,4 +15,5 @@ tags:
   - real-time
   - hardware architecture
 featured: true
+citations: 64
 ---

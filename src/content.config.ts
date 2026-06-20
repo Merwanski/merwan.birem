@@ -13,6 +13,7 @@ const papers = defineCollection({
     doi: z.string().nullable().optional(),
     tags: z.array(z.string()).default([]),
     featured: z.boolean().default(false),
+    citations: z.number().optional(),
   }),
 });
 

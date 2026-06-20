@@ -1,18 +1,20 @@
 ---
-title: "FPGA-Based Real Time Extraction of Visual Features"
+title: "FPGA-based Real Time Extraction of Visual Features"
 authors:
   - "Merwan Birem"
   - "François Berry"
 year: 2012
-venue: "IEEE International Symposium on Circuits and Systems (ISCAS 2012)"
-abstract: "This paper presents an FPGA-based approach for real-time extraction of visual features for embedded vision systems. The implementation targets the Harris and Stephens corner detector, achieving high throughput with low resource utilization on reconfigurable hardware."
+venue: "IEEE International Symposium on Circuits and Systems (ISCAS 2012), 3053–3056"
+abstract: "An FPGA implementation of real-time visual feature extraction targeting the Harris-Stephens corner detector. The architecture achieves high throughput with minimal resource utilization, demonstrating that bio-inspired and classical vision primitives can be efficiently deployed on reconfigurable hardware for embedded robotic and smart camera applications."
 pdf_url: null
 doi: null
 tags:
   - FPGA
-  - ISCAS
-  - visual features
+  - feature extraction
+  - Harris corner
+  - embedded vision
   - real-time
-  - embedded systems
+  - ISCAS
 featured: false
+citations: 12
 ---
