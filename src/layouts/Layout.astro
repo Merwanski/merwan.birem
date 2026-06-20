@@ -4,11 +4,13 @@ import '../styles/global.css';
 interface Props {
   title: string;
   description?: string;
+  wide?: boolean;
 }
 
-const { title, description = 'Merwan Birem — Researcher & Engineer' } = Astro.props;
+const { title, description = 'Merwan Birem — AI Innovation Leader', wide = false } = Astro.props;
 
 const nav = [
+  { label: 'Now', href: '/now' },
   { label: 'Papers', href: '/papers' },
   { label: 'Blog', href: '/blog' },
   { label: 'Milestones', href: '/milestones' },
@@ -16,6 +18,7 @@ const nav = [
 ];
 
 const currentPath = Astro.url.pathname;
+const containerClass = wide ? 'max-w-6xl' : 'max-w-3xl';
 ---
 
 <!doctype html>
@@ -33,8 +36,8 @@ const currentPath = Astro.url.pathname;
   <body class="min-h-screen flex flex-col">
 
     <header class="border-b border-[var(--color-border)] sticky top-0 bg-white/95 backdrop-blur-sm z-10">
-      <div class="max-w-3xl mx-auto px-6 h-14 flex items-center justify-between">
-        <a href="/" class="text-sm font-medium tracking-tight text-[var(--color-ink)] hover:text-[var(--color-accent)] transition-colors">
+      <div class={`${containerClass} mx-auto px-6 h-14 flex items-center justify-between`}>
+        <a href="/" class="text-sm font-semibold tracking-tight text-[var(--color-ink)] hover:text-[var(--color-accent)] transition-colors">
           MB
         </a>
         <nav class="flex items-center gap-6">
@@ -42,7 +45,7 @@ const currentPath = Astro.url.pathname;
             <a
               href={href}
               class={`text-sm transition-colors ${
-                currentPath.startsWith(href)
+                currentPath === href || (href !== '/' && currentPath.startsWith(href))
                   ? 'text-[var(--color-accent)] font-medium'
                   : 'text-[var(--color-muted)] hover:text-[var(--color-ink)]'
               }`}
@@ -54,12 +57,12 @@ const currentPath = Astro.url.pathname;
       </div>
     </header>
 
-    <main class="flex-1 max-w-3xl mx-auto w-full px-6 py-16">
+    <main class={`flex-1 ${containerClass} mx-auto w-full px-6 py-14`}>
       <slot />
     </main>
 
     <footer class="border-t border-[var(--color-border)] mt-auto">
-      <div class="max-w-3xl mx-auto px-6 py-8 flex items-center justify-between text-xs text-[var(--color-faint)]">
+      <div class={`${containerClass} mx-auto px-6 py-8 flex items-center justify-between text-xs text-[var(--color-faint)]`}>
         <span>© {new Date().getFullYear()} Merwan Birem</span>
         <span>Built with Astro · Hosted on GitHub Pages</span>
       </div>
