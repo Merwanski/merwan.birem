@@ -1,0 +1,143 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const EMAIL = 'merwan.birem@gmail.com';
+const LINKEDIN = 'https://www.linkedin.com/in/merwan-birem-600a593a/';
+---
+
+<Layout title="Contact" description="Get in touch with Merwan Birem.">
+  <div class="max-w-lg">
+
+    <div class="mb-10">
+      <h1 class="text-2xl font-semibold tracking-tight mb-2">Contact</h1>
+      <p class="text-[var(--color-muted)] leading-relaxed">
+        Happy to connect about research, collaboration, or anything AI and perception.
+      </p>
+    </div>
+
+    <!-- Quick actions -->
+    <div class="flex gap-3 mb-10">
+      <a
+        href={LINKEDIN}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="flex-1 flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg border border-blue-200 bg-blue-50 text-blue-700 text-sm font-medium hover:bg-blue-100 transition-colors"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
+          <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+        </svg>
+        Message on LinkedIn
+      </a>
+      <a
+        href={`mailto:${EMAIL}`}
+        class="flex-1 flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-ink)] text-sm font-medium hover:border-zinc-300 transition-colors"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4 text-[var(--color-muted)]">
+          <path d="M3 4a2 2 0 0 0-2 2v1.161l8.441 4.221a1.25 1.25 0 0 0 1.118 0L19 7.162V6a2 2 0 0 0-2-2H3Z" />
+          <path d="m19 8.839-7.77 3.885a2.75 2.75 0 0 1-2.46 0L1 8.839V14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8.839Z" />
+        </svg>
+        Open email app
+      </a>
+    </div>
+
+    <!-- Divider -->
+    <div class="flex items-center gap-3 mb-8">
+      <div class="flex-1 border-t border-[var(--color-border)]"></div>
+      <span class="text-xs text-[var(--color-faint)]">or compose a message</span>
+      <div class="flex-1 border-t border-[var(--color-border)]"></div>
+    </div>
+
+    <!-- Compose form -->
+    <form id="contact-form" class="space-y-4">
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <label for="cf-name" class="block text-xs font-medium text-[var(--color-muted)] mb-1.5">Your name</label>
+          <input
+            id="cf-name"
+            type="text"
+            placeholder="Ada Lovelace"
+            class="w-full text-sm px-3 py-2 border border-[var(--color-border)] rounded-lg bg-white focus:outline-none focus:border-zinc-400 transition-colors placeholder:text-[var(--color-faint)]"
+          />
+        </div>
+        <div>
+          <label for="cf-email" class="block text-xs font-medium text-[var(--color-muted)] mb-1.5">Your email <span class="text-[var(--color-faint)]">(optional)</span></label>
+          <input
+            id="cf-email"
+            type="email"
+            placeholder="ada@example.com"
+            class="w-full text-sm px-3 py-2 border border-[var(--color-border)] rounded-lg bg-white focus:outline-none focus:border-zinc-400 transition-colors placeholder:text-[var(--color-faint)]"
+          />
+        </div>
+      </div>
+
+      <div>
+        <label for="cf-subject" class="block text-xs font-medium text-[var(--color-muted)] mb-1.5">Subject</label>
+        <input
+          id="cf-subject"
+          type="text"
+          placeholder="Collaboration on visual SLAM"
+          class="w-full text-sm px-3 py-2 border border-[var(--color-border)] rounded-lg bg-white focus:outline-none focus:border-zinc-400 transition-colors placeholder:text-[var(--color-faint)]"
+        />
+      </div>
+
+      <div>
+        <label for="cf-message" class="block text-xs font-medium text-[var(--color-muted)] mb-1.5">Message</label>
+        <textarea
+          id="cf-message"
+          rows="5"
+          placeholder="Hi Merwan, I wanted to reach out about..."
+          class="w-full text-sm px-3 py-2 border border-[var(--color-border)] rounded-lg bg-white focus:outline-none focus:border-zinc-400 transition-colors resize-none placeholder:text-[var(--color-faint)]"
+        ></textarea>
+      </div>
+
+      <button
+        type="button"
+        id="send-btn"
+        class="w-full py-2.5 px-4 rounded-lg bg-[var(--color-ink)] text-white text-sm font-medium hover:opacity-90 transition-opacity flex items-center justify-center gap-2"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
+          <path d="M3.105 2.288a.75.75 0 0 0-.826.95l1.414 4.926A1.5 1.5 0 0 0 5.135 9.25h6.115a.75.75 0 0 1 0 1.5H5.135a1.5 1.5 0 0 0-1.442 1.086l-1.414 4.926a.75.75 0 0 0 .826.95 28.897 28.897 0 0 0 15.293-7.155.75.75 0 0 0 0-1.114A28.897 28.897 0 0 0 3.105 2.288Z" />
+        </svg>
+        Open in mail app
+      </button>
+
+      <p id="send-hint" class="text-xs text-[var(--color-faint)] text-center hidden">
+        This will open your default mail app with the message pre-filled.
+      </p>
+    </form>
+
+    <div class="border-t border-[var(--color-border)] mt-10 pt-6">
+      <p class="text-xs text-[var(--color-faint)]">
+        Based in Sterrebeek, Belgium · Open to remote collaborations, speaking engagements, and research partnerships.
+      </p>
+    </div>
+
+  </div>
+</Layout>
+
+<script define:vars={{ EMAIL }}>
+  const btn = document.getElementById('send-btn');
+  const hint = document.getElementById('send-hint');
+
+  btn?.addEventListener('click', () => {
+    const name = (document.getElementById('cf-name')).value.trim();
+    const email = (document.getElementById('cf-email')).value.trim();
+    const subject = (document.getElementById('cf-subject')).value.trim();
+    const message = (document.getElementById('cf-message')).value.trim();
+
+    const from = name && email ? `${name} <${email}>` : name || email || 'Anonymous';
+    const body = [
+      from ? `From: ${from}` : '',
+      '',
+      message || '(no message)',
+    ].filter(l => l !== undefined).join('\n');
+
+    const mailto = `mailto:${EMAIL}?subject=${encodeURIComponent(subject || 'Message from your website')}&body=${encodeURIComponent(body)}`;
+    window.location.href = mailto;
+
+    if (hint) {
+      hint.classList.remove('hidden');
+      setTimeout(() => hint.classList.add('hidden'), 4000);
+    }
+  });
+</script>

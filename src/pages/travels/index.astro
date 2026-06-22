@@ -1,0 +1,65 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const allTrips = await getCollection('travels');
+const trips = allTrips.sort((a, b) => a.data.order - b.data.order);
+
+const tagColors: Record<string, string> = {
+  Culture: 'bg-purple-50 text-purple-600 border border-purple-100',
+  Food: 'bg-orange-50 text-orange-600 border border-orange-100',
+  History: 'bg-amber-50 text-amber-600 border border-amber-100',
+  Nature: 'bg-green-50 text-green-600 border border-green-100',
+  Adventure: 'bg-sky-50 text-sky-600 border border-sky-100',
+  Architecture: 'bg-rose-50 text-rose-600 border border-rose-100',
+  Desert: 'bg-yellow-50 text-yellow-700 border border-yellow-100',
+  Art: 'bg-pink-50 text-pink-600 border border-pink-100',
+  Aurora: 'bg-indigo-50 text-indigo-600 border border-indigo-100',
+  Home: 'bg-emerald-50 text-emerald-600 border border-emerald-100',
+  Family: 'bg-teal-50 text-teal-600 border border-teal-100',
+};
+---
+
+<Layout title="Travels" description="Places Merwan Birem has explored around the world.">
+  <div class="max-w-2xl">
+
+    <div class="mb-10">
+      <h1 class="text-2xl font-semibold tracking-tight mb-2">Travels</h1>
+      <p class="text-[var(--color-muted)] leading-relaxed">
+        A few places that left a mark. Every trip teaches something the lab never could.
+      </p>
+    </div>
+
+    {trips.length === 0 ? (
+      <p class="text-[var(--color-muted)] text-sm italic">
+        No trips logged yet — add a <code class="font-mono text-xs bg-zinc-100 px-1.5 py-0.5 rounded">.md</code> file to <code class="font-mono text-xs bg-zinc-100 px-1.5 py-0.5 rounded">src/content/travels/</code>.
+      </p>
+    ) : (
+      <div class="space-y-6">
+        {trips.map(trip => (
+          <div class="border border-[var(--color-border)] rounded-lg p-5 hover:border-zinc-300 transition-colors">
+            <div class="flex items-start justify-between gap-4 mb-2">
+              <div class="flex items-center gap-2">
+                <span class="text-xl">{trip.data.flag}</span>
+                <h2 class="text-base font-medium text-[var(--color-ink)]">{trip.data.country}</h2>
+              </div>
+              <span class="text-xs font-mono text-[var(--color-faint)] shrink-0 pt-0.5">{trip.data.year}</span>
+            </div>
+            <p class="text-xs text-[var(--color-faint)] mb-3">{trip.data.cities.join(' · ')}</p>
+            <p class="text-sm text-[var(--color-muted)] leading-relaxed mb-3">{trip.data.highlights}</p>
+            <div class="flex flex-wrap gap-1.5">
+              {trip.data.tags.map(tag => (
+                <span class={`text-[10px] px-1.5 py-0.5 rounded ${tagColors[tag] ?? 'bg-zinc-100 text-zinc-500'}`}>{tag}</span>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    )}
+
+    <p class="mt-10 text-xs text-[var(--color-faint)] italic">
+      More destinations to add — the list keeps growing.
+    </p>
+
+  </div>
+</Layout>

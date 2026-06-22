@@ -16,5 +16,5 @@ tags:
   - real-time
   - ISCAS
 featured: false
-citations: 12
+citations: 8
 ---

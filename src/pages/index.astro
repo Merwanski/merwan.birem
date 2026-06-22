@@ -290,18 +290,15 @@ const leftNavPages = [
     <aside class="hidden lg:block">
       <div class="sticky top-24 space-y-8">
 
-        <!-- Languages -->
+        <!-- Education -->
         <div>
-          <p class="text-[10px] font-medium uppercase tracking-widest text-[var(--color-faint)] mb-4">Languages</p>
-          <ul class="space-y-2.5">
-            {languages.map(({ name, level }) => (
-              <li class="flex items-center justify-between gap-3">
-                <span class="text-xs text-[var(--color-muted)]">{name}</span>
-                <div class="flex gap-1">
-                  {Array.from({ length: 5 }).map((_, i) => (
-                    <span class={`w-2 h-2 rounded-full ${i < level ? 'bg-[var(--color-ink)]' : 'bg-[var(--color-border)]'}`} />
-                  ))}
-                </div>
+          <p class="text-[10px] font-medium uppercase tracking-widest text-[var(--color-faint)] mb-4">Education</p>
+          <ul class="space-y-3">
+            {education.map(e => (
+              <li>
+                <p class="text-xs font-medium text-[var(--color-ink)] leading-snug">{e.degree}</p>
+                <p class="text-[10px] text-[var(--color-faint)] mt-0.5">{e.institution}</p>
+                <p class="text-[10px] text-[var(--color-faint)]">{e.year} · {e.location}</p>
               </li>
             ))}
           </ul>
@@ -342,15 +339,18 @@ const leftNavPages = [
 
         <div class="border-t border-[var(--color-border)]"></div>
 
-        <!-- Education -->
+        <!-- Languages -->
         <div>
-          <p class="text-[10px] font-medium uppercase tracking-widest text-[var(--color-faint)] mb-4">Education</p>
-          <ul class="space-y-3">
-            {education.map(e => (
-              <li>
-                <p class="text-xs font-medium text-[var(--color-ink)] leading-snug">{e.degree}</p>
-                <p class="text-[10px] text-[var(--color-faint)] mt-0.5">{e.institution}</p>
-                <p class="text-[10px] text-[var(--color-faint)]">{e.year} · {e.location}</p>
+          <p class="text-[10px] font-medium uppercase tracking-widest text-[var(--color-faint)] mb-4">Languages</p>
+          <ul class="space-y-2.5">
+            {languages.map(({ name, level }) => (
+              <li class="flex items-center justify-between gap-3">
+                <span class="text-xs text-[var(--color-muted)]">{name}</span>
+                <div class="flex gap-1">
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <span class={`w-2 h-2 rounded-full ${i < level ? 'bg-[var(--color-ink)]' : 'bg-[var(--color-border)]'}`} />
+                  ))}
+                </div>
               </li>
             ))}
           </ul>

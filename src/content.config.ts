@@ -40,4 +40,17 @@ const impossibleList = defineCollection({
   }),
 });
 
-export const collections = { papers, milestones, 'impossible-list': impossibleList };
+const travels = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/travels' }),
+  schema: z.object({
+    country: z.string(),
+    flag: z.string(),
+    year: z.string(),
+    cities: z.array(z.string()),
+    highlights: z.string(),
+    tags: z.array(z.string()).default([]),
+    order: z.number().default(99),
+  }),
+});
+
+export const collections = { papers, milestones, 'impossible-list': impossibleList, travels };
