@@ -1,0 +1,31 @@
+name: Refresh Paper Citations
+
+on:
+  schedule:
+    # Every Monday at 07:00 UTC
+    - cron: '0 7 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Refresh citations via Semantic Scholar API
+        run: node scripts/refresh-citations.mjs
+
+      - name: Commit updated citations
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add src/content/papers/
+          git diff --staged --quiet || git commit -m "auto: refresh paper citation counts"
+          git push

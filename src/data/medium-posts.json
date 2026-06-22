@@ -1,0 +1,132 @@
+[
+  {
+    "title": "From Neural Compute Stick to Hailo-8: What Actually Happened to Edge AI Hardware",
+    "url": "https://just-merwan.medium.com/from-neural-compute-stick-to-hailo-8-what-actually-happened-to-edge-ai-hardware-e5434b0b8b63",
+    "date": "2026-06-20",
+    "summary": "AI Update & More",
+    "tags": [
+      "ai",
+      "artificial-intelligence",
+      "technology",
+      "machine-learning"
+    ],
+    "readingTime": null
+  },
+  {
+    "title": "Versioning Data Models: A Practical Guide to Reproducible Machine Learning",
+    "url": "https://just-merwan.medium.com/versioning-data-models-a-practical-guide-to-reproducible-machine-learning-d1975a1577c8",
+    "date": "2026-06-20",
+    "summary": "AI Update & More",
+    "tags": [
+      "python",
+      "machine-learning",
+      "mlops",
+      "computer-vision"
+    ],
+    "readingTime": null
+  },
+  {
+    "title": "What a Seoul Museum Gift Taught Me About Korea’s Hidden Genius",
+    "url": "https://just-merwan.medium.com/what-a-seoul-museum-gift-taught-me-about-koreas-hidden-genius-09bc497344f4",
+    "date": "2026-06-17",
+    "summary": "",
+    "tags": [
+      "korean-history",
+      "science-history",
+      "seoul",
+      "korean"
+    ],
+    "readingTime": null
+  },
+  {
+    "title": "How to push Docker images to Docker Hub",
+    "url": "https://just-merwan.medium.com/how-to-push-docker-images-to-docker-hub-98d9715fb9a",
+    "date": "2026-05-31",
+    "summary": "A complete 2026 guide — with a real Python FastAPI example",
+    "tags": [
+      "devops",
+      "software-development",
+      "docker",
+      "python"
+    ],
+    "readingTime": null
+  },
+  {
+    "title": "What is Actually Money?",
+    "url": "https://just-merwan.medium.com/what-is-actually-money-371c2f351be4",
+    "date": "2026-05-29",
+    "summary": "The Origin Story of Money",
+    "tags": [
+      "finance",
+      "personal-development",
+      "self-improvement",
+      "personal-growth"
+    ],
+    "readingTime": null
+  },
+  {
+    "title": "What is ONNX? The Universal Language of AI Models",
+    "url": "https://just-merwan.medium.com/what-is-onnx-the-universal-language-of-ai-models-196c959cc142",
+    "date": "2026-05-17",
+    "summary": "AI Update & More",
+    "tags": [
+      "edge-computing",
+      "ai",
+      "neural-networks",
+      "docker"
+    ],
+    "readingTime": null
+  },
+  {
+    "title": "How to Build and Monetize Your Own API in 2026?",
+    "url": "https://just-merwan.medium.com/how-to-build-and-monetize-your-own-api-in-2026-ddf0141e153b",
+    "date": "2026-05-14",
+    "summary": "A Complete Guide with Node.js, Python, Docker & RapidAPI",
+    "tags": [
+      "docker",
+      "nodejs",
+      "software-development",
+      "api"
+    ],
+    "readingTime": null
+  },
+  {
+    "title": "7 Database Paradigms Every Developer Should Know",
+    "url": "https://just-merwan.medium.com/7-database-paradigms-every-developer-should-know-16dace91ef10",
+    "date": "2026-05-02",
+    "summary": "Software Development",
+    "tags": [
+      "programming",
+      "artificial-intelligence",
+      "backend-development",
+      "database"
+    ],
+    "readingTime": null
+  },
+  {
+    "title": "Web 4.0: The Internet Is About to Think for You",
+    "url": "https://just-merwan.medium.com/web-4-0-the-internet-is-about-to-think-for-you-4c939651643c",
+    "date": "2026-04-23",
+    "summary": "AI Update & More",
+    "tags": [
+      "internet-of-things",
+      "technology",
+      "ai-agent",
+      "artificial-intelligence"
+    ],
+    "readingTime": null
+  },
+  {
+    "title": "The 100-Year-Old Method That Still Beats Every Productivity App",
+    "url": "https://just-merwan.medium.com/the-100-year-old-method-that-still-beats-every-productivity-app-2ce85ead38ab",
+    "date": "2026-04-20",
+    "summary": "Productivity Tips & Tricks",
+    "tags": [
+      "time-management",
+      "productivity",
+      "personal-development",
+      "deep-work"
+    ],
+    "readingTime": null
+  }
+]

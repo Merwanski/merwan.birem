@@ -1,0 +1,47 @@
+name: Sync Medium Blog
+
+on:
+  # Bi-weekly: 1st and 15th of every month at 08:00 UTC
+  schedule:
+    - cron: '0 8 1,15 * *'
+  # Run manually from the GitHub Actions tab
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      # Puppeteer downloads Chromium — cached between runs
+      - name: Cache Puppeteer Chromium
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/puppeteer
+          key: puppeteer-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+
+      - name: Install Puppeteer
+        run: npm install --no-save puppeteer
+
+      - name: Sync Medium posts & screenshot
+        run: node scripts/sync-medium.mjs
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add src/data/medium-posts.json public/medium-profile.png
+          git diff --staged --quiet && echo "Nothing changed." || (
+            git commit -m "auto: sync Medium posts and profile screenshot"
+            git push
+          )
