@@ -95,11 +95,12 @@ const leftNav = [
   { label: 'Milestones', href: '#milestones' },
 ];
 
+const B = import.meta.env.BASE_URL;
 const leftNavPages = [
-  { label: 'Now', href: '/now' },
-  { label: 'Papers', href: '/papers' },
-  { label: 'Blog', href: '/blog' },
-  { label: 'Impossible List', href: '/impossible-list' },
+  { label: 'Now', href: `${B}now` },
+  { label: 'Papers', href: `${B}papers` },
+  { label: 'Blog', href: `${B}blog` },
+  { label: 'Impossible List', href: `${B}impossible-list` },
 ];
 ---
 
@@ -164,7 +165,7 @@ const leftNavPages = [
           {[
             { label: 'LinkedIn', href: 'https://www.linkedin.com/in/merwan-birem-600a593a/' },
             { label: 'Google Scholar', href: 'https://scholar.google.com/citations?user=oikUY4YAAAAJ' },
-            { label: 'CV / Résumé', href: '/cv/CV___Merwan_BIREM_20260501.pdf' },
+            { label: 'CV / Résumé', href: `${B}cv/CV___Merwan_BIREM_20260501.pdf` },
             { label: 'GitHub', href: 'https://github.com/merwanbirem' },
             { label: 'Medium', href: '#' },
           ].map(({ label, href }) => (
@@ -236,12 +237,12 @@ const leftNavPages = [
       <section id="publications">
         <div class="flex items-center justify-between mb-5">
           <h2 class="text-xs font-medium uppercase tracking-widest text-[var(--color-faint)]">Selected Publications</h2>
-          <a href="/papers" class="text-xs text-[var(--color-accent)] hover:underline">All 20 papers →</a>
+          <a href={`${B}papers`} class="text-xs text-[var(--color-accent)] hover:underline">All 20 papers →</a>
         </div>
         <ul class="space-y-5">
           {sortedPapers.map(paper => (
             <li>
-              <a href={`/papers/${paper.id}`} class="group block">
+              <a href={`${B}papers/${paper.id}`} class="group block">
                 <p class="text-sm font-medium group-hover:text-[var(--color-accent)] transition-colors mb-1">
                   {paper.data.title}
                 </p>
@@ -261,7 +262,7 @@ const leftNavPages = [
         <section id="milestones">
           <div class="flex items-center justify-between mb-5">
             <h2 class="text-xs font-medium uppercase tracking-widest text-[var(--color-faint)]">Recent Milestones</h2>
-            <a href="/milestones" class="text-xs text-[var(--color-accent)] hover:underline">All →</a>
+            <a href={`${B}milestones`} class="text-xs text-[var(--color-accent)] hover:underline">All →</a>
           </div>
           <ul class="space-y-3">
             {milestones.map(m => (
