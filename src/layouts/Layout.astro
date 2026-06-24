@@ -9,14 +9,15 @@ interface Props {
 
 const { title, description = 'Merwan Birem — AI Innovation Leader', wide = false } = Astro.props;
 
+const B = import.meta.env.BASE_URL; // '/merwan.birem/'
 const nav = [
-  { label: 'Now', href: '/now' },
-  { label: 'Papers', href: '/papers' },
-  { label: 'Blog', href: '/blog' },
-  { label: 'Milestones', href: '/milestones' },
-  { label: 'Impossible List', href: '/impossible-list' },
-  { label: 'Travels', href: '/travels' },
-  { label: 'Contact', href: '/contact' },
+  { label: 'Now', href: `${B}now` },
+  { label: 'Papers', href: `${B}papers` },
+  { label: 'Blog', href: `${B}blog` },
+  { label: 'Milestones', href: `${B}milestones` },
+  { label: 'Impossible List', href: `${B}impossible-list` },
+  { label: 'Travels', href: `${B}travels` },
+  { label: 'Contact', href: `${B}contact` },
 ];
 
 const currentPath = Astro.url.pathname;
@@ -39,7 +40,7 @@ const containerClass = wide ? 'max-w-6xl' : 'max-w-3xl';
 
     <header class="border-b border-[var(--color-border)] sticky top-0 bg-white/95 backdrop-blur-sm z-10">
       <div class={`${containerClass} mx-auto px-6 h-14 flex items-center justify-between`}>
-        <a href="/" class="text-sm font-semibold tracking-tight text-[var(--color-ink)] hover:text-[var(--color-accent)] transition-colors">
+        <a href={B} class="text-sm font-semibold tracking-tight text-[var(--color-ink)] hover:text-[var(--color-accent)] transition-colors">
           MB
         </a>
         <nav class="flex items-center gap-6">
