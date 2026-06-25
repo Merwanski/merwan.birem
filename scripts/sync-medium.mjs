@@ -112,7 +112,11 @@ async function takeScreenshot() {
 // ── Main ───────────────────────────────────────────────────────────────────
 async function main() {
   await syncPosts();
-  await takeScreenshot();
+  try {
+    await takeScreenshot();
+  } catch (err) {
+    console.warn('\n  ⚠ Screenshot failed (non-fatal):', err.message);
+  }
   console.log('\nSync complete.\n');
 }
 
