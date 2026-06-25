@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://merwanski.github.io/merwan.birem/sitemap-index.xml

@@ -7,9 +7,13 @@ interface Props {
   wide?: boolean;
 }
 
-const { title, description = 'Merwan Birem — AI Innovation Leader', wide = false } = Astro.props;
+const { title, description = 'Merwan Birem — AI Innovation Leader. Computer Vision, Industrial AI & Autonomous Perception. 10+ years R&D experience, 20+ publications, leading 4M€ research programs at Flanders Make, Belgium.', wide = false } = Astro.props;
 
 const B = import.meta.env.BASE_URL; // '/merwan.birem/'
+const SITE = 'https://merwanski.github.io';
+const CANONICAL = `${SITE}${Astro.url.pathname}`;
+const PAGE_TITLE = title === 'Home' ? 'Merwan Birem' : `${title} — Merwan Birem`;
+
 const nav = [
   { label: 'Now', href: `${B}now` },
   { label: 'Papers', href: `${B}papers` },
@@ -22,6 +26,37 @@ const nav = [
 
 const currentPath = Astro.url.pathname;
 const containerClass = wide ? 'max-w-6xl' : 'max-w-3xl';
+
+// JSON-LD Person schema — injected on every page so Google and LLMs
+// can confidently associate this site with Merwan Birem.
+const personSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Merwan Birem',
+  url: `${SITE}${B}`,
+  image: `${SITE}${B}og-image.png`,
+  jobTitle: 'AI Innovation Leader & Senior Research Engineer',
+  description: 'AI Innovation Leader with 10+ years of experience in computer vision, robotics, and industrial AI systems. Leading multi-million euro R&D programs at Flanders Make, Belgium.',
+  worksFor: {
+    '@type': 'Organization',
+    name: 'Flanders Make',
+    url: 'https://www.flandersmake.be',
+  },
+  alumniOf: [
+    { '@type': 'CollegeOrUniversity', name: 'Université Clermont Auvergne (Blaise Pascal)', address: { '@type': 'PostalAddress', addressCountry: 'FR' } },
+    { '@type': 'CollegeOrUniversity', name: 'National Polytechnic School of Algiers', address: { '@type': 'PostalAddress', addressCountry: 'DZ' } },
+  ],
+  knowsAbout: ['Computer Vision', 'Visual SLAM', 'Deep Learning', 'Industrial AI', 'Sensor Fusion', 'Pose Estimation', 'Robotics', 'MLOps', 'AI Workflow Automation'],
+  nationality: { '@type': 'Country', name: 'Algeria' },
+  address: { '@type': 'PostalAddress', addressLocality: 'Sterrebeek', addressCountry: 'BE' },
+  sameAs: [
+    'https://www.linkedin.com/in/merwan-birem-600a593a/',
+    'https://scholar.google.com/citations?user=oikUY4YAAAAJ',
+    'https://github.com/merwanbirem',
+    'https://medium.com/@just-merwan',
+    'https://github.com/Merwanski',
+  ],
+};
 ---
 
 <!doctype html>
@@ -30,9 +65,33 @@ const containerClass = wide ? 'max-w-6xl' : 'max-w-3xl';
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
+
+    <!-- Primary meta -->
+    <title>{PAGE_TITLE}</title>
     <meta name="description" content={description} />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <title>{title === 'Home' ? 'Merwan Birem' : `${title} — Merwan Birem`}</title>
+    <meta name="author" content="Merwan Birem" />
+    <meta name="keywords" content="Merwan Birem, AI, Computer Vision, Visual SLAM, Industrial AI, Flanders Make, Research Engineer, Belgium, Deep Learning, Robotics" />
+    <link rel="canonical" href={CANONICAL} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={CANONICAL} />
+    <meta property="og:title" content={PAGE_TITLE} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={`${SITE}${B}og-image.png`} />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:site_name" content="Merwan Birem" />
+
+    <!-- Twitter / X Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={PAGE_TITLE} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={`${SITE}${B}og-image.png`} />
+
+    <!-- JSON-LD structured data -->
+    <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
+
+    <link rel="icon" type="image/svg+xml" href={`${B}favicon.svg`} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   </head>

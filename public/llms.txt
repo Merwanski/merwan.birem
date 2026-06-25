@@ -1,0 +1,56 @@
+# Merwan Birem
+
+> AI Innovation Leader · Computer Vision · Industrial AI · Belgium
+
+Merwan Birem is a Senior Research Engineer and Project Leader at Flanders Make (Leuven, Belgium),
+specializing in computer vision, visual SLAM, sensor fusion, and industrial AI systems.
+He has 10+ years of R&D experience and has led multi-million euro collaborative research programs
+involving academia, industry, and public research organizations.
+
+## Professional
+
+- **Current role**: Project Leader & Senior Research Engineer – AI Innovation at Flanders Make (Apr 2022–present)
+- **Previous**: Research Engineer at Flanders Make (2018–2022), Research Engineer at Flanders' DRIVE (2015–2017)
+- **PhD**: Electronics & System Architecture, Blaise Pascal University / Institut Pascal, France (2011–2015)
+  - Thesis: Embedded vision systems for mobile robotics
+- **MSc**: Robotics & Multisensory Perception, Blaise Pascal University (2010–2011)
+- **Engineering degree**: Electronics, National Polytechnic School of Algiers, Algeria (2005–2010)
+
+## Research Focus
+
+Computer Vision (2D/3D), Visual SLAM, Sensor Fusion, Deep Learning, Object Detection,
+Pose Estimation, AR/VR for Industry, Quality Monitoring, AI Workflow Automation, MLOps
+
+## Key Projects
+
+- **ALARMM SBO** (2025–present): 4M€ project on low-cost robust visual SLAM for large industrial environments. 4 research groups, 7 industrial partners.
+- **QUALMA ICON** (2022–2025): Modular AI framework for large-scale manual assembly inspection combining detection, pose estimation, tracking, and AR guidance. 4× technology transfer to industry.
+- **FROGS ICON** (2021–2023): Vision-based post-grasp validation for robotic kitting using YOLO, ICP, and sensor fusion.
+
+## Publications
+
+20+ peer-reviewed publications in computer vision, robotics, and industrial AI.
+Google Scholar: https://scholar.google.com/citations?user=oikUY4YAAAAJ
+
+Selected recent papers:
+- "Real-Time Warehouse Monitoring with Ceiling Cameras and Digital Twin" (Logistics, 2025)
+- "Benchmarking Localization and Operator Tracking" (2025)
+- "CAD2GraspMonitor: Vision-based Robotic Grasp Monitoring" (ARCI 2024)
+- "Industry 5.0 Quality Inspection" (2024)
+
+## Online Presence
+
+- Website: https://merwanski.github.io/merwan.birem/
+- LinkedIn: https://www.linkedin.com/in/merwan-birem-600a593a/
+- Google Scholar: https://scholar.google.com/citations?user=oikUY4YAAAAJ
+- GitHub: https://github.com/merwanbirem
+- Blog (Medium): https://medium.com/@just-merwan
+
+## Languages
+
+English (fluent), French (fluent), Arabic (native), Dutch (intermediate)
+
+## Location
+
+Sterrebeek, Belgium. Open to remote collaborations, speaking engagements, and research partnerships.
+Contact: merwan.birem@gmail.com
