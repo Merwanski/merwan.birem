@@ -17,7 +17,7 @@ const { Content } = await render(paper);
 <Layout title={paper.data.title} description={paper.data.abstract}>
 
   <div class="mb-4">
-    <a href={`${import.meta.env.BASE_URL}papers`} class="text-xs text-[var(--color-muted)] hover:text-[var(--color-accent)] transition-colors">
+    <a href={`${import.meta.env.BASE_URL.replace(/\/?$/, '/')}papers`} class="text-xs text-[var(--color-muted)] hover:text-[var(--color-accent)] transition-colors">
       ← All papers
     </a>
   </div>

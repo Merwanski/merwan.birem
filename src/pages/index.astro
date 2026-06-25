@@ -95,7 +95,7 @@ const leftNav = [
   { label: 'Milestones', href: '#milestones' },
 ];
 
-const B = import.meta.env.BASE_URL;
+const B = import.meta.env.BASE_URL.replace(/\/?$/, '/'); // always ends with /
 const leftNavPages = [
   { label: 'Now', href: `${B}now` },
   { label: 'Papers', href: `${B}papers` },

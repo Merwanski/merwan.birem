@@ -9,7 +9,7 @@ interface Props {
 
 const { title, description = 'Merwan Birem — AI Innovation Leader. Computer Vision, Industrial AI & Autonomous Perception. 10+ years R&D experience, 20+ publications, leading 4M€ research programs at Flanders Make, Belgium.', wide = false } = Astro.props;
 
-const B = import.meta.env.BASE_URL; // '/merwan.birem/'
+const B = import.meta.env.BASE_URL.replace(/\/?$/, '/'); // always ends with /
 const SITE = 'https://merwanski.github.io';
 const CANONICAL = `${SITE}${Astro.url.pathname}`;
 const PAGE_TITLE = title === 'Home' ? 'Merwan Birem' : `${title} — Merwan Birem`;
