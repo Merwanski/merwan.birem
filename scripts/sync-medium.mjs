@@ -59,18 +59,26 @@ function parseMediumRSS(xml) {
 // ── Fetch & save posts ─────────────────────────────────────────────────────
 async function syncPosts() {
   console.log(`\nFetching RSS: ${RSS_URL}`);
-  const res = await fetch(RSS_URL, {
-    headers: { 'User-Agent': 'MerwanBirem-site/1.0 (https://merwanbirem.github.io)' },
-  });
-  if (!res.ok) throw new Error(`RSS fetch failed with status ${res.status}`);
 
-  const posts = parseMediumRSS(await res.text());
-  console.log(`  → ${posts.length} post(s) found`);
+  let posts = [];
+  try {
+    const res = await fetch(RSS_URL, {
+      headers: { 'User-Agent': 'Mozilla/5.0 (compatible; MerwanBirem-site/1.0)' },
+      signal: AbortSignal.timeout(20_000),
+    });
+    console.log(`  → HTTP ${res.status}`);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    posts = parseMediumRSS(await res.text());
+    console.log(`  → ${posts.length} post(s) parsed`);
+  } catch (err) {
+    console.warn(`  ⚠ RSS fetch failed (non-fatal): ${err.message}`);
+    console.warn('  Keeping existing posts file unchanged.');
+    return;
+  }
 
   await mkdir('./src/data', { recursive: true });
   await writeFile(POSTS_FILE, JSON.stringify(posts, null, 2) + '\n');
   console.log(`  ✓ Saved to ${POSTS_FILE}`);
-  return posts;
 }
 
 // ── Screenshot ─────────────────────────────────────────────────────────────
