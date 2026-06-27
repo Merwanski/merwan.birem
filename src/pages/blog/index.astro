@@ -60,6 +60,7 @@ if (posts.length === 0) {
 // Show the screenshot only after first sync has run (file is committed)
 const hasScreenshot = existsSync('./public/medium-profile.png');
 const synced = (cachedPosts as Post[]).length > 0;
+const B = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 ---
 
 <Layout title="Blog" description="Writing by Merwan Birem — research notes, engineering deep-dives, and reflections.">
@@ -84,7 +85,7 @@ const synced = (cachedPosts as Post[]).length > 0;
       class="block mb-10 rounded-xl overflow-hidden border border-[var(--color-border)] hover:border-zinc-300 transition-colors shadow-sm"
     >
       <img
-        src="/medium-profile.png"
+        src={`${B}medium-profile.png`}
         alt="Merwan Birem on Medium"
         class="w-full object-cover object-top"
         style="max-height: 340px;"
