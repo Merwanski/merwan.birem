@@ -3,248 +3,54 @@ import Layout from '../../layouts/Layout.astro';
 
 interface Project {
   name: string;
+  years: string;
   role?: string;
+  description?: string;
 }
 
-interface YearEntry {
-  category?: string;
-  projects: Project[];
-}
-
-interface YearBlock {
-  year: number;
-  entries: YearEntry[];
-}
-
-const timeline: YearBlock[] = [
-  {
-    year: 2025,
-    entries: [
-      {
-        projects: [
-          { name: 'QUALMA', role: 'Researcher & Project Manager' },
-          { name: 'RETAIN VILICON' },
-        ],
-      },
-    ],
-  },
-  {
-    year: 2024,
-    entries: [
-      {
-        projects: [
-          { name: 'QUALMA', role: 'Researcher & Project Manager' },
-          { name: 'RETAIN VILICON' },
-          { name: '2× B2B (CNH, Depoortere, PICANOL)' },
-        ],
-      },
-      {
-        category: 'Proposal Writing',
-        projects: [
-          { name: 'DEFRA (Pre-proposal & Full Proposal)' },
-          { name: 'SBO (6-pager)' },
-          { name: 'EU Battery (full + others)' },
-          { name: '2× EU Construction' },
-          { name: 'VARY / IRVA' },
-        ],
-      },
-    ],
-  },
-  {
-    year: 2023,
-    entries: [
-      {
-        projects: [
-          { name: 'FROGS' },
-          { name: 'QUALMA', role: 'Researcher & Project Manager' },
-          { name: 'SMART VISION VIL' },
-          { name: '2× CNH B2B' },
-          { name: 'IcoTerminal B2B' },
-        ],
-      },
-    ],
-  },
-  {
-    year: 2022,
-    entries: [
-      {
-        projects: [
-          { name: 'FROGS' },
-          { name: 'Vision-Coock' },
-          { name: 'IcoTerminal B2B' },
-          { name: 'SMART VISION VIL' },
-          { name: 'DRONE AI Coock' },
-        ],
-      },
-      {
-        category: 'Proposal Writing',
-        projects: [
-          { name: 'EU-SAW' },
-          { name: 'HEAVY / AROBCO' },
-          { name: 'QUALMA' },
-        ],
-      },
-    ],
-  },
-  {
-    year: 2021,
-    entries: [
-      {
-        projects: [
-          { name: 'FAMAR' },
-          { name: 'FROGS' },
-          { name: 'DRONE-AI' },
-          { name: 'PILS' },
-          { name: 'Product Counting' },
-          { name: 'Box Counting v2 (Smart Connectivity)' },
-        ],
-      },
-      {
-        category: 'Proposal Writing',
-        projects: [
-          { name: 'QUALMA (6-pager & full proposal)' },
-          { name: 'RELAI (SoA & full proposal)' },
-        ],
-      },
-    ],
-  },
-  {
-    year: 2020,
-    entries: [
-      {
-        category: 'COVID-19 Emergency Projects',
-        projects: [
-          { name: 'Ventilator — VUB collaboration' },
-          { name: 'Vision Social Distancing (VSD)' },
-        ],
-      },
-      {
-        category: 'Active Projects',
-        projects: [
-          { name: 'FAMAR' },
-          { name: 'Smart Connectivity' },
-          { name: 'Mobots' },
-          { name: 'Proceedix B2B' },
-          { name: 'Smart Cobot' },
-        ],
-      },
-      {
-        category: 'Support & Demo',
-        projects: [
-          { name: 'AVA B2B' },
-          { name: 'Inwaredrones ICON' },
-        ],
-      },
-    ],
-  },
-  {
-    year: 2019,
-    entries: [
-      {
-        category: 'Active Projects',
-        projects: [
-          { name: 'FAMAR' },
-          { name: 'Smart Connectivity' },
-          { name: 'Mobots' },
-          { name: 'Proceedix B2B' },
-          { name: 'AVA B2B' },
-          { name: 'Albatros B2B' },
-        ],
-      },
-      {
-        category: 'Support & Demo',
-        projects: [
-          { name: 'Smart Clamp Demo' },
-          { name: 'P&G B2B' },
-        ],
-      },
-      {
-        category: 'Proposals',
-        projects: [
-          { name: 'KOBI B2B' },
-        ],
-      },
-    ],
-  },
-  {
-    year: 2018,
-    entries: [
-      {
-        category: 'Active Projects',
-        projects: [
-          { name: 'Locator' },
-          { name: 'Smart Connectivity' },
-          { name: 'Mobots' },
-          { name: 'Mecha 4.0 → P-Laser' },
-        ],
-      },
-      {
-        category: 'Explorative Research',
-        projects: [
-          { name: 'DVS (Dynamic Vision Sensor)' },
-          { name: 'HiL Setup' },
-          { name: 'Indoor Drone Inspection' },
-        ],
-      },
-      {
-        category: 'Proposals',
-        projects: [
-          { name: 'ViL — Vision in the Loop' },
-          { name: 'Opti-Drive' },
-        ],
-      },
-    ],
-  },
-  {
-    year: 2017,
-    entries: [
-      {
-        category: 'Active Projects',
-        projects: [
-          { name: 'EMDAS' },
-          { name: 'LOCATOR' },
-          { name: 'Mecha 4.0' },
-          { name: 'P-Laser' },
-          { name: 'Dissemination — GPOS / EMDAS' },
-        ],
-      },
-      {
-        category: 'Explorative Research',
-        projects: [
-          { name: 'Blind Spot Detection for Large Vehicles' },
-          { name: 'Indoor Drones' },
-        ],
-      },
-    ],
-  },
-  {
-    year: 2016,
-    entries: [
-      {
-        category: 'Active Projects',
-        projects: [
-          { name: 'EMDAS' },
-          { name: 'GPOS' },
-        ],
-      },
-    ],
-  },
-  {
-    year: 2015,
-    entries: [
-      {
-        category: 'Active Projects',
-        projects: [
-          { name: 'EMDAS' },
-          { name: 'GPOS' },
-        ],
-      },
-    ],
-  },
+// Sorted newest first. years = range this project was active.
+const projects: Project[] = [
+  { name: 'QUALMA',                          years: '2021 – 2025', role: 'Researcher & Project Manager' },
+  { name: 'RETAIN VILICON',                  years: '2024 – 2025' },
+  { name: 'CNH B2B',                         years: '2023 – 2024' },
+  { name: 'Depoortere B2B',                  years: '2024' },
+  { name: 'PICANOL B2B',                     years: '2024' },
+  { name: 'FROGS',                           years: '2021 – 2023' },
+  { name: 'SMART VISION VIL',               years: '2022 – 2023' },
+  { name: 'IcoTerminal B2B',                years: '2022 – 2023' },
+  { name: 'Vision-Coock',                   years: '2022' },
+  { name: 'DRONE-AI',                       years: '2021 – 2022' },
+  { name: 'PILS',                           years: '2021' },
+  { name: 'RELAI',                          years: '2021' },
+  { name: 'Product Counting',               years: '2021' },
+  { name: 'Box Counting v2',               years: '2021' },
+  { name: 'FAMAR',                          years: '2019 – 2021' },
+  { name: 'Vision Social Distancing (VSD)', years: '2020' },
+  { name: 'Ventilator — VUB',              years: '2020' },
+  { name: 'Smart Cobot',                   years: '2020' },
+  { name: 'Inwaredrones ICON',             years: '2020' },
+  { name: 'Smart Connectivity',            years: '2018 – 2020' },
+  { name: 'Mobots',                        years: '2018 – 2020' },
+  { name: 'Proceedix B2B',               years: '2019 – 2020' },
+  { name: 'AVA B2B',                      years: '2019 – 2020' },
+  { name: 'Albatros B2B',               years: '2019' },
+  { name: 'P&G B2B',                    years: '2019' },
+  { name: 'KOBI B2B',                   years: '2019' },
+  { name: 'Smart Clamp Demo',           years: '2019' },
+  { name: 'ViL — Vision in the Loop',  years: '2018' },
+  { name: 'Opti-Drive',                years: '2018' },
+  { name: 'DVS (Dynamic Vision Sensor)', years: '2018' },
+  { name: 'HiL Setup',                 years: '2018' },
+  { name: 'Indoor Drone Inspection',   years: '2017 – 2018' },
+  { name: 'Locator',                   years: '2017 – 2018' },
+  { name: 'Mecha 4.0 / P-Laser',      years: '2017 – 2018' },
+  { name: 'Blind Spot Detection',      years: '2017' },
+  { name: 'EMDAS',                     years: '2015 – 2017' },
+  { name: 'GPOS',                      years: '2015 – 2017' },
 ];
 ---
 
-<Layout title="Projects" description="Project portfolio of Merwan Birem — research, B2B, and industrial AI projects from 2015 to present.">
+<Layout title="Projects" description="Project portfolio of Merwan Birem — research and industrial AI projects from 2015 to present.">
 
   <div class="mb-12">
     <h1 class="text-2xl font-semibold tracking-tight mb-2">Projects</h1>
@@ -254,42 +60,21 @@ const timeline: YearBlock[] = [
     </p>
   </div>
 
-  <div class="space-y-14">
-    {timeline.map(({ year, entries }) => (
-      <section>
-        {/* Year heading */}
-        <div class="flex items-center gap-4 mb-6">
-          <span class="text-2xl font-bold tracking-tight text-[var(--color-ink)]">{year}</span>
-          <div class="flex-1 h-px bg-[var(--color-border)]" />
+  <ul class="space-y-3">
+    {projects.map(({ name, years, role, description }) => (
+      <li class="flex flex-col sm:flex-row sm:items-start gap-1 sm:gap-4 py-3 border-b border-[var(--color-border)]">
+        <span class="shrink-0 text-xs font-mono text-[var(--color-faint)] sm:w-28 pt-0.5">{years}</span>
+        <div class="flex-1 min-w-0">
+          <span class="text-sm font-medium text-[var(--color-ink)]">{name}</span>
+          {role && (
+            <span class="ml-2 text-xs text-[var(--color-accent)]">— {role}</span>
+          )}
+          <p class="text-sm text-[var(--color-faint)] italic mt-0.5">
+            {description ?? 'Details to be added.'}
+          </p>
         </div>
-
-        <div class="space-y-6 pl-2">
-          {entries.map(({ category, projects }) => (
-            <div>
-              {category && (
-                <p class="text-xs font-medium uppercase tracking-widest text-[var(--color-faint)] mb-3">
-                  {category}
-                </p>
-              )}
-              <ul class="space-y-2">
-                {projects.map(({ name, role }) => (
-                  <li class="flex items-start gap-3 group">
-                    <span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-[var(--color-accent)] shrink-0 opacity-60" />
-                    <div class="flex-1 min-w-0">
-                      <span class="text-sm font-medium text-[var(--color-ink)]">{name}</span>
-                      {role && (
-                        <span class="ml-2 text-xs text-[var(--color-accent)]">— {role}</span>
-                      )}
-                      <span class="ml-2 text-xs text-[var(--color-faint)] italic">· details to be added</span>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-      </section>
+      </li>
     ))}
-  </div>
+  </ul>
 
 </Layout>
