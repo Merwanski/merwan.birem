@@ -4,63 +4,195 @@ import Layout from '../../layouts/Layout.astro';
 interface Project {
   name: string;
   years: string;
-  role?: string;
-  description?: string;
+  description: string;
+  tags: string[];
 }
 
-// Sorted newest first. years = range this project was active.
 const projects: Project[] = [
-  { name: 'QUALMA',                          years: '2021 – 2025', role: 'Researcher & Project Manager' },
-  { name: 'RETAIN VILICON',                  years: '2024 – 2025' },
-  { name: 'FROGS',                           years: '2021 – 2023' },
-  { name: 'SMART VISION VIL',               years: '2022 – 2023' },
-  { name: 'Vision-Coock',                   years: '2022' },
-  { name: 'DRONE-AI',                       years: '2021 – 2022' },
-  { name: 'PILS',                           years: '2021' },
-  { name: 'Product Counting',               years: '2021' },
-  { name: 'Box Counting v2',               years: '2021' },
-  { name: 'FAMAR',                          years: '2019 – 2021' },
-  { name: 'Vision Social Distancing (VSD)', years: '2020' },
-  { name: 'Ventilator — VUB',              years: '2020' },
-  { name: 'Smart Cobot',                   years: '2020' },
-  { name: 'Inwaredrones ICON',             years: '2020' },
-  { name: 'Smart Connectivity',            years: '2018 – 2020' },
-  { name: 'Mobots',                        years: '2018 – 2020' },
-  { name: 'Smart Clamp Demo',           years: '2019' },
-  { name: 'DVS (Dynamic Vision Sensor)', years: '2018' },
-  { name: 'HiL Setup',                 years: '2018' },
-  { name: 'Indoor Drone Inspection',   years: '2017 – 2018' },
-  { name: 'Locator',                   years: '2017 – 2018' },
-  { name: 'Mecha 4.0 / P-Laser',      years: '2017 – 2018' },
-  { name: 'Blind Spot Detection',      years: '2017' },
-  { name: 'EMDAS',                     years: '2015 – 2017' },
-  { name: 'GPOS',                      years: '2015 – 2017' },
+  {
+    name: 'ALARMM SBO – Visual SLAM for Large Environments',
+    years: '2025 – Present',
+    description: 'Leading a 4M€ multi-partner project on low-cost, accurate, and robust visual SLAM systems for complex industrial environments. 4 research groups, 7 industrial partners.',
+    tags: ['Visual SLAM', 'Computer Vision', 'Industrial AI', 'Sensor Fusion'],
+  },
+  {
+    name: 'QUALMA ICON – AI-Augmented Quality Assurance',
+    years: '2021 – 2025',
+    description: 'Modular AI framework for large-scale manual assembly inspection — combining detection, pose estimation, and tracking with AR guidance. 4× technology transfer to industry.',
+    tags: ['Quality Inspection', 'AR/VR', 'Pose Estimation', 'Deep Learning'],
+  },
+  {
+    name: 'RETAIN VILICON',
+    years: '2024 – 2025',
+    description: 'Details to be added.',
+    tags: [],
+  },
+  {
+    name: 'FROGS ICON – CAD2GraspMonitor',
+    years: '2021 – 2023',
+    description: 'Vision-based post-grasp validation for robotic kitting using YOLO detection, ICP pose estimation, and sensor fusion.',
+    tags: ['Robotics', 'YOLO', 'ICP', 'Sensor Fusion'],
+  },
+  {
+    name: 'SMART VISION VIL',
+    years: '2022 – 2023',
+    description: 'Details to be added.',
+    tags: [],
+  },
+  {
+    name: 'Vision-Coock',
+    years: '2022',
+    description: 'Details to be added.',
+    tags: [],
+  },
+  {
+    name: 'DRONE-AI',
+    years: '2021 – 2022',
+    description: 'Details to be added.',
+    tags: [],
+  },
+  {
+    name: 'PILS',
+    years: '2021',
+    description: 'Details to be added.',
+    tags: [],
+  },
+  {
+    name: 'Product Counting',
+    years: '2021',
+    description: 'Details to be added.',
+    tags: [],
+  },
+  {
+    name: 'Box Counting v2',
+    years: '2021',
+    description: 'Details to be added.',
+    tags: [],
+  },
+  {
+    name: 'FAMAR',
+    years: '2019 – 2021',
+    description: 'Details to be added.',
+    tags: [],
+  },
+  {
+    name: 'Vision Social Distancing (VSD)',
+    years: '2020',
+    description: 'Details to be added.',
+    tags: [],
+  },
+  {
+    name: 'Ventilator – VUB',
+    years: '2020',
+    description: 'Details to be added.',
+    tags: [],
+  },
+  {
+    name: 'Smart Cobot',
+    years: '2020',
+    description: 'Details to be added.',
+    tags: [],
+  },
+  {
+    name: 'Inwaredrones ICON',
+    years: '2020',
+    description: 'Details to be added.',
+    tags: [],
+  },
+  {
+    name: 'Smart Connectivity',
+    years: '2018 – 2020',
+    description: 'Details to be added.',
+    tags: [],
+  },
+  {
+    name: 'Mobots',
+    years: '2018 – 2020',
+    description: 'Details to be added.',
+    tags: [],
+  },
+  {
+    name: 'DVS – Dynamic Vision Sensor',
+    years: '2018',
+    description: 'Details to be added.',
+    tags: [],
+  },
+  {
+    name: 'HiL Setup',
+    years: '2018',
+    description: 'Details to be added.',
+    tags: [],
+  },
+  {
+    name: 'Indoor Drone Inspection',
+    years: '2017 – 2018',
+    description: 'Details to be added.',
+    tags: [],
+  },
+  {
+    name: 'Locator',
+    years: '2017 – 2018',
+    description: 'Details to be added.',
+    tags: [],
+  },
+  {
+    name: 'Mecha 4.0 / P-Laser',
+    years: '2017 – 2018',
+    description: 'Details to be added.',
+    tags: [],
+  },
+  {
+    name: 'Blind Spot Detection',
+    years: '2017',
+    description: 'Details to be added.',
+    tags: [],
+  },
+  {
+    name: 'EMDAS',
+    years: '2015 – 2017',
+    description: 'Details to be added.',
+    tags: [],
+  },
+  {
+    name: 'GPOS',
+    years: '2015 – 2017',
+    description: 'Details to be added.',
+    tags: [],
+  },
 ];
 ---
 
 <Layout title="Projects" description="Project portfolio of Merwan Birem — research and industrial AI projects from 2015 to present.">
 
-  <div class="mb-12">
+  <div class="mb-10">
     <h1 class="text-2xl font-semibold tracking-tight mb-2">Projects</h1>
     <p class="text-[var(--color-muted)]">
-      Research, industrial AI, and B2B projects — 2015 to present.
+      Research and industrial AI projects — 2015 to present.
       Details are being added progressively.
     </p>
   </div>
 
-  <ul class="space-y-3">
-    {projects.map(({ name, years, role, description }) => (
-      <li class="flex flex-col sm:flex-row sm:items-start gap-1 sm:gap-4 py-3 border-b border-[var(--color-border)]">
-        <span class="shrink-0 text-xs font-mono text-[var(--color-faint)] sm:w-28 pt-0.5">{years}</span>
-        <div class="flex-1 min-w-0">
-          <span class="text-sm font-medium text-[var(--color-ink)]">{name}</span>
-          {role && (
-            <span class="ml-2 text-xs text-[var(--color-accent)]">— {role}</span>
-          )}
-          <p class="text-sm text-[var(--color-faint)] italic mt-0.5">
-            {description ?? 'Details to be added.'}
-          </p>
+  <p class="text-xs font-medium uppercase tracking-widest text-[var(--color-faint)] mb-6">
+    {projects.length} projects
+  </p>
+
+  <ul class="space-y-4">
+    {projects.map(({ name, years, description, tags }) => (
+      <li class="rounded-xl border border-[var(--color-border)] px-6 py-5 hover:border-zinc-300 transition-colors">
+        <div class="flex items-start justify-between gap-4 mb-2">
+          <h2 class="text-sm font-semibold text-[var(--color-ink)] leading-snug">{name}</h2>
+          <span class="shrink-0 text-xs font-mono text-[var(--color-faint)] pt-0.5">{years}</span>
         </div>
+        <p class={`text-sm leading-relaxed mb-3 ${description === 'Details to be added.' ? 'text-[var(--color-faint)] italic' : 'text-[var(--color-accent)]'}`}>
+          {description}
+        </p>
+        {tags.length > 0 && (
+          <div class="flex flex-wrap gap-2">
+            {tags.map(tag => (
+              <span class="text-xs px-2.5 py-0.5 bg-zinc-100 text-zinc-500 rounded-full">{tag}</span>
+            ))}
+          </div>
+        )}
       </li>
     ))}
   </ul>
