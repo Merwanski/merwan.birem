@@ -1,5 +1,18 @@
 [
   {
+    "title": "What Is a Markov Decision Process? How Machines Make Smart Decisions",
+    "url": "https://just-merwan.medium.com/what-is-a-markov-decision-process-how-machines-make-smart-decisions-18fc9993047f",
+    "date": "2026-06-27",
+    "summary": "AI Update & More",
+    "tags": [
+      "reinforcement-learning",
+      "artificial-intelligence",
+      "deep-learning",
+      "machine-learning"
+    ],
+    "readingTime": null
+  },
+  {
     "title": "The Beliefs That Are Quietly Keeping You Stuck",
     "url": "https://just-merwan.medium.com/the-beliefs-that-are-quietly-keeping-you-stuck-a5948b15ba13",
     "date": "2026-06-22",
@@ -113,19 +126,6 @@
       "artificial-intelligence",
       "backend-development",
       "database"
-    ],
-    "readingTime": null
-  },
-  {
-    "title": "Web 4.0: The Internet Is About to Think for You",
-    "url": "https://just-merwan.medium.com/web-4-0-the-internet-is-about-to-think-for-you-4c939651643c",
-    "date": "2026-04-23",
-    "summary": "AI Update & More",
-    "tags": [
-      "internet-of-things",
-      "technology",
-      "ai-agent",
-      "artificial-intelligence"
     ],
     "readingTime": null
   }
