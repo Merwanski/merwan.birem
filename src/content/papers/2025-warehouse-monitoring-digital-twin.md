@@ -20,5 +20,5 @@ tags:
   - asset tracking
   - logistics
 featured: false
-citations: 3
+citations: 2
 ---

@@ -17,5 +17,5 @@ tags:
   - robotics
   - bio-inspired
 featured: true
-citations: 8
+citations: 6
 ---
