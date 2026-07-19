@@ -11,7 +11,7 @@ authors:
 year: 2021
 venue: "Mechanical Systems and Signal Processing 154, 107553"
 abstract: "A post-contest analysis of the SURVISHNO 2019 challenge, which invited participants to use only smartphone cameras for structural vibration and rotating machinery analysis. This paper synthesises the diverse algorithmic approaches submitted, benchmarks their performance, and draws lessons on the limits and potential of consumer imaging hardware for structural health monitoring and vibration analysis."
-pdf_url: null
+pdf_url: "/papers/2021-smartphone-camera-vibration-survishno.pdf"
 doi: null
 tags:
   - vibration analysis

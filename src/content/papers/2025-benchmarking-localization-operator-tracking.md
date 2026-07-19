@@ -8,7 +8,7 @@ authors:
 year: 2025
 venue: "19th CIRP Conference on Intelligent Computation in Manufacturing Engineering"
 abstract: "A systematic benchmarking study comparing indoor localization technologies — including UWB, BLE, Wi-Fi, and vision-based methods — for tracking human operators in manual assembly environments. The study evaluates accuracy, latency, infrastructure cost, and robustness under typical factory floor conditions."
-pdf_url: null
+pdf_url: "/papers/2025-benchmarking-localization-operator-tracking.pdf"
 doi: null
 tags:
   - localization
