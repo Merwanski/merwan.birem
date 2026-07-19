@@ -11,7 +11,7 @@ authors:
 year: 2021
 venue: "Procedia CIRP 104, 714–719"
 abstract: "An adaptable middleware framework that bridges ISA-95 manufacturing ontologies with augmented reality interfaces to deliver context-aware work instructions on the shop floor. The system tracks assembly state in real time and dynamically updates AR overlays based on the operator's progress and the production model, reducing errors and training time."
-pdf_url: null
+pdf_url: "/papers/2021-ar-work-instructions-isa95.pdf"
 doi: null
 tags:
   - augmented reality

@@ -11,8 +11,8 @@ authors:
 year: 2025
 venue: "Logistics, 9(4), 153"
 abstract: "This paper presents a real-time warehouse monitoring system that combines ceiling-mounted cameras with a digital twin framework for asset tracking and scene analysis. The system enables continuous spatial awareness of warehouse operations by fusing overhead visual data with a live-updating digital model of the environment."
-pdf_url: null
-doi: null
+pdf_url: "/papers/2025-warehouse-monitoring-digital-twin.pdf"
+doi: "10.3390/logistics9040153"
 tags:
   - digital twin
   - warehouse monitoring

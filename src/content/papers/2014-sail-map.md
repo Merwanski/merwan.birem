@@ -8,7 +8,7 @@ authors:
 year: 2014
 venue: "IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS 2014)"
 abstract: "A vision-only method for topological SLAM that leverages bio-inspired visual saliency for robust loop-closure detection. By identifying perceptually salient regions rather than engineered keypoints, SAIL-MAP achieves reliable place recognition across varying illumination and viewpoint conditions without range sensors."
-pdf_url: null
+pdf_url: "/papers/2014-sail-map.pdf"
 doi: null
 tags:
   - SLAM
