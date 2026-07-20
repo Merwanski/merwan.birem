@@ -20,5 +20,5 @@ tags:
   - computer vision
   - manufacturing
 featured: false
-citations: 8
+citations: 5
 ---
