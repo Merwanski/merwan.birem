@@ -1,0 +1,81 @@
+---
+import 'leaflet/dist/leaflet.css';
+
+interface Trip {
+  lat: number;
+  lng: number;
+  title: string;
+  subtitle?: string;
+  href: string;
+}
+
+interface Props {
+  trips: Trip[];
+  id?: string;
+  height?: string;
+  zoom?: number;
+}
+
+const { trips, id = `travel-map-${Math.random().toString(36).slice(2, 8)}`, height = '360px', zoom } = Astro.props;
+---
+
+<div
+  id={id}
+  data-trips={JSON.stringify(trips)}
+  data-zoom={zoom ?? ''}
+  style={`height: ${height};`}
+  class="rounded-lg border border-[var(--color-border)] overflow-hidden [&_.leaflet-popup-content-wrapper]:rounded-md"
+></div>
+
+<script>
+  import L from 'leaflet';
+
+  function initMap(el: Element) {
+    const trips = JSON.parse(el.getAttribute('data-trips') || '[]') as {
+      lat: number;
+      lng: number;
+      title: string;
+      subtitle?: string;
+      href: string;
+    }[];
+    const zoomAttr = el.getAttribute('data-zoom');
+
+    const map = L.map(el as HTMLElement, { scrollWheelZoom: false });
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      maxZoom: 18,
+    }).addTo(map);
+
+    const icon = L.icon({
+      iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',
+      iconRetinaUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png',
+      shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
+      iconSize: [25, 41],
+      iconAnchor: [12, 41],
+      popupAnchor: [1, -34],
+      shadowSize: [41, 41],
+    });
+
+    const markers = trips.map((trip) => {
+      const marker = L.marker([trip.lat, trip.lng], { icon }).addTo(map);
+      const popup = document.createElement('a');
+      popup.href = trip.href;
+      popup.style.textDecoration = 'none';
+      popup.style.color = 'inherit';
+      popup.innerHTML = `<strong>${trip.title}</strong>${trip.subtitle ? `<br><span style="color:#71717a;">${trip.subtitle}</span>` : ''}`;
+      marker.bindPopup(popup);
+      return marker;
+    });
+
+    if (trips.length === 1) {
+      map.setView([trips[0].lat, trips[0].lng], zoomAttr ? Number(zoomAttr) : 10);
+    } else if (trips.length > 1) {
+      map.fitBounds(L.featureGroup(markers).getBounds().pad(0.2));
+    } else {
+      map.setView([20, 0], 2);
+    }
+  }
+
+  document.querySelectorAll('[data-trips]').forEach(initMap);
+</script>

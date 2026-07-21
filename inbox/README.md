@@ -17,6 +17,20 @@ Drop a **PDF** of a research paper.
 
 ---
 
+## Travels (`inbox/travels/`)
+
+Drop a **folder** named `YYYY-MM-DD-city-country` (e.g. `2024-08-15-kyoto-japan`) containing photos and, optionally, a `notes.md` with rough jotted notes.
+
+**What happens:**
+1. GitHub Actions detects the new folder on push to `main`
+2. Coordinates come from photo GPS EXIF data, or a free OpenStreetMap geocode of the city/country if no photo has GPS
+3. Photos are resized/compressed (and HEIC converted to JPEG) and copied to `public/travels/<slug>/`
+4. Claude writes a short narrative and tags from `notes.md` (or a minimal entry if none is provided)
+5. A Markdown file is created in `src/content/travels/`, the raw upload folder is removed (optimized copies already live in `public/travels/`)
+6. The site rebuilds and the trip is live at `/travels/<slug>`
+
+---
+
 ## Conferences (`inbox/conferences/`)
 
 _Coming soon_ — Drop 1-2 images + a `notes.txt` file describing the event.

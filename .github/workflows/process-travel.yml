@@ -1,0 +1,80 @@
+name: Process Trip from Inbox
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'inbox/travels/**'
+
+permissions:
+  contents: write
+  actions: write
+
+jobs:
+  process:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 2
+          lfs: true
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      # Installed temporarily during CI — exifr reads GPS from photo EXIF, sharp is already
+      # an Astro transitive dependency (used for image optimization) so no install needed for it.
+      - run: npm install --no-save exifr
+
+      - name: Find new trip folders in inbox
+        id: find
+        run: |
+          FOLDERS=$(git diff --name-only --diff-filter=A HEAD~1 HEAD -- 'inbox/travels/*/*' \
+            | cut -d/ -f1-2 | sort -u)
+          echo "folders<<EOF" >> $GITHUB_OUTPUT
+          echo "$FOLDERS" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+          echo "Found: $FOLDERS"
+
+      - name: Process each trip with Claude AI
+        if: steps.find.outputs.folders != ''
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          while IFS= read -r folder; do
+            [ -z "$folder" ] && continue
+            echo "Processing $folder..."
+            if node scripts/process-travel.mjs "$folder"; then
+              # Optimized copies now live in public/travels/ — drop the raw
+              # upload so large/unoptimized photos don't stay in the repo twice.
+              git rm -rq "$folder"
+            fi
+          done <<< "${{ steps.find.outputs.folders }}"
+
+      - name: Commit generated content
+        id: commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add src/content/travels/ public/travels/ inbox/travels/
+          if git diff --staged --quiet; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+            echo "Nothing changed."
+          else
+            git commit -m "auto: process trip from inbox"
+            git push
+            echo "changed=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Trigger deploy
+        if: steps.commit.outputs.changed == 'true'
+        run: |
+          curl -s -X POST \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/${{ github.repository }}/actions/workflows/deploy.yml/dispatches" \
+            -d '{"ref":"main"}'

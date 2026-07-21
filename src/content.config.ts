@@ -43,13 +43,17 @@ const impossibleList = defineCollection({
 const travels = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/travels' }),
   schema: z.object({
+    title: z.string(),
     country: z.string(),
     flag: z.string(),
-    year: z.string(),
-    cities: z.array(z.string()),
+    city: z.string(),
+    date: z.coerce.date(),
+    lat: z.number(),
+    lng: z.number(),
     highlights: z.string(),
     tags: z.array(z.string()).default([]),
-    order: z.number().default(99),
+    cover: z.string().nullable().optional(),
+    photos: z.array(z.string()).default([]),
   }),
 });
 

@@ -1,9 +1,25 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
+import TravelMap from '../../components/TravelMap.astro';
+
+const B = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 
 const allTrips = await getCollection('travels');
-const trips = allTrips.sort((a, b) => a.data.order - b.data.order);
+const trips = allTrips.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const byCountry = trips.reduce<Record<string, typeof trips>>((acc, trip) => {
+  (acc[trip.data.country] ??= []).push(trip);
+  return acc;
+}, {});
+
+const mapTrips = trips.map(trip => ({
+  lat: trip.data.lat,
+  lng: trip.data.lng,
+  title: `${trip.data.flag} ${trip.data.city}, ${trip.data.country}`,
+  subtitle: trip.data.date.toLocaleDateString('en-GB', { year: 'numeric', month: 'short' }),
+  href: `${B}travels/${trip.id}`,
+}));
 
 const tagColors: Record<string, string> = {
   Culture: 'bg-purple-50 text-purple-600 border border-purple-100',
@@ -30,26 +46,50 @@ const tagColors: Record<string, string> = {
       </p>
     </div>
 
+    {trips.length > 0 && (
+      <div class="mb-10">
+        <TravelMap trips={mapTrips} height="360px" />
+      </div>
+    )}
+
     {trips.length === 0 ? (
       <p class="text-[var(--color-muted)] text-sm italic">
-        No trips logged yet — add a <code class="font-mono text-xs bg-zinc-100 px-1.5 py-0.5 rounded">.md</code> file to <code class="font-mono text-xs bg-zinc-100 px-1.5 py-0.5 rounded">src/content/travels/</code>.
+        No trips logged yet — drop a folder into <code class="font-mono text-xs bg-zinc-100 px-1.5 py-0.5 rounded">inbox/travels/</code> named <code class="font-mono text-xs bg-zinc-100 px-1.5 py-0.5 rounded">YYYY-MM-DD-city-country</code> with photos (and optionally notes.md).
       </p>
     ) : (
-      <div class="space-y-6">
-        {trips.map(trip => (
-          <div class="border border-[var(--color-border)] rounded-lg p-5 hover:border-zinc-300 transition-colors">
-            <div class="flex items-start justify-between gap-4 mb-2">
-              <div class="flex items-center gap-2">
-                <span class="text-xl">{trip.data.flag}</span>
-                <h2 class="text-base font-medium text-[var(--color-ink)]">{trip.data.country}</h2>
-              </div>
-              <span class="text-xs font-mono text-[var(--color-faint)] shrink-0 pt-0.5">{trip.data.year}</span>
+      <div class="space-y-10">
+        {Object.entries(byCountry).map(([country, countryTrips]) => (
+          <div>
+            <div class="flex items-center gap-2 mb-4">
+              <span class="text-xl">{countryTrips[0].data.flag}</span>
+              <h2 class="text-base font-medium text-[var(--color-ink)]">{country}</h2>
             </div>
-            <p class="text-xs text-[var(--color-faint)] mb-3">{trip.data.cities.join(' · ')}</p>
-            <p class="text-sm text-[var(--color-muted)] leading-relaxed mb-3">{trip.data.highlights}</p>
-            <div class="flex flex-wrap gap-1.5">
-              {trip.data.tags.map(tag => (
-                <span class={`text-[10px] px-1.5 py-0.5 rounded ${tagColors[tag] ?? 'bg-zinc-100 text-zinc-500'}`}>{tag}</span>
+            <div class="space-y-4">
+              {countryTrips.map(trip => (
+                <a href={`${B}travels/${trip.id}`} class="flex gap-4 border border-[var(--color-border)] rounded-lg p-5 hover:border-zinc-300 transition-colors">
+                  {trip.data.cover && (
+                    <img
+                      src={`${B}${trip.data.cover.replace(/^\//, '')}`}
+                      alt=""
+                      class="w-16 h-16 rounded-md object-cover shrink-0"
+                      loading="lazy"
+                    />
+                  )}
+                  <div class="min-w-0">
+                    <div class="flex items-start justify-between gap-4 mb-2">
+                      <h3 class="text-base font-medium text-[var(--color-ink)]">{trip.data.city}</h3>
+                      <span class="text-xs font-mono text-[var(--color-faint)] shrink-0 pt-0.5">
+                        {trip.data.date.toLocaleDateString('en-GB', { year: 'numeric', month: 'short' })}
+                      </span>
+                    </div>
+                    <p class="text-sm text-[var(--color-muted)] leading-relaxed mb-3 line-clamp-2">{trip.data.highlights}</p>
+                    <div class="flex flex-wrap gap-1.5">
+                      {trip.data.tags.map(tag => (
+                        <span class={`text-[10px] px-1.5 py-0.5 rounded ${tagColors[tag] ?? 'bg-zinc-100 text-zinc-500'}`}>{tag}</span>
+                      ))}
+                    </div>
+                  </div>
+                </a>
               ))}
             </div>
           </div>
