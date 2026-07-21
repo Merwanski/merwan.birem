@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - 'inbox/travels/**'
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -16,7 +17,6 @@ jobs:
     steps:
       - uses: actions/checkout@v5
         with:
-          fetch-depth: 2
           lfs: true
 
       - uses: actions/setup-node@v5
@@ -30,11 +30,10 @@ jobs:
       # an Astro transitive dependency (used for image optimization) so no install needed for it.
       - run: npm install --no-save exifr
 
-      - name: Find new trip folders in inbox
+      - name: Find trip folders in inbox
         id: find
         run: |
-          FOLDERS=$(git diff --name-only --diff-filter=A HEAD~1 HEAD -- 'inbox/travels/*/*' \
-            | cut -d/ -f1-2 | sort -u)
+          FOLDERS=$(find inbox/travels -mindepth 1 -maxdepth 1 -type d | sort)
           echo "folders<<EOF" >> $GITHUB_OUTPUT
           echo "$FOLDERS" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
