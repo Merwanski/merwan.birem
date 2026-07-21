@@ -44,6 +44,7 @@ jobs:
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: |
+          failed=0
           while IFS= read -r folder; do
             [ -z "$folder" ] && continue
             echo "Processing $folder..."
@@ -51,11 +52,16 @@ jobs:
               # Optimized copies now live in public/travels/ — drop the raw
               # upload so large/unoptimized photos don't stay in the repo twice.
               git rm -rq "$folder"
+            else
+              echo "::error::Failed to process $folder — leaving it in inbox/travels/ for the next run."
+              failed=1
             fi
           done <<< "${{ steps.find.outputs.folders }}"
+          exit $failed
 
       - name: Commit generated content
         id: commit
+        if: always()
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
