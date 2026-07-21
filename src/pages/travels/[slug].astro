@@ -1,0 +1,66 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection, render } from 'astro:content';
+import TravelMap from '../../components/TravelMap.astro';
+
+export async function getStaticPaths() {
+  const trips = await getCollection('travels');
+  return trips.map(trip => ({
+    params: { slug: trip.id },
+    props: { trip },
+  }));
+}
+
+const { trip } = Astro.props;
+const { Content } = await render(trip);
+const B = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+const dateLabel = trip.data.date.toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' });
+---
+
+<Layout title={`${trip.data.city}, ${trip.data.country}`} description={trip.data.highlights}>
+
+  <div class="mb-4">
+    <a href={`${B}travels`} class="text-xs text-[var(--color-muted)] hover:text-[var(--color-accent)] transition-colors">
+      ← All travels
+    </a>
+  </div>
+
+  <article>
+    <div class="flex items-center gap-2 mb-1">
+      <span class="text-2xl">{trip.data.flag}</span>
+      <h1 class="text-2xl font-semibold tracking-tight text-[var(--color-ink)]">{trip.data.city}, {trip.data.country}</h1>
+    </div>
+    <p class="text-sm text-[var(--color-faint)] mb-6">{dateLabel}</p>
+
+    <p class="text-[var(--color-muted)] leading-relaxed mb-6">{trip.data.highlights}</p>
+
+    <div class="flex flex-wrap gap-1.5 mb-8">
+      {trip.data.tags.map(tag => (
+        <span class="text-xs px-2 py-0.5 bg-zinc-100 text-zinc-500 rounded-full">{tag}</span>
+      ))}
+    </div>
+
+    {trip.data.photos.length > 0 && (
+      <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 mb-8">
+        {trip.data.photos.map(photo => (
+          <img
+            src={`${B}${photo.replace(/^\//, '')}`}
+            alt={`${trip.data.city}, ${trip.data.country}`}
+            class="w-full h-40 object-cover rounded-md"
+            loading="lazy"
+          />
+        ))}
+      </div>
+    )}
+
+    <TravelMap
+      trips={[{ lat: trip.data.lat, lng: trip.data.lng, title: `${trip.data.flag} ${trip.data.city}`, href: '#' }]}
+      height="280px"
+      zoom={11}
+    />
+
+    <div class="prose prose-sm max-w-none mt-8 text-[var(--color-muted)]">
+      <Content />
+    </div>
+  </article>
+</Layout>

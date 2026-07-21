@@ -1,1 +1,9 @@
 public/papers/*.pdf filter=lfs diff=lfs merge=lfs -text
+public/travels/**/*.jpg filter=lfs diff=lfs merge=lfs -text
+public/travels/**/*.jpeg filter=lfs diff=lfs merge=lfs -text
+public/travels/**/*.png filter=lfs diff=lfs merge=lfs -text
+inbox/travels/**/*.jpg filter=lfs diff=lfs merge=lfs -text
+inbox/travels/**/*.jpeg filter=lfs diff=lfs merge=lfs -text
+inbox/travels/**/*.png filter=lfs diff=lfs merge=lfs -text
+inbox/travels/**/*.heic filter=lfs diff=lfs merge=lfs -text
+inbox/travels/**/*.heif filter=lfs diff=lfs merge=lfs -text
