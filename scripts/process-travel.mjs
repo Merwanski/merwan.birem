@@ -1,19 +1,19 @@
 /**
- * Processes a trip folder from inbox/travels/ using Claude AI.
+ * Processes a trip folder from inbox/travels/ using Groq's free-tier LLM API.
  * Folder naming convention: YYYY-MM-DD-city-country (e.g. 2024-08-15-kyoto-japan)
  *
  * - Reads GPS coordinates from photo EXIF data, falling back to a free
  *   OpenStreetMap Nominatim geocode of "city, country" when no photo has GPS.
  * - Optimizes photos (resize + compress, HEIC -> JPEG) with sharp.
- * - Sends any notes.md to Claude to generate a short narrative + tags.
+ * - Sends any notes.md to Groq (Llama) to generate a short narrative + tags.
  * - Writes src/content/travels/<slug>.md and copies photos to public/travels/<slug>/.
  *
  * Usage: node scripts/process-travel.mjs <path-to-inbox-folder>
+ * Requires: GROQ_API_KEY env var (free key at console.groq.com)
  */
 
 import fs from 'fs';
 import path from 'path';
-import Anthropic from '@anthropic-ai/sdk';
 
 const exifr = await import('exifr').then(m => m.default ?? m).catch(() => {
   console.error('exifr not available — install it first: npm install exifr');
@@ -105,18 +105,29 @@ for (const photo of photoFiles) {
   }
 }
 
-// --- 4. Ask Claude for a narrative + tags from notes.md (or folder name alone) ---
-const client = new Anthropic();
+// --- 4. Ask Groq (free tier) for a narrative + tags from notes.md (or folder name alone) ---
+const GROQ_API_KEY = process.env.GROQ_API_KEY;
+if (!GROQ_API_KEY) {
+  console.error('GROQ_API_KEY not set — get a free key at https://console.groq.com/keys');
+  process.exit(1);
+}
+const GROQ_MODEL = process.env.GROQ_MODEL || 'llama-3.3-70b-versatile';
 const knownTags = ['Culture', 'Food', 'History', 'Nature', 'Adventure', 'Architecture', 'Desert', 'Art', 'Aurora', 'Home', 'Family'];
 
-console.log('Calling Claude to write up the trip...');
-const response = await client.messages.create({
-  model: 'claude-sonnet-4-6',
-  max_tokens: 1024,
-  messages: [
-    {
-      role: 'user',
-      content: `Write up a short personal trip log entry. Return ONLY valid JSON with these fields:
+console.log(`Calling Groq (${GROQ_MODEL}) to write up the trip...`);
+const groqRes = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${GROQ_API_KEY}`,
+  },
+  body: JSON.stringify({
+    model: GROQ_MODEL,
+    response_format: { type: 'json_object' },
+    messages: [
+      {
+        role: 'user',
+        content: `Write up a short personal trip log entry. Return ONLY valid JSON with these fields:
 {
   "title": "City, Country",
   "city": "properly capitalized city name",
@@ -132,17 +143,29 @@ Raw notes (may be empty, terse, or bullet points — polish them, don't invent f
 ---
 ${notes || '(no notes provided — write a minimal, generic entry from the location and date alone)'}
 ---`,
-    },
-  ],
+      },
+    ],
+  }),
 });
+
+if (!groqRes.ok) {
+  console.error(`Groq API error ${groqRes.status}: ${await groqRes.text()}`);
+  process.exit(1);
+}
+
+const groqBody = await groqRes.json();
+const rawContent = groqBody.choices?.[0]?.message?.content;
+if (!rawContent) {
+  console.error('No content in Groq response:', JSON.stringify(groqBody));
+  process.exit(1);
+}
 
 let meta;
 try {
-  const raw = response.content[0].text.trim();
-  const jsonStr = raw.replace(/^```json?\n?/, '').replace(/\n?```$/, '');
+  const jsonStr = rawContent.trim().replace(/^```json?\n?/, '').replace(/\n?```$/, '');
   meta = JSON.parse(jsonStr);
 } catch (err) {
-  console.error('Failed to parse Claude response:', response.content[0].text);
+  console.error('Failed to parse Groq response:', rawContent);
   process.exit(1);
 }
 

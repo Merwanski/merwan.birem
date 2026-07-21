@@ -39,10 +39,10 @@ jobs:
           echo "EOF" >> $GITHUB_OUTPUT
           echo "Found: $FOLDERS"
 
-      - name: Process each trip with Claude AI
+      - name: Process each trip with Groq
         if: steps.find.outputs.folders != ''
         env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
         run: |
           failed=0
           while IFS= read -r folder; do

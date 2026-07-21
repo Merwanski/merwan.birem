@@ -7,3 +7,8 @@ inbox/travels/**/*.jpeg filter=lfs diff=lfs merge=lfs -text
 inbox/travels/**/*.png filter=lfs diff=lfs merge=lfs -text
 inbox/travels/**/*.heic filter=lfs diff=lfs merge=lfs -text
 inbox/travels/**/*.heif filter=lfs diff=lfs merge=lfs -text
+inbox/travels/**/*.JPG filter=lfs diff=lfs merge=lfs -text
+inbox/travels/**/*.JPEG filter=lfs diff=lfs merge=lfs -text
+inbox/travels/**/*.PNG filter=lfs diff=lfs merge=lfs -text
+inbox/travels/**/*.HEIC filter=lfs diff=lfs merge=lfs -text
+inbox/travels/**/*.HEIF filter=lfs diff=lfs merge=lfs -text
