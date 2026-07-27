@@ -20,5 +20,5 @@ tags:
   - structural health monitoring
   - computer vision
 featured: true
-citations: 26
+citations: 17
 ---
