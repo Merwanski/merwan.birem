@@ -1,8 +1,8 @@
 ---
-title: "Paris, France"
+title: "Vitry-sur-Seine, Paris, France"
 country: "France"
 flag: "🇫🇷"
-city: "Paris"
+city: "Vitry-sur-Seine, Paris"
 date: 2010-10-01
 lat: 48.78716
 lng: 2.40332
