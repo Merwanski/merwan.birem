@@ -13,6 +13,10 @@ const byCountry = trips.reduce<Record<string, typeof trips>>((acc, trip) => {
   return acc;
 }, {});
 
+const TOTAL_COUNTRIES = 195; // UN member + observer states, for the "of the world" stat
+const countriesVisited = Object.keys(byCountry).length;
+const photosLogged = trips.reduce((sum, trip) => sum + trip.data.photos.length, 0);
+
 const mapTrips = trips.map(trip => ({
   lat: trip.data.lat,
   lng: trip.data.lng,
@@ -45,6 +49,25 @@ const tagColors: Record<string, string> = {
         A few places that left a mark. Every trip teaches something the lab never could.
       </p>
     </div>
+
+    {trips.length > 0 && (
+      <div class="flex gap-6 mb-10 p-4 bg-[var(--color-surface)] rounded-lg border border-[var(--color-border)]">
+        <div class="text-center">
+          <div class="text-2xl font-semibold">{countriesVisited}<span class="text-sm font-normal text-[var(--color-faint)]">/{TOTAL_COUNTRIES}</span></div>
+          <div class="text-xs text-[var(--color-faint)] mt-0.5">Countries</div>
+        </div>
+        <div class="w-px bg-[var(--color-border)]"></div>
+        <div class="text-center">
+          <div class="text-2xl font-semibold">{trips.length}</div>
+          <div class="text-xs text-[var(--color-faint)] mt-0.5">Trips</div>
+        </div>
+        <div class="w-px bg-[var(--color-border)]"></div>
+        <div class="text-center">
+          <div class="text-2xl font-semibold">{photosLogged}</div>
+          <div class="text-xs text-[var(--color-faint)] mt-0.5">Photos</div>
+        </div>
+      </div>
+    )}
 
     {trips.length > 0 && (
       <div class="mb-10">
