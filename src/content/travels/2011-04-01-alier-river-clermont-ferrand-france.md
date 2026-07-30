@@ -1,8 +1,8 @@
 ---
-title: "Clermont-Ferrand, France"
+title: "Plan d'eau de Cournon-d'Auvergne, Clermont-Ferrand, France"
 country: "France"
 flag: "🇫🇷"
-city: "Clermont-Ferrand"
+city: "Plan d'eau de Cournon-d'Auvergne, Clermont-Ferrand"
 date: 2011-04-01
 lat: 45.735221
 lng: 3.212472

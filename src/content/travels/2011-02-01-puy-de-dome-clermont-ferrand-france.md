@@ -1,8 +1,8 @@
 ---
-title: "Clermont-Ferrand, France"
+title: "Puy de Dôme, Clermont-Ferrand, France"
 country: "France"
 flag: "🇫🇷"
-city: "Clermont-Ferrand"
+city: "Puy de Dôme, Clermont-Ferrand"
 date: 2011-02-01
 lat: 45.77194
 lng: 2.96250
