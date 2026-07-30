@@ -4,8 +4,8 @@ country: "France"
 flag: "🇫🇷"
 city: "Clermont-Ferrand"
 date: 2011-04-01
-lat: 0
-lng: 0
+lat: 45.735221
+lng: 3.212472
 highlights: "I strolled along the serene Alier River with friends Omar and Lazhare, our bikes by our side, on a tranquil Sunday afternoon. We made our way to the picturesque Plan d'eau de Cournon-d'Auvergne, taking in the scenery and each other's company. The calm ride and warm conversation made for a perfect day out. As we explored, the beauty of the region left a lasting impression on me."
 tags:
   - Nature

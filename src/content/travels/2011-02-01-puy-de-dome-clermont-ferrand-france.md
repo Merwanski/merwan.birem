@@ -4,8 +4,8 @@ country: "France"
 flag: "🇫🇷"
 city: "Clermont-Ferrand"
 date: 2011-02-01
-lat: 45.7783554
-lng: 3.1126165
+lat: 45.77194
+lng: 2.96250
 highlights: "I embarked on an unforgettable journey with friends Omar and Sofiane to the Puy de Dome, cycling from Aubiere with backpacks full of snacks. The scenic route and thrilling climbs made the experience even more enjoyable. Although fog obscured the view from the top, the adventure was well worth it, and I look forward to repeating it in the future. The camaraderie and breathtaking views along the way have left a lasting impression."
 tags:
   - Adventure

@@ -4,9 +4,9 @@ country: "France"
 flag: "🇫🇷"
 city: "Paris"
 date: 2010-10-01
-lat: 48.8588897
-lng: 2.320041
-highlights: "I ventured to Paris to visit my aunt, who had been living there for a year, and was struck by the city's vibrant atmosphere, reminiscent of Algiers. As I explored, I discovered the charming town of Vitry-sur-Seine and attended a car show, marveling at the contrast between Paris and Clermont-Ferrand. The city's energetic pace and diverse population made me feel at home, despite being in a new environment. My time in Paris was a sensory overload, with its buses, metros, and trams leaving a lasting impression."
+lat: 48.78716
+lng: 2.40332
+highlights: "I ventured to Paris to visit my aunt, who had been living there for years, and was struck by the city's vibrant atmosphere, reminiscent of Algiers. As I explored, I discovered the charming town of Vitry-sur-Seine, where my aunt lived, and attended a car show, marveling at the contrast between Paris and Clermont-Ferrand. The city's energetic pace and diverse population made me feel at home, despite being in a new environment. My time in Paris was a sensory overload, with its buses, metros, and trams leaving a lasting impression. Apologies for the modest quality of these photos — they were taken on an old Samsung smartphone, the exact model long forgotten."
 tags:
   - Culture
   - Family
