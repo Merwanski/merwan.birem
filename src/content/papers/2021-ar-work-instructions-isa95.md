@@ -21,5 +21,5 @@ tags:
   - Industry 4.0
   - work instructions
 featured: false
-citations: 14
+citations: 9
 ---
