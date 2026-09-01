@@ -1,5 +1,57 @@
 [
   {
+    "title": "How to Use Unit Tests in Python: A Practical Guide",
+    "url": "https://just-merwan.medium.com/how-to-use-unit-tests-in-python-a-practical-guide-dff73c694f4d",
+    "date": "2026-08-31",
+    "summary": "Software Development & More",
+    "tags": [
+      "software-engineering",
+      "python",
+      "software-development",
+      "coding"
+    ],
+    "readingTime": null
+  },
+  {
+    "title": "Object Detection and Understanding with DINO-X: Open-World Applications",
+    "url": "https://just-merwan.medium.com/object-detection-and-understanding-with-dino-x-open-world-applications-42a922d8805e",
+    "date": "2026-08-30",
+    "summary": "Computer Vision & AI",
+    "tags": [
+      "python",
+      "machine-learning",
+      "artificial-intelligence",
+      "object-detection"
+    ],
+    "readingTime": null
+  },
+  {
+    "title": "The Kalman Filter Explained: How Your Phone Knows Exactly Where You Are",
+    "url": "https://just-merwan.medium.com/the-kalman-filter-explained-how-your-phone-knows-exactly-where-you-are-e64341b5c0c3",
+    "date": "2026-08-30",
+    "summary": "AI Update & More",
+    "tags": [
+      "signal-processing",
+      "math",
+      "kalman-filter",
+      "robotics"
+    ],
+    "readingTime": null
+  },
+  {
+    "title": "Visual SLAM Under the Hood: Pose Graphs, Bundle Adjustment & More",
+    "url": "https://just-merwan.medium.com/visual-slam-under-the-hood-pose-graphs-bundle-adjustment-more-fed5b707a470",
+    "date": "2026-08-25",
+    "summary": "Computer Vision & AI Update",
+    "tags": [
+      "aml",
+      "artificial-intelligence",
+      "robotics",
+      "computer-vision"
+    ],
+    "readingTime": null
+  },
+  {
     "title": "What Is a Markov Decision Process? How Machines Make Smart Decisions",
     "url": "https://just-merwan.medium.com/what-is-a-markov-decision-process-how-machines-make-smart-decisions-18fc9993047f",
     "date": "2026-06-27",
@@ -74,58 +126,6 @@
       "software-development",
       "docker",
       "python"
-    ],
-    "readingTime": null
-  },
-  {
-    "title": "What is Actually Money?",
-    "url": "https://just-merwan.medium.com/what-is-actually-money-371c2f351be4",
-    "date": "2026-05-29",
-    "summary": "The Origin Story of Money",
-    "tags": [
-      "finance",
-      "personal-development",
-      "self-improvement",
-      "personal-growth"
-    ],
-    "readingTime": null
-  },
-  {
-    "title": "What is ONNX? The Universal Language of AI Models",
-    "url": "https://just-merwan.medium.com/what-is-onnx-the-universal-language-of-ai-models-196c959cc142",
-    "date": "2026-05-17",
-    "summary": "AI Update & More",
-    "tags": [
-      "edge-computing",
-      "ai",
-      "neural-networks",
-      "docker"
-    ],
-    "readingTime": null
-  },
-  {
-    "title": "How to Build and Monetize Your Own API in 2026?",
-    "url": "https://just-merwan.medium.com/how-to-build-and-monetize-your-own-api-in-2026-ddf0141e153b",
-    "date": "2026-05-14",
-    "summary": "A Complete Guide with Node.js, Python, Docker & RapidAPI",
-    "tags": [
-      "docker",
-      "nodejs",
-      "software-development",
-      "api"
-    ],
-    "readingTime": null
-  },
-  {
-    "title": "7 Database Paradigms Every Developer Should Know",
-    "url": "https://just-merwan.medium.com/7-database-paradigms-every-developer-should-know-16dace91ef10",
-    "date": "2026-05-02",
-    "summary": "Software Development",
-    "tags": [
-      "programming",
-      "artificial-intelligence",
-      "backend-development",
-      "database"
     ],
     "readingTime": null
   }
