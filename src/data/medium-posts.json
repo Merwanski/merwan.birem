@@ -1,5 +1,18 @@
 [
   {
+    "title": "What Is Poetry in Python? Another Python Library Package… Whaaat?",
+    "url": "https://just-merwan.medium.com/what-is-poetry-in-python-another-python-library-package-whaaat-954c66747f21",
+    "date": "2026-09-04",
+    "summary": "Software Development & More",
+    "tags": [
+      "software-development",
+      "product-management",
+      "software-engineering",
+      "python"
+    ],
+    "readingTime": null
+  },
+  {
     "title": "How to Use Unit Tests in Python: A Practical Guide",
     "url": "https://just-merwan.medium.com/how-to-use-unit-tests-in-python-a-practical-guide-dff73c694f4d",
     "date": "2026-08-31",
@@ -113,19 +126,6 @@
       "science-history",
       "seoul",
       "korean"
-    ],
-    "readingTime": null
-  },
-  {
-    "title": "How to push Docker images to Docker Hub",
-    "url": "https://just-merwan.medium.com/how-to-push-docker-images-to-docker-hub-98d9715fb9a",
-    "date": "2026-05-31",
-    "summary": "A complete 2026 guide — with a real Python FastAPI example",
-    "tags": [
-      "devops",
-      "software-development",
-      "docker",
-      "python"
     ],
     "readingTime": null
   }
