@@ -1,43 +1,48 @@
-# Astro Starter Kit: Minimal
+# merwan.birem
 
-```sh
-npm create astro@latest -- --template minimal
-```
+Personal site of Merwan Birem: research, projects, travels, milestones and the Impossible List.
+Live at **https://merwanski.github.io/merwan.birem/**.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Built with Astro + Tailwind CSS, deployed to GitHub Pages by GitHub Actions.
 
-## 🚀 Project Structure
+## Commands
 
-Inside of your Astro project, you'll see the following folders and files:
+| Command           | Action                                      |
+| :---------------- | :------------------------------------------ |
+| `npm install`     | Install dependencies                        |
+| `npm run dev`     | Local dev server at `localhost:4321`        |
+| `npm run build`   | Build the site to `./dist/`                 |
+| `npm run preview` | Preview the build locally                   |
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+If deleted content still shows up locally: `rm -rf node_modules/.astro .astro dist`.
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## Publishing content
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+See [`inbox/README.md`](inbox/README.md). In short, drop a paper PDF in `inbox/papers/` or a trip folder in `inbox/travels/`, push, and GitHub Actions does the rest (Groq free-tier LLM, needs the `GROQ_API_KEY` secret).
 
-Any static assets, like images, can be placed in the `public/` directory.
+Other content is Markdown in `src/content/` (milestones, impossible list) or lives directly in `src/pages/` (`/now`, projects, home).
 
-## 🧞 Commands
+## Automation
 
-All commands are run from the root of the project, from a terminal:
+| Workflow | When | What |
+|---|---|---|
+| `deploy.yml` | every push | Build and deploy to GitHub Pages |
+| `process-paper.yml` | PDF pushed to `inbox/papers/` | Metadata, abstract, preview and figure → paper page |
+| `process-travel.yml` | folder pushed to `inbox/travels/` | Location, photos and narrative → trip page |
+| `refresh-citations.yml` | weekly | Update citation counts |
+| `sync-medium.yml` | twice a month | Sync Medium posts |
+| `site-health.yml` | 1st of each month | Open a **Site health report** issue |
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+## Keeping it up to date
 
-## 👀 Want to learn more?
+The monthly **Site health report** issue checks that every page loads, runs Lighthouse, lists failed workflows and flags stale content. Work through it, then close it (the next report also closes any that are still open).
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+| Cadence | Task |
+|---|---|
+| Automatic | Deploys, citations, Medium sync, health report |
+| Monthly (~15 min) | Go through the health report: [Search Console](https://search.google.com/search-console?resource_id=https%3A%2F%2Fmerwanski.github.io%2Fmerwan.birem%2F) numbers, fix anything flagged, add new milestones, papers and talks |
+| Weekly, until the backlog is done | 1–3 old trips into `inbox/travels/` |
+| Quarterly | Rewrite `/now`, review the Impossible List, refresh the CV |
+| Yearly | Dependency upgrades (`npm outdated`, Dependabot alerts) |
+
+`public/googleb0670959a0301cae.html` is the Search Console ownership file. Keep it, or the property stops being verified.

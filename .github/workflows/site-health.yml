@@ -1,0 +1,40 @@
+name: Monthly Site Health Report
+
+on:
+  schedule:
+    - cron: '0 7 1 * *' # 07:00 UTC on the 1st of every month
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+  actions: read
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0 # full history for the "last added" dates
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+
+      - name: Build report
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: node scripts/site-health.mjs report.md
+
+      - name: Open report issue (and close last month's)
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh label create health --color 0e8a16 --description "Monthly site health report" 2>/dev/null || true
+          previous=$(gh issue list --label health --state open --json number -q '.[].number')
+          url=$(gh issue create --title "Site health report — $(date -u +'%B %Y')" --label health --body-file report.md)
+          echo "Opened $url"
+          for n in $previous; do
+            gh issue close "$n" --comment "Superseded by $url"
+          done
