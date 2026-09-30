@@ -1,18 +1,16 @@
 /**
- * Processes a PDF from inbox/papers/ using Claude AI.
+ * Processes a PDF from inbox/papers/ using Groq's free-tier LLM API.
  * Extracts metadata and generates a Markdown content file.
  *
  * Usage: node scripts/process-paper.mjs <path-to-pdf>
+ * Requires: GROQ_API_KEY env var (free key at console.groq.com)
  */
 
 import fs from 'fs';
-import path from 'path';
-import crypto from 'crypto';
-import Anthropic from '@anthropic-ai/sdk';
 
-// pdf-parse is installed temporarily during CI
-const { default: pdfParse } = await import('pdf-parse').catch(() => {
-  console.error('pdf-parse not available — install it first: npm install pdf-parse');
+// pdf-parse (v2 API) is installed temporarily during CI
+const { PDFParse } = await import('pdf-parse').catch(() => {
+  console.error('pdf-parse not available — install it first: npm install --no-save pdf-parse@^2');
   process.exit(1);
 });
 
@@ -24,21 +22,36 @@ if (!pdfPath || !fs.existsSync(pdfPath)) {
 
 console.log(`Reading PDF: ${pdfPath}`);
 const pdfBuffer = fs.readFileSync(pdfPath);
-const parsed = await pdfParse(pdfBuffer);
+const parser = new PDFParse({ data: pdfBuffer });
+const parsed = await parser.getText();
+await parser.destroy();
 
 // Truncate to ~8000 chars to stay within token limits for extraction
 const text = parsed.text.slice(0, 8000);
 
-const client = new Anthropic();
+const GROQ_API_KEY = process.env.GROQ_API_KEY;
+if (!GROQ_API_KEY) {
+  console.error('GROQ_API_KEY not set — get a free key at https://console.groq.com/keys');
+  process.exit(1);
+}
+const GROQ_MODEL = process.env.GROQ_MODEL || 'openai/gpt-oss-120b';
 
-console.log('Calling Claude to extract metadata...');
-const response = await client.messages.create({
-  model: 'claude-sonnet-4-6',
-  max_tokens: 1024,
-  messages: [
-    {
-      role: 'user',
-      content: `Extract structured metadata from this academic paper text. Return ONLY valid JSON with these fields:
+console.log(`Calling Groq (${GROQ_MODEL}) to extract metadata...`);
+const groqRes = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${GROQ_API_KEY}`,
+  },
+  body: JSON.stringify({
+    model: GROQ_MODEL,
+    max_tokens: 2048,
+    reasoning_effort: 'low',
+    response_format: { type: 'json_object' },
+    messages: [
+      {
+        role: 'user',
+        content: `Extract structured metadata from this academic paper text. Return ONLY valid JSON with these fields:
 {
   "title": "exact paper title",
   "authors": ["Author One", "Author Two"],
@@ -53,18 +66,39 @@ Paper text:
 ---
 ${text}
 ---`,
-    },
-  ],
+      },
+    ],
+  }),
 });
+
+if (!groqRes.ok) {
+  console.error(`Groq API error ${groqRes.status}: ${await groqRes.text()}`);
+  process.exit(1);
+}
+
+const groqBody = await groqRes.json();
+const rawContent = groqBody.choices?.[0]?.message?.content;
+if (!rawContent) {
+  console.error('No content in Groq response:', JSON.stringify(groqBody));
+  process.exit(1);
+}
 
 let meta;
 try {
-  const raw = response.content[0].text.trim();
   // Strip markdown code fences if present
-  const jsonStr = raw.replace(/^```json?\n?/, '').replace(/\n?```$/, '');
+  const jsonStr = rawContent.trim().replace(/^```json?\n?/, '').replace(/\n?```$/, '');
   meta = JSON.parse(jsonStr);
 } catch (err) {
-  console.error('Failed to parse Claude response:', response.content[0].text);
+  console.error('Failed to parse Groq response:', rawContent);
+  process.exit(1);
+}
+
+// Guard against missing fields so a sloppy response can't crash the frontmatter step
+meta.authors = Array.isArray(meta.authors) ? meta.authors : [];
+meta.tags = Array.isArray(meta.tags) ? meta.tags : [];
+meta.abstract = meta.abstract || '';
+if (!meta.title || !meta.year) {
+  console.error('Groq response missing title or year:', rawContent);
   process.exit(1);
 }
 

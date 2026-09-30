@@ -27,7 +27,7 @@ jobs:
       - run: npm ci
 
       # Install pdf-parse for PDF text extraction
-      - run: npm install --no-save pdf-parse
+      - run: npm install --no-save pdf-parse@^2
 
       - name: Find new PDFs in inbox
         id: find
@@ -36,10 +36,10 @@ jobs:
           echo "files=$NEW_FILES" >> $GITHUB_OUTPUT
           echo "Found: $NEW_FILES"
 
-      - name: Process each PDF with Claude AI
+      - name: Process each PDF with Groq
         if: steps.find.outputs.files != ''
         env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
         run: |
           for file in ${{ steps.find.outputs.files }}; do
             echo "Processing $file..."
