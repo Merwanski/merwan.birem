@@ -2,7 +2,7 @@
 title: "Les Cézeaux & Place de Jaude, Clermont-Ferrand, France"
 country: "France"
 flag: "🇫🇷"
-city: "Clermont-Ferrand"
+city: "Les Cézeaux & Place de Jaude, Clermont-Ferrand"
 date: 2011-06-01
 lat: 45.756388888888885
 lng: 3.109166666666667
