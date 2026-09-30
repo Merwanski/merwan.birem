@@ -24,4 +24,5 @@ tags:
   - psychophysics
 featured: false
 citations: 0
+thumbnail: "/papers/thumbs/2014-mouse-tracking-driving-visibility.webp"
 ---

@@ -13,6 +13,8 @@ export async function getStaticPaths() {
 const { paper } = Astro.props;
 const { Content } = await render(paper);
 const B = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+const asset = (p: string) => `${B}${p.replace(/^\//, '')}`;
+const pdfHref = paper.data.pdf_url ? asset(paper.data.pdf_url) : null;
 ---
 
 <Layout title={paper.data.title} description={paper.data.abstract}>
@@ -24,40 +26,54 @@ const B = import.meta.env.BASE_URL.replace(/\/?$/, '/');
   </div>
 
   <article>
-    <header class="mb-10">
-      <h1 class="text-2xl font-semibold tracking-tight leading-snug mb-4">
-        {paper.data.title}
-      </h1>
-      <p class="text-sm text-[var(--color-muted)] mb-1">
-        {paper.data.authors.join(', ')}
-      </p>
-      <p class="text-sm text-[var(--color-faint)]">
-        {paper.data.year}
-        {paper.data.venue && <> · <em>{paper.data.venue}</em></>}
-        {paper.data.doi && (
-          <> · DOI: <a href={`https://doi.org/${paper.data.doi}`} target="_blank" rel="noopener noreferrer" class="text-[var(--color-accent)] hover:underline">{paper.data.doi}</a></>
-        )}
-      </p>
+    <header class="mb-10 flex gap-8 items-start">
+      <div class="min-w-0 flex-1">
+        <h1 class="text-2xl font-semibold tracking-tight leading-snug mb-4">
+          {paper.data.title}
+        </h1>
+        <p class="text-sm text-[var(--color-muted)] mb-1">
+          {paper.data.authors.join(', ')}
+        </p>
+        <p class="text-sm text-[var(--color-faint)]">
+          {paper.data.year}
+          {paper.data.venue && <> · <em>{paper.data.venue}</em></>}
+          {paper.data.doi && (
+            <> · DOI: <a href={`https://doi.org/${paper.data.doi}`} target="_blank" rel="noopener noreferrer" class="text-[var(--color-accent)] hover:underline">{paper.data.doi}</a></>
+          )}
+        </p>
 
-      <div class="flex gap-3 mt-5">
-        {paper.data.pdf_url && (
-          <a
-            href={`${B}${paper.data.pdf_url.replace(/^\//, '')}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="text-sm px-4 py-2 bg-[var(--color-accent)] text-white rounded-md hover:bg-[var(--color-accent-hover)] transition-colors"
-          >
-            Download PDF
-          </a>
+        <div class="flex gap-3 mt-5">
+          {pdfHref && (
+            <a
+              href={pdfHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-sm px-4 py-2 bg-[var(--color-accent)] text-white rounded-md hover:bg-[var(--color-accent-hover)] transition-colors"
+            >
+              Download PDF
+            </a>
+          )}
+        </div>
+
+        {paper.data.tags.length > 0 && (
+          <div class="flex flex-wrap gap-2 mt-5">
+            {paper.data.tags.map(tag => (
+              <span class="text-xs px-2 py-0.5 bg-zinc-100 text-zinc-500 rounded-full">{tag}</span>
+            ))}
+          </div>
         )}
       </div>
 
-      {paper.data.tags.length > 0 && (
-        <div class="flex flex-wrap gap-2 mt-5">
-          {paper.data.tags.map(tag => (
-            <span class="text-xs px-2 py-0.5 bg-zinc-100 text-zinc-500 rounded-full">{tag}</span>
-          ))}
-        </div>
+      {paper.data.thumbnail && (
+        <a
+          href={pdfHref ?? undefined}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="hidden sm:block shrink-0 w-36 rounded-md border border-[var(--color-border)] bg-white overflow-hidden shadow-sm hover:shadow-md transition-shadow"
+          title="Open the PDF"
+        >
+          <img src={asset(paper.data.thumbnail)} alt={`First page of “${paper.data.title}”`} width="800" height="1035" loading="lazy" decoding="async" class="w-full h-auto" />
+        </a>
       )}
     </header>
 
@@ -65,6 +81,20 @@ const B = import.meta.env.BASE_URL.replace(/\/?$/, '/');
       <h2 class="text-xs font-medium uppercase tracking-widest text-[var(--color-faint)] mb-4">Abstract</h2>
       <p class="text-[var(--color-muted)] leading-relaxed">{paper.data.abstract}</p>
     </div>
+
+    {paper.data.figure && (
+      <figure class="border-t border-[var(--color-border)] pt-8 mb-8">
+        <h2 class="text-xs font-medium uppercase tracking-widest text-[var(--color-faint)] mb-4">Key figure</h2>
+        <img
+          src={asset(paper.data.figure)}
+          alt={`Figure from “${paper.data.title}”`}
+          loading="lazy"
+          decoding="async"
+          class="w-full h-auto max-h-[28rem] object-contain rounded-md border border-[var(--color-border)] bg-white p-2"
+        />
+        <figcaption class="text-xs text-[var(--color-faint)] mt-2">Figure from the paper — see the PDF for full context.</figcaption>
+      </figure>
+    )}
 
     <div class="prose prose-zinc max-w-none prose-headings:font-semibold prose-a:text-[var(--color-accent)]">
       <Content />

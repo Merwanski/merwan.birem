@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - 'inbox/papers/**'
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -26,32 +27,41 @@ jobs:
 
       - run: npm ci
 
-      # Install pdf-parse for PDF text extraction
-      - run: npm install --no-save pdf-parse@^2
-
-      - name: Find new PDFs in inbox
+      - name: Find PDFs in inbox
         id: find
         run: |
-          NEW_FILES=$(git diff --name-only --diff-filter=A HEAD~1 HEAD -- 'inbox/papers/*.pdf' | head -5)
-          echo "files=$NEW_FILES" >> $GITHUB_OUTPUT
-          echo "Found: $NEW_FILES"
+          FILES=$(find inbox/papers -maxdepth 1 -type f -iname '*.pdf' | sort)
+          echo "files<<EOF" >> $GITHUB_OUTPUT
+          echo "$FILES" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+          echo "Found: $FILES"
 
       - name: Process each PDF with Groq
         if: steps.find.outputs.files != ''
         env:
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
         run: |
-          for file in ${{ steps.find.outputs.files }}; do
+          failed=0
+          while IFS= read -r file; do
+            [ -z "$file" ] && continue
             echo "Processing $file..."
-            node scripts/process-paper.mjs "$file"
-          done
+            if node scripts/process-paper.mjs "$file"; then
+              # The PDF now lives in public/papers/ — don't keep a second copy in the inbox
+              git rm -q "$file"
+            else
+              echo "::error::Failed to process $file — leaving it in inbox/papers/ for the next run."
+              failed=1
+            fi
+          done <<< "${{ steps.find.outputs.files }}"
+          exit $failed
 
       - name: Commit generated content
         id: commit
+        if: always()
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add src/content/papers/ public/papers/
+          git add src/content/papers/ public/papers/ inbox/papers/
           if git diff --staged --quiet; then
             echo "changed=false" >> $GITHUB_OUTPUT
             echo "Nothing changed."

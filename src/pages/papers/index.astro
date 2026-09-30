@@ -11,6 +11,8 @@ const byYear = allPapers
   }, {});
 
 const years = Object.keys(byYear).map(Number).sort((a, b) => b - a);
+const B = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+const asset = (p: string) => `${B}${p.replace(/^\//, '')}`;
 ---
 
 <Layout title="Papers" description="Publications and research papers by Merwan Birem">
@@ -35,27 +37,40 @@ const years = Object.keys(byYear).map(Number).sort((a, b) => b - a);
           <ul class="space-y-8">
             {byYear[year].map(paper => (
               <li class="group">
-                <a href={`${import.meta.env.BASE_URL.replace(/\/?$/, '/')}papers/${paper.id}`} class="block">
-                  <h3 class="text-base font-medium group-hover:text-[var(--color-accent)] transition-colors mb-1">
-                    {paper.data.title}
-                  </h3>
-                  <p class="text-sm text-[var(--color-muted)] mb-2">
-                    {paper.data.authors.join(', ')}
-                    {paper.data.venue && <> · <em>{paper.data.venue}</em></>}
-                  </p>
-                  <p class="text-sm text-[var(--color-faint)] line-clamp-2 mb-3">{paper.data.abstract}</p>
-                  <div class="flex flex-wrap items-center gap-2">
-                    {paper.data.tags.map(tag => (
-                      <span class="text-xs px-2 py-0.5 bg-zinc-100 text-zinc-500 rounded-full">{tag}</span>
-                    ))}
-                    {paper.data.pdf_url && (
-                      <span class="text-xs px-2 py-0.5 bg-blue-50 text-blue-500 rounded-full">PDF</span>
-                    )}
-                    {paper.data.citations != null && paper.data.citations > 0 && (
-                      <span class="ml-auto text-xs text-[var(--color-faint)] font-mono">
-                        {paper.data.citations} citations
-                      </span>
-                    )}
+                <a href={`${B}papers/${paper.id}`} class="flex gap-5">
+                  {(paper.data.figure || paper.data.thumbnail) && (
+                    <div class="hidden sm:block shrink-0 w-32 h-24 rounded-md border border-[var(--color-border)] bg-white overflow-hidden">
+                      <img
+                        src={asset((paper.data.figure ?? paper.data.thumbnail)!)}
+                        alt=""
+                        loading="lazy"
+                        decoding="async"
+                        class={`w-full h-full ${paper.data.figure ? 'object-contain p-1' : 'object-cover object-top'} group-hover:scale-[1.03] transition-transform`}
+                      />
+                    </div>
+                  )}
+                  <div class="min-w-0 flex-1">
+                    <h3 class="text-base font-medium group-hover:text-[var(--color-accent)] transition-colors mb-1">
+                      {paper.data.title}
+                    </h3>
+                    <p class="text-sm text-[var(--color-muted)] mb-2">
+                      {paper.data.authors.join(', ')}
+                      {paper.data.venue && <> · <em>{paper.data.venue}</em></>}
+                    </p>
+                    <p class="text-sm text-[var(--color-faint)] line-clamp-2 mb-3">{paper.data.abstract}</p>
+                    <div class="flex flex-wrap items-center gap-2">
+                      {paper.data.tags.map(tag => (
+                        <span class="text-xs px-2 py-0.5 bg-zinc-100 text-zinc-500 rounded-full">{tag}</span>
+                      ))}
+                      {paper.data.pdf_url && (
+                        <span class="text-xs px-2 py-0.5 bg-blue-50 text-blue-500 rounded-full">PDF</span>
+                      )}
+                      {paper.data.citations != null && paper.data.citations > 0 && (
+                        <span class="ml-auto text-xs text-[var(--color-faint)] font-mono">
+                          {paper.data.citations} citations
+                        </span>
+                      )}
+                    </div>
                   </div>
                 </a>
               </li>
