@@ -8,10 +8,14 @@ Drop a **PDF** of a research paper.
 
 **What happens:**
 1. GitHub Actions detects the new file on push to `main`
-2. Groq (free-tier LLM) extracts: title, authors, year, venue, abstract, tags, DOI
-3. A Markdown file is created in `src/content/papers/`
-4. The PDF is copied to `public/papers/`
+2. Groq (free-tier LLM) extracts: title, authors, year, venue, the verbatim abstract, tags, DOI
+3. A first-page preview and a key figure (largest embedded image) are rendered to `public/papers/thumbs/` and `public/papers/figures/`
+4. A Markdown file is created in `src/content/papers/`, the PDF is copied to `public/papers/` and removed from the inbox
 5. The site rebuilds and the paper is live at `/papers/<slug>`
+
+**Already on the site?** If the PDF matches an existing paper (same file or same title), that entry's abstract, preview and figure are refreshed instead of creating a duplicate — hand-edited title, authors and venue are kept.
+
+**Wrong figure picked?** Delete the `figure:` line from the paper's Markdown file (and the image in `public/papers/figures/`). To redo existing papers: `node scripts/backfill-paper-assets.mjs [slug ...]`.
 
 **Naming tip:** You can name the PDF anything — the title is extracted from content, not filename.
 

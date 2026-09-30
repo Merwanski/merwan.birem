@@ -5,7 +5,7 @@ authors:
   - "François Berry"
 year: 2013
 venue: "Preprint / submitted manuscript · Institut Pascal"
-abstract: "The submitted preprint of the DreamCam architecture, later published as a peer-reviewed journal article. DreamCam is a modular FPGA-based smart camera built around an Altera Cyclone-III device paired with a CMOS imager and six private RAM blocks, with custom IP modules performing real-time Harris–Stephens feature extraction, selection, and sorting."
+abstract: "DreamCam is a modular smart camera constructed with the use of an FPGA like main processing board. The core of the camera is an Altera Cyclone-III associated with a CMOS imager and six private Ram blocks. The main novel feature of our work consists in proposing a new smart camera architecture and several modules (IP) to efficiently extract and sort the visual features in real time. In this paper, extraction is performed by a Harris and Stephen filtering associated with customized modules. These modules extract, select and sort visual features in real-time. As a result, DreamCam (with such a configuration) provides a description of each visual feature in the form of its position and the grey-level template around it."
 pdf_url: "/papers/2013-dreamcam-preprint.pdf"
 doi: null
 tags:
@@ -17,4 +17,5 @@ tags:
   - preprint
 featured: false
 citations: 45
+thumbnail: "/papers/thumbs/2013-dreamcam-preprint.webp"
 ---

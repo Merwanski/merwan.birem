@@ -7,7 +7,7 @@ authors:
   - "Youcef Mezouar"
 year: 2014
 venue: "IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS 2014)"
-abstract: "A vision-only method for topological SLAM that leverages bio-inspired visual saliency for robust loop-closure detection. By identifying perceptually salient regions rather than engineered keypoints, SAIL-MAP achieves reliable place recognition across varying illumination and viewpoint conditions without range sensors."
+abstract: "Loop-closure detection, which is the ability to recognize a previously visited place, is of primary importance for robotic localization and navigation problems. We here introduce SAIL-MAP, a method for loop-closure detection based on vision only, applied to topological simultaneous localization and mapping (SLAM). Our method allows the matching of camera images using a novel saliency-based feature detector and descriptor. These features have been designed to benefit from the robustness to viewpoint change and image perturbations of bio-inspired saliency algorithms. Additionally, the same algorithm is used for the detector and descriptor. The results obtained on different large-scale data sets demonstrate the efficiency of the proposed solution for localization problems."
 pdf_url: "/papers/2014-sail-map.pdf"
 doi: null
 tags:
@@ -18,4 +18,6 @@ tags:
   - bio-inspired
 featured: true
 citations: 6
+thumbnail: "/papers/thumbs/2014-sail-map.webp"
+figure: "/papers/figures/2014-sail-map.webp"
 ---

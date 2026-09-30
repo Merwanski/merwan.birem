@@ -16,4 +16,5 @@ tags:
   - PhD thesis
 featured: false
 citations: 0
+thumbnail: "/papers/thumbs/2015-phd-thesis.webp"
 ---
