@@ -5,7 +5,7 @@
  * - Reads GPS coordinates from photo EXIF data, falling back to a free
  *   OpenStreetMap Nominatim geocode of "city, country" when no photo has GPS.
  * - Optimizes photos (resize + compress, HEIC -> JPEG) with sharp.
- * - Sends any notes.md to Groq (Llama) to generate a short narrative + tags.
+ * - Sends any notes.md to Groq (free-tier LLM) to generate a short narrative + tags.
  * - Writes src/content/travels/<slug>.md and copies photos to public/travels/<slug>/.
  *
  * Usage: node scripts/process-travel.mjs <path-to-inbox-folder>
@@ -111,7 +111,7 @@ if (!GROQ_API_KEY) {
   console.error('GROQ_API_KEY not set — get a free key at https://console.groq.com/keys');
   process.exit(1);
 }
-const GROQ_MODEL = process.env.GROQ_MODEL || 'llama-3.3-70b-versatile';
+const GROQ_MODEL = process.env.GROQ_MODEL || 'openai/gpt-oss-120b';
 const knownTags = ['Culture', 'Food', 'History', 'Nature', 'Adventure', 'Architecture', 'Desert', 'Art', 'Aurora', 'Home', 'Family'];
 
 console.log(`Calling Groq (${GROQ_MODEL}) to write up the trip...`);
