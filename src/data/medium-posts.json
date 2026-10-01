@@ -1,5 +1,44 @@
 [
   {
+    "title": "Why Information Models Still Matter in 2026",
+    "url": "https://just-merwan.medium.com/why-information-models-still-matter-in-2026-ae6cf8ffbacc",
+    "date": "2026-09-29",
+    "summary": "Every system eventually pays a tax for unclear meaning.",
+    "tags": [
+      "data-modeling",
+      "ai-agent",
+      "design-systems",
+      "semantic-search"
+    ],
+    "readingTime": null
+  },
+  {
+    "title": "GitHub Pages: The Simple Way to Publish a Website from Your Repo",
+    "url": "https://just-merwan.medium.com/github-pages-the-simple-way-to-publish-a-website-from-your-repo-0a385c2c4c5a",
+    "date": "2026-09-29",
+    "summary": "Software Tools & Tips",
+    "tags": [
+      "github",
+      "productivity",
+      "github-pages",
+      "portfolio"
+    ],
+    "readingTime": null
+  },
+  {
+    "title": "Book Summary: The Baby Whisperer Solves All Your Problems",
+    "url": "https://just-merwan.medium.com/book-summary-the-baby-whisperer-solves-all-your-problems-eb539f481800",
+    "date": "2026-09-20",
+    "summary": "“Book’s Resume” series — Book n°14",
+    "tags": [
+      "book-summary",
+      "books",
+      "children",
+      "parenting"
+    ],
+    "readingTime": null
+  },
+  {
     "title": "What Is Poetry in Python? Another Python Library Package… Whaaat?",
     "url": "https://just-merwan.medium.com/what-is-poetry-in-python-another-python-library-package-whaaat-954c66747f21",
     "date": "2026-09-04",
@@ -87,45 +126,6 @@
       "self-improvement",
       "personal-growth",
       "mindset"
-    ],
-    "readingTime": null
-  },
-  {
-    "title": "From Neural Compute Stick to Hailo-8: What Actually Happened to Edge AI Hardware",
-    "url": "https://just-merwan.medium.com/from-neural-compute-stick-to-hailo-8-what-actually-happened-to-edge-ai-hardware-e5434b0b8b63",
-    "date": "2026-06-20",
-    "summary": "AI Update & More",
-    "tags": [
-      "ai",
-      "artificial-intelligence",
-      "technology",
-      "machine-learning"
-    ],
-    "readingTime": null
-  },
-  {
-    "title": "Versioning Data Models: A Practical Guide to Reproducible Machine Learning",
-    "url": "https://just-merwan.medium.com/versioning-data-models-a-practical-guide-to-reproducible-machine-learning-d1975a1577c8",
-    "date": "2026-06-20",
-    "summary": "AI Update & More",
-    "tags": [
-      "python",
-      "machine-learning",
-      "mlops",
-      "computer-vision"
-    ],
-    "readingTime": null
-  },
-  {
-    "title": "What a Seoul Museum Gift Taught Me About Korea’s Hidden Genius",
-    "url": "https://just-merwan.medium.com/what-a-seoul-museum-gift-taught-me-about-koreas-hidden-genius-09bc497344f4",
-    "date": "2026-06-17",
-    "summary": "",
-    "tags": [
-      "korean-history",
-      "science-history",
-      "seoul",
-      "korean"
     ],
     "readingTime": null
   }
