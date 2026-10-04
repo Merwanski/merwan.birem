@@ -1,0 +1,148 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection, getEntry, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map(project => ({
+    params: { slug: project.id },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+const B = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+const asset = (p: string) => (p.startsWith('http') ? p : `${B}${p.replace(/^\//, '')}`);
+const { name, years, description, tags, role, facts, links, youtube, gallery } = project.data;
+const papers = (await Promise.all(project.data.papers.map(id => getEntry('papers', id)))).filter(p => p != null);
+---
+
+<Layout title={name} description={description}>
+
+  <div class="mb-4">
+    <a href={`${B}projects`} class="text-xs text-[var(--color-muted)] hover:text-[var(--color-accent)] transition-colors">
+      ← All projects
+    </a>
+  </div>
+
+  <article>
+    <header class="mb-8">
+      <p class="text-xs font-mono text-[var(--color-faint)] mb-2">{years}</p>
+      <h1 class="text-2xl font-semibold tracking-tight leading-snug mb-3">{name}</h1>
+      <p class="text-[var(--color-muted)] leading-relaxed">{description}</p>
+      {role && <p class="text-sm text-[var(--color-ink)] mt-3"><span class="text-[var(--color-faint)]">My role ·</span> {role}</p>}
+      {tags.length > 0 && (
+        <div class="flex flex-wrap gap-2 mt-4">
+          {tags.map(tag => (
+            <span class="text-xs px-2.5 py-0.5 bg-zinc-100 text-zinc-500 rounded-full">{tag}</span>
+          ))}
+        </div>
+      )}
+    </header>
+
+    {facts.length > 0 && (
+      <dl class="grid grid-cols-1 sm:grid-cols-[10rem_1fr] gap-x-6 gap-y-2 text-sm border-y border-[var(--color-border)] py-5 mb-8">
+        {facts.map(({ label, value }) => (
+          <>
+            <dt class="text-[var(--color-faint)]">{label}</dt>
+            <dd class="text-[var(--color-ink)] mb-2 sm:mb-0">{value}</dd>
+          </>
+        ))}
+      </dl>
+    )}
+
+    {youtube && (
+      <div class="mb-8 aspect-video rounded-lg overflow-hidden border border-[var(--color-border)] bg-black">
+        <iframe
+          src={`https://www.youtube-nocookie.com/embed/${youtube}`}
+          title={`${name}: demo video`}
+          loading="lazy"
+          allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+          class="w-full h-full"
+        ></iframe>
+      </div>
+    )}
+
+    {gallery.length > 0 && (
+      <div class={`grid gap-4 mb-8 ${gallery.length > 1 ? 'sm:grid-cols-2' : ''}`}>
+        {gallery.map(({ src, caption }) => (
+          <figure>
+            <img
+              src={asset(src)}
+              alt={caption}
+              loading="lazy"
+              decoding="async"
+              class="w-full h-auto rounded-lg border border-[var(--color-border)] bg-white"
+            />
+            <figcaption class="text-xs text-[var(--color-faint)] mt-2 leading-relaxed">{caption}</figcaption>
+          </figure>
+        ))}
+      </div>
+    )}
+
+    <div class="project-body">
+      <Content />
+    </div>
+
+    {papers.length > 0 && (
+      <section class="border-t border-[var(--color-border)] pt-8 mt-10">
+        <h2 class="text-xs font-medium uppercase tracking-widest text-[var(--color-faint)] mb-4">Related papers</h2>
+        <ul class="space-y-3">
+          {papers.map(paper => (
+            <li>
+              <a href={`${B}papers/${paper.id}`} class="group flex gap-4 items-start">
+                {paper.data.thumbnail && (
+                  <img src={asset(paper.data.thumbnail)} alt="" loading="lazy" class="w-12 shrink-0 rounded border border-[var(--color-border)]" />
+                )}
+                <span>
+                  <span class="block text-sm font-medium group-hover:text-[var(--color-accent)] transition-colors">{paper.data.title}</span>
+                  <span class="block text-xs text-[var(--color-faint)] mt-0.5">{paper.data.year}{paper.data.venue && <> · {paper.data.venue}</>}</span>
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
+
+    {links.length > 0 && (
+      <section class="border-t border-[var(--color-border)] pt-8 mt-10">
+        <h2 class="text-xs font-medium uppercase tracking-widest text-[var(--color-faint)] mb-4">Links</h2>
+        <ul class="space-y-2">
+          {links.map(({ label, href }) => (
+            <li>
+              <a href={href} target="_blank" rel="noopener noreferrer" class="text-sm text-[var(--color-accent)] hover:underline">{label} ↗</a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
+  </article>
+
+</Layout>
+
+<style>
+  .project-body :global(h2) {
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-faint);
+    margin: 2.25rem 0 0.75rem;
+  }
+  .project-body :global(h2:first-child) { margin-top: 0; }
+  .project-body :global(p),
+  .project-body :global(li) {
+    font-size: 0.9375rem;
+    line-height: 1.7;
+    color: var(--color-muted);
+  }
+  .project-body :global(p) { margin-bottom: 0.9rem; }
+  .project-body :global(ul) { list-style: disc; padding-left: 1.25rem; margin-bottom: 0.9rem; }
+  .project-body :global(li) { margin-bottom: 0.35rem; }
+  .project-body :global(strong) { color: var(--color-ink); font-weight: 600; }
+  .project-body :global(em) { color: var(--color-faint); }
+  .project-body :global(a) { color: var(--color-accent); }
+</style>

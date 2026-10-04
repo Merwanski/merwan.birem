@@ -1,44 +1,38 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
 
 interface Project {
   name: string;
   years: string;
   description: string;
   tags: string[];
+  slug?: string; // has a detail page in src/content/projects/
+  cover?: string;
 }
 
+// Projects with a detail page come from src/content/projects/; list them here by id to keep the order.
+const detailed = new Map((await getCollection('projects')).map(p => [p.id, p]));
+const fromCollection = (id: string): Project => {
+  const p = detailed.get(id);
+  if (!p) throw new Error(`Unknown project "${id}" in src/pages/projects/index.astro`);
+  return { ...p.data, slug: p.id, cover: p.data.gallery[0]?.src ?? (p.data.youtube ? `https://i.ytimg.com/vi/${p.data.youtube}/mqdefault.jpg` : undefined) };
+};
+
+const B = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+const asset = (p: string) => (p.startsWith('http') ? p : `${B}${p.replace(/^\//, '')}`);
+
 const projects: Project[] = [
-  {
-    name: 'ALARMM SBO – Visual SLAM for Large Environments',
-    years: '2025 – Present',
-    description: 'Leading a 4M€ multi-partner project on low-cost, accurate, and robust visual SLAM systems for complex industrial environments. 4 research groups, 7 industrial partners.',
-    tags: ['Visual SLAM', 'Computer Vision', 'Industrial AI', 'Sensor Fusion'],
-  },
-  {
-    name: 'ROBOCONS – Cooperative Robotics for Construction (Horizon Europe)',
-    years: 'Ongoing',
-    description: 'EU project on safe, efficient construction sites with cooperating robots, exoskeletons and digital twins (14 European partners). Flanders Make is responsible for the P2 AR prototype and the HMI / human–robot collaboration work.',
-    tags: ['Horizon Europe', 'AR', 'HMI', 'Human–Robot Collaboration'],
-  },
-  {
-    name: 'QUALMA ICON – AI-Augmented Quality Assurance',
-    years: '2022 – 2025',
-    description: 'Modular AI framework for large-scale manual assembly inspection — combining detection, pose estimation, and tracking with AR guidance. 4× technology transfer to industry.',
-    tags: ['Quality Inspection', 'AR/VR', 'Pose Estimation', 'Deep Learning'],
-  },
+  fromCollection('alarmm'),
+  fromCollection('robocons'),
+  fromCollection('qualma'),
   {
     name: 'RETAIN VILICON',
     years: '2024 – 2025',
     description: 'Details to be added.',
     tags: [],
   },
-  {
-    name: 'FROGS ICON – CAD2GraspMonitor',
-    years: '2021 – 2023',
-    description: 'Vision-based post-grasp validation for robotic kitting using YOLO detection, ICP pose estimation, and sensor fusion.',
-    tags: ['Robotics', 'YOLO', 'ICP', 'Sensor Fusion'],
-  },
+  fromCollection('frogs-cad2graspmonitor'),
   {
     name: 'SMART VISION VIL',
     years: '2022 – 2023',
@@ -183,22 +177,34 @@ const projects: Project[] = [
   </p>
 
   <ul class="space-y-4">
-    {projects.map(({ name, years, description, tags }) => (
-      <li class="rounded-xl border border-[var(--color-border)] px-6 py-5 hover:border-zinc-300 transition-colors">
-        <div class="flex items-start justify-between gap-4 mb-2">
-          <h2 class="text-sm font-semibold text-[var(--color-ink)] leading-snug">{name}</h2>
-          <span class="shrink-0 text-xs font-mono text-[var(--color-faint)] pt-0.5">{years}</span>
-        </div>
-        <p class={`text-sm leading-relaxed mb-3 ${description === 'Details to be added.' ? 'text-[var(--color-faint)] italic' : 'text-[var(--color-accent)]'}`}>
-          {description}
-        </p>
-        {tags.length > 0 && (
-          <div class="flex flex-wrap gap-2">
-            {tags.map(tag => (
-              <span class="text-xs px-2.5 py-0.5 bg-zinc-100 text-zinc-500 rounded-full">{tag}</span>
-            ))}
+    {projects.map(({ name, years, description, tags, slug, cover }) => (
+      <li class="group relative rounded-xl border border-[var(--color-border)] px-6 py-5 hover:border-zinc-300 transition-colors">
+        <div class="flex gap-5">
+          {cover && (
+            <img src={asset(cover)} alt="" loading="lazy" decoding="async" class="hidden sm:block shrink-0 w-28 h-20 object-cover rounded-md border border-[var(--color-border)] bg-white" />
+          )}
+          <div class="min-w-0 flex-1">
+            <div class="flex items-start justify-between gap-4 mb-2">
+              <h2 class="text-sm font-semibold text-[var(--color-ink)] leading-snug">
+                {slug ? (
+                  <a href={`${B}projects/${slug}`} class="group-hover:text-[var(--color-accent)] transition-colors after:absolute after:inset-0">{name}</a>
+                ) : name}
+              </h2>
+              <span class="shrink-0 text-xs font-mono text-[var(--color-faint)] pt-0.5">{years}</span>
+            </div>
+            <p class={`text-sm leading-relaxed mb-3 ${description === 'Details to be added.' ? 'text-[var(--color-faint)] italic' : 'text-[var(--color-accent)]'}`}>
+              {description}
+            </p>
+            {tags.length > 0 && (
+              <div class="flex flex-wrap items-center gap-2">
+                {tags.map(tag => (
+                  <span class="text-xs px-2.5 py-0.5 bg-zinc-100 text-zinc-500 rounded-full">{tag}</span>
+                ))}
+                {slug && <span class="ml-auto text-xs text-[var(--color-accent)]">Details →</span>}
+              </div>
+            )}
           </div>
-        )}
+        </div>
       </li>
     ))}
   </ul>

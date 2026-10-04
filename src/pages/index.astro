@@ -66,32 +66,10 @@ const languages = [
   { name: 'Dutch', level: 3 },
 ];
 
-const projects = [
-  {
-    title: 'ALARMM SBO – Visual SLAM for Large Environments',
-    period: '2025 – Present',
-    description: 'Leading a 4M€ multi-partner project on low-cost, accurate, and robust visual SLAM systems for complex industrial environments.',
-    tags: ['Visual SLAM', 'Computer Vision', 'Industrial AI'],
-  },
-  {
-    title: 'ROBOCONS – Cooperative Robotics for Construction',
-    period: 'Ongoing',
-    description: 'Horizon Europe project with 14 partners. Flanders Make is responsible for the P2 AR prototype and the HMI / human–robot collaboration work.',
-    tags: ['Horizon Europe', 'AR', 'Human–Robot Collaboration'],
-  },
-  {
-    title: 'QUALMA ICON – AI-Augmented Quality Assurance',
-    period: '2022 – 2025',
-    description: 'Modular AI framework for large-scale manual assembly inspection — combining detection, pose estimation, and tracking with AR guidance.',
-    tags: ['Quality Inspection', 'AR/VR', 'Pose Estimation', 'Deep Learning'],
-  },
-  {
-    title: 'FROGS ICON – CAD2GraspMonitor',
-    period: '2021 – 2023',
-    description: 'Vision-based post-grasp validation for robotic kitting using YOLO detection, ICP pose estimation, and sensor fusion.',
-    tags: ['Robotics', 'YOLO', 'ICP', 'Sensor Fusion'],
-  },
-];
+// Key projects live in src/content/projects/ (featured: true), each with a detail page
+const projects = (await getCollection('projects', ({ data }) => data.featured))
+  .sort((a, b) => a.data.order - b.data.order)
+  .map(p => ({ title: p.data.name, period: p.data.years, description: p.data.description, tags: p.data.tags, slug: p.id }));
 
 const leftNav = [
   { label: 'About', href: '#about' },
@@ -172,7 +150,7 @@ const leftNavPages = [
             { label: 'LinkedIn', href: 'https://www.linkedin.com/in/merwan-birem-600a593a/' },
             { label: 'Google Scholar', href: 'https://scholar.google.com/citations?user=oikUY4YAAAAJ' },
             { label: 'CV / Résumé', href: `${B}cv/Merwan_Birem_CV.pdf` },
-            { label: 'GitHub', href: 'https://github.com/merwanbirem' },
+            { label: 'GitHub', href: 'https://github.com/Merwanski' },
             { label: 'Medium', href: 'https://medium.com/@just-merwan' },
           ].map(({ label, href }) => (
             <a
@@ -196,9 +174,9 @@ const leftNavPages = [
         <h2 class="text-xs font-medium uppercase tracking-widest text-[var(--color-faint)] mb-5">Key Projects</h2>
         <div class="space-y-4">
           {projects.map(p => (
-            <div class="border border-[var(--color-border)] rounded-lg p-5 hover:border-zinc-300 transition-colors">
+            <a href={`${B}projects/${p.slug}`} class="group block border border-[var(--color-border)] rounded-lg p-5 hover:border-zinc-300 transition-colors">
               <div class="flex items-start justify-between gap-4 mb-1.5">
-                <h3 class="text-sm font-medium text-[var(--color-ink)]">{p.title}</h3>
+                <h3 class="text-sm font-medium text-[var(--color-ink)] group-hover:text-[var(--color-accent)] transition-colors">{p.title}</h3>
                 <span class="text-xs font-mono text-[var(--color-faint)] shrink-0">{p.period}</span>
               </div>
               <p class="text-sm text-[var(--color-muted)] leading-relaxed mb-3">{p.description}</p>
@@ -207,7 +185,7 @@ const leftNavPages = [
                   <span class="text-xs px-2 py-0.5 bg-zinc-100 text-zinc-500 rounded-full">{t}</span>
                 ))}
               </div>
-            </div>
+            </a>
           ))}
         </div>
       </section>
