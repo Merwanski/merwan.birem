@@ -92,44 +92,112 @@ const personSchema = {
     <!-- JSON-LD structured data -->
     <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
 
+    <!-- Apply the saved or system theme before first paint (no flash) -->
+    <script is:inline>
+      (() => {
+        let t = null;
+        try { t = localStorage.getItem('theme'); } catch {}
+        if (t !== 'light' && t !== 'dark') t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        document.documentElement.dataset.theme = t;
+      })();
+    </script>
+    <meta name="theme-color" content="#f5f9fc" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0b1730" media="(prefers-color-scheme: dark)" />
+
     <link rel="icon" type="image/svg+xml" href={`${B}favicon.svg`} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   </head>
-  <body class="min-h-screen flex flex-col">
+  <body class="min-h-screen flex flex-col bg-bg text-ink">
+    <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:px-4 focus:py-2 focus:rounded-md focus:bg-accent focus:text-on-accent">
+      Skip to content
+    </a>
+    <div class="spotlight hidden" aria-hidden="true"></div>
 
-    <header class="border-b border-[var(--color-border)] sticky top-0 bg-white/95 backdrop-blur-sm z-10">
-      <div class={`${containerClass} mx-auto px-6 h-14 flex items-center justify-between`}>
-        <a href={B} class="text-sm font-semibold tracking-tight text-[var(--color-ink)] hover:text-[var(--color-accent)] transition-colors">
-          MB
+    <header class="border-b border-border sticky top-0 bg-bg/85 backdrop-blur-md z-20">
+      <div class={`${containerClass} mx-auto px-6 h-14 flex items-center justify-between gap-4`}>
+        <a href={B} class="text-sm font-semibold tracking-tight text-ink hover:text-accent transition-colors">
+          MB<span class="sr-only"> (Merwan Birem, home)</span>
         </a>
-        <nav class="flex items-center gap-6">
-          {nav.map(({ label, href }) => (
-            <a
-              href={href}
-              class={`text-sm transition-colors ${
-                currentPath === href || (href !== '/' && currentPath.startsWith(href))
-                  ? 'text-[var(--color-accent)] font-medium'
-                  : 'text-[var(--color-muted)] hover:text-[var(--color-ink)]'
-              }`}
-            >
-              {label}
-            </a>
-          ))}
-        </nav>
+
+        <div class="flex items-center gap-2 md:gap-6">
+          <nav aria-label="Main" class="hidden md:flex items-center gap-5">
+            {nav.map(({ label, href }) => {
+              const active = currentPath === href || (href !== '/' && currentPath.startsWith(href));
+              return (
+                <a
+                  href={href}
+                  aria-current={active ? 'page' : undefined}
+                  class={`text-sm transition-colors ${active ? 'text-accent font-medium' : 'text-muted hover:text-ink'}`}
+                >
+                  {label}
+                </a>
+              );
+            })}
+          </nav>
+
+          <button
+            type="button"
+            id="theme-toggle"
+            class="p-2 rounded-md text-muted hover:text-ink hover:bg-surface-2 transition-colors"
+            aria-label="Switch between light and dark theme"
+            title="Toggle theme"
+          >
+            <!-- moon (shown in light mode) -->
+            <svg class="w-4 h-4 dark-hide" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M17.3 13.4A7.5 7.5 0 0 1 6.6 2.7a.6.6 0 0 0-.8-.7A8.75 8.75 0 1 0 18 14.2a.6.6 0 0 0-.7-.8Z"/></svg>
+            <!-- sun (shown in dark mode) -->
+            <svg class="w-4 h-4 light-hide" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M10 2a.75.75 0 0 1 .75.75v1.5a.75.75 0 0 1-1.5 0v-1.5A.75.75 0 0 1 10 2ZM10 15a.75.75 0 0 1 .75.75v1.5a.75.75 0 0 1-1.5 0v-1.5A.75.75 0 0 1 10 15ZM10 7a3 3 0 1 0 0 6 3 3 0 0 0 0-6ZM15.66 4.34a.75.75 0 0 1 0 1.06l-1.06 1.06a.75.75 0 0 1-1.06-1.06l1.06-1.06a.75.75 0 0 1 1.06 0ZM6.46 13.54a.75.75 0 0 1 0 1.06L5.4 15.66a.75.75 0 0 1-1.06-1.06l1.06-1.06a.75.75 0 0 1 1.06 0ZM18 10a.75.75 0 0 1-.75.75h-1.5a.75.75 0 0 1 0-1.5h1.5A.75.75 0 0 1 18 10ZM5 10a.75.75 0 0 1-.75.75h-1.5a.75.75 0 0 1 0-1.5h1.5A.75.75 0 0 1 5 10ZM14.6 13.54a.75.75 0 0 1 1.06 0l1.06 1.06a.75.75 0 1 1-1.06 1.06l-1.06-1.06a.75.75 0 0 1 0-1.06ZM5.4 4.34a.75.75 0 0 1 1.06 0l1.06 1.06a.75.75 0 0 1-1.06 1.06L5.4 5.4a.75.75 0 0 1 0-1.06Z"/></svg>
+          </button>
+
+          <!-- Small screens: menu -->
+          <details class="md:hidden relative group/menu">
+            <summary class="list-none cursor-pointer p-2 rounded-md text-muted hover:text-ink hover:bg-surface-2 transition-colors" aria-label="Menu">
+              <svg class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M2 4.75A.75.75 0 0 1 2.75 4h14.5a.75.75 0 0 1 0 1.5H2.75A.75.75 0 0 1 2 4.75Zm0 5A.75.75 0 0 1 2.75 9h14.5a.75.75 0 0 1 0 1.5H2.75A.75.75 0 0 1 2 9.75Zm0 5a.75.75 0 0 1 .75-.75h14.5a.75.75 0 0 1 0 1.5H2.75a.75.75 0 0 1-.75-.75Z" clip-rule="evenodd"/></svg>
+            </summary>
+            <nav aria-label="Main" class="absolute right-0 mt-2 w-52 rounded-lg border border-border bg-surface shadow-lg p-2 flex flex-col">
+              {nav.map(({ label, href }) => {
+                const active = currentPath === href || (href !== '/' && currentPath.startsWith(href));
+                return (
+                  <a href={href} aria-current={active ? 'page' : undefined} class={`px-3 py-2 rounded-md text-sm ${active ? 'text-accent font-medium bg-accent-soft' : 'text-muted hover:text-ink hover:bg-surface-2'}`}>
+                    {label}
+                  </a>
+                );
+              })}
+            </nav>
+          </details>
+        </div>
       </div>
     </header>
 
-    <main class={`flex-1 ${containerClass} mx-auto w-full px-6 py-14`}>
+    <main id="main" class={`relative z-10 flex-1 ${containerClass} mx-auto w-full px-6 py-14`}>
       <slot />
     </main>
 
-    <footer class="border-t border-[var(--color-border)] mt-auto">
-      <div class={`${containerClass} mx-auto px-6 py-8 flex items-center justify-between text-xs text-[var(--color-faint)]`}>
+    <footer class="relative z-10 border-t border-border mt-auto">
+      <div class={`${containerClass} mx-auto px-6 py-8 flex flex-wrap gap-2 items-center justify-between text-xs text-faint`}>
         <span>© {new Date().getFullYear()} Merwan Birem</span>
         <span>Built with Astro · Hosted on GitHub Pages</span>
       </div>
     </footer>
+
+    <script>
+      const root = document.documentElement;
+      document.getElementById('theme-toggle')?.addEventListener('click', () => {
+        const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
+        root.dataset.theme = next;
+        try { localStorage.setItem('theme', next); } catch {}
+      });
+
+      // Cursor spotlight on devices with a fine pointer, unless reduced motion is requested
+      const spot = document.querySelector<HTMLElement>('.spotlight');
+      if (spot && matchMedia('(pointer: fine)').matches && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        spot.classList.remove('hidden');
+        window.addEventListener('pointermove', e => {
+          spot.style.setProperty('--spot-x', `${e.clientX}px`);
+          spot.style.setProperty('--spot-y', `${e.clientY}px`);
+        }, { passive: true });
+      }
+    </script>
 
   </body>
 </html>
