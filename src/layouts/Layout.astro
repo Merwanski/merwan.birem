@@ -191,16 +191,23 @@ const personSchema = {
       const spot = document.querySelector<HTMLElement>('.spotlight');
       if (spot && matchMedia('(pointer: fine)').matches && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
         spot.classList.remove('hidden');
-        let x = 0, y = 0, queued = false;
+        let x = 0, y = 0, target: Element | null = null, queued = false;
         window.addEventListener('pointermove', e => {
           x = e.clientX;
           y = e.clientY;
+          // The hovered focus-list item / home card gets its own spotlight too
+          target = (e.target as Element | null)?.closest?.('.focus-list > *, .group\\/list .card') ?? null;
           if (queued) return;
           queued = true;
           // At most one update per frame keeps it smooth on heavy pages (e.g. the map)
           requestAnimationFrame(() => {
             spot.style.setProperty('--spot-x', `${x}px`);
             spot.style.setProperty('--spot-y', `${y}px`);
+            if (target instanceof HTMLElement) {
+              const r = target.getBoundingClientRect();
+              target.style.setProperty('--mx', `${x - r.left}px`);
+              target.style.setProperty('--my', `${y - r.top}px`);
+            }
             queued = false;
           });
         }, { passive: true });
