@@ -28,7 +28,7 @@ Standard visual SLAM drifts in feature-poor areas, such as corridors with white 
 The work is built on the modular **stella_vSLAM** framework and organised around four pillars:
 
 - **Digital-twin alignment**: anchoring the visual map to 3D scans and CAD models of the factory, so positions stay consistent with the real layout.
-- **Semantic reasoning**: using scene understanding, including vision-language and large language models (Qwen, Astra and others), to exploit geometric relationships between objects and correct the pose.
+- **Semantic reasoning**: using scene understanding, including vision-language and large language models (such as Qwen), to exploit geometric relationships between objects and correct the pose.
 - **Dynamic scene awareness**: filtering out moving objects and environmental noise.
 - **AI-enhanced IMU positioning**: deep-learning inertial models that keep localisation going gracefully when vision fails.
 
