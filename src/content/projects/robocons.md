@@ -1,6 +1,6 @@
 ---
 name: "ROBOCONS – Cooperative Robotics for Construction"
-years: "Ongoing"
+years: "2026 – 2029"
 description: "Horizon Europe project on safe, efficient construction sites with cooperating robots, exoskeletons and digital twins. Flanders Make is responsible for the P2 AR prototype and the HMI / human–robot collaboration work."
 tags: ["Horizon Europe", "AR", "HMI", "Human–Robot Collaboration"]
 featured: true
@@ -8,6 +8,7 @@ order: 2
 role: "Flanders Make lead for the P2 AR prototype and HMI / HRC"
 facts:
   - { label: "Programme", value: "Horizon Europe, Cluster 5 (HORIZON-CL5-2024-D4-02)" }
+  - { label: "Duration", value: "January 2026 – June 2029" }
   - { label: "Grant agreement", value: "101235566" }
   - { label: "Consortium", value: "14 European partners: research and technology organisations (RTOs), universities and technology providers" }
 links:

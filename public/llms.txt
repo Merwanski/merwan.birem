@@ -24,7 +24,7 @@ Pose Estimation, AR/VR for Industry, Quality Monitoring, AI Workflow Automation,
 ## Key Projects
 
 - **ALARMM SBO** (2025–present): "Accurate large-area Localisation and spatial Alignment with Robust Markerless Methods", a 4M€ project targeting ~1 cm markerless localisation over 600 m²+ industrial shop floors (digital-twin alignment, semantic reasoning, dynamic scene awareness, AI-enhanced IMU positioning). 4 research groups, 7 industrial partners.
-- **ROBOCONS** (ongoing): Horizon Europe project "Cooperative Robotics for Construction" (14 partners). Flanders Make is responsible for the P2 AR prototype and the HMI / human–robot collaboration work.
+- **ROBOCONS** (2026–2029): Horizon Europe project "Cooperative Robotics for Construction" (14 partners). Flanders Make is responsible for the P2 AR prototype and the HMI / human–robot collaboration work.
 - **QUALMA ICON** (2022–2025): Modular AI framework for large-scale manual assembly inspection combining detection, pose estimation, tracking, and AR guidance. 4× technology transfer to industry.
 - **FROGS ICON** (2021–2023): Vision-based post-grasp validation for robotic kitting using YOLO, ICP, and sensor fusion.
 
