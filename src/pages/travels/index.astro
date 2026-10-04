@@ -77,14 +77,14 @@ const tagColors: Record<string, string> = {
         No trips logged yet — drop a folder into <code class="font-mono text-xs bg-surface-2 px-1.5 py-0.5 rounded">inbox/travels/</code> named <code class="font-mono text-xs bg-surface-2 px-1.5 py-0.5 rounded">YYYY-MM-DD-city-country</code> with photos (and optionally notes.md).
       </p>
     ) : (
-      <div class="space-y-10">
+      <div class="focus-scope space-y-10">
         {Object.entries(byCountry).map(([country, countryTrips]) => (
           <div>
             <div class="flex items-center gap-2 mb-4">
               <span class="text-xl">{countryTrips[0].data.flag}</span>
               <h2 class="text-base font-medium text-[var(--color-ink)]">{country}</h2>
             </div>
-            <div class="space-y-4">
+            <div class="focus-list space-y-4">
               {countryTrips.map(trip => (
                 <a href={`${B}travels/${trip.id}`} class="flex gap-4 border border-[var(--color-border)] rounded-lg p-5 hover:border-faint transition-colors">
                   {trip.data.cover && (
