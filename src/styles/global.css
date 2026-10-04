@@ -169,19 +169,22 @@ details > summary::-webkit-details-marker { display: none; }
   }
   @media (hover: hover) and (min-width: 768px) {
     .focus-list:hover > *,
-    .group\/list:hover .card { opacity: 0.4; }
+    .group\/list:hover .card { opacity: 0.25; }
     /* Several lists on one page (papers by year, trips by country) dim together */
-    .focus-scope:has(.focus-list > *:hover) .focus-list > *:not(:hover):not(:focus-within) { opacity: 0.4; }
+    .focus-scope:has(.focus-list > *:hover) .focus-list > *:not(:hover):not(:focus-within) { opacity: 0.25; }
     .focus-list > *:hover,
     .focus-list > *:focus-within,
     .group\/list .card:hover,
     .group\/list .card:focus-visible,
     .group\/list :focus-visible > .card {
       opacity: 1;
-      background: var(--color-surface);
+      /* In-card spotlight: --mx/--my follow the cursor (set in Layout.astro) */
+      background:
+        radial-gradient(320px circle at var(--mx, 50%) var(--my, 50%), color-mix(in srgb, var(--color-accent) 20%, transparent), transparent 70%),
+        var(--color-surface);
       box-shadow:
-        0 0 0 1px color-mix(in srgb, var(--color-accent) 28%, transparent),
-        0 12px 32px -16px color-mix(in srgb, var(--color-accent) 45%, transparent);
+        0 0 0 1px color-mix(in srgb, var(--color-accent) 45%, transparent),
+        0 16px 40px -14px color-mix(in srgb, var(--color-accent) 60%, transparent);
     }
   }
 
