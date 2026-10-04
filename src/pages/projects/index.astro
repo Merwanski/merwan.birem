@@ -178,10 +178,10 @@ const projects: Project[] = [
 
   <ul class="space-y-4">
     {projects.map(({ name, years, description, tags, slug, cover }) => (
-      <li class="group relative rounded-xl border border-[var(--color-border)] px-6 py-5 hover:border-zinc-300 transition-colors">
+      <li class="group relative rounded-xl border border-[var(--color-border)] px-6 py-5 hover:border-faint transition-colors">
         <div class="flex gap-5">
           {cover && (
-            <img src={asset(cover)} alt="" loading="lazy" decoding="async" class="hidden sm:block shrink-0 w-28 h-20 object-cover rounded-md border border-[var(--color-border)] bg-white" />
+            <img src={asset(cover)} alt="" loading="lazy" decoding="async" class="hidden sm:block shrink-0 w-28 h-20 object-cover rounded-md border border-[var(--color-border)] bg-surface" />
           )}
           <div class="min-w-0 flex-1">
             <div class="flex items-start justify-between gap-4 mb-2">
@@ -198,7 +198,7 @@ const projects: Project[] = [
             {tags.length > 0 && (
               <div class="flex flex-wrap items-center gap-2">
                 {tags.map(tag => (
-                  <span class="text-xs px-2.5 py-0.5 bg-zinc-100 text-zinc-500 rounded-full">{tag}</span>
+                  <span class="text-xs px-2.5 py-0.5 bg-surface-2 text-muted rounded-full">{tag}</span>
                 ))}
                 {slug && <span class="ml-auto text-xs text-[var(--color-accent)]">Details →</span>}
               </div>

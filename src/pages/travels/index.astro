@@ -25,18 +25,15 @@ const mapTrips = trips.map(trip => ({
   href: `${B}travels/${trip.id}`,
 }));
 
+const sky = 'bg-tint-sky text-tint-sky-ink';
+const navy = 'bg-tint-navy text-tint-navy-ink';
+const warm = 'bg-warning-soft text-warning';
+const home = 'bg-success-soft text-success';
 const tagColors: Record<string, string> = {
-  Culture: 'bg-purple-50 text-purple-600 border border-purple-100',
-  Food: 'bg-orange-50 text-orange-600 border border-orange-100',
-  History: 'bg-amber-50 text-amber-600 border border-amber-100',
-  Nature: 'bg-green-50 text-green-600 border border-green-100',
-  Adventure: 'bg-sky-50 text-sky-600 border border-sky-100',
-  Architecture: 'bg-rose-50 text-rose-600 border border-rose-100',
-  Desert: 'bg-yellow-50 text-yellow-700 border border-yellow-100',
-  Art: 'bg-pink-50 text-pink-600 border border-pink-100',
-  Aurora: 'bg-indigo-50 text-indigo-600 border border-indigo-100',
-  Home: 'bg-emerald-50 text-emerald-600 border border-emerald-100',
-  Family: 'bg-teal-50 text-teal-600 border border-teal-100',
+  Nature: sky, Adventure: sky, Aurora: sky,
+  Culture: navy, History: navy, Architecture: navy, Art: navy,
+  Food: warm, Desert: warm,
+  Home: home, Family: home,
 };
 ---
 
@@ -77,7 +74,7 @@ const tagColors: Record<string, string> = {
 
     {trips.length === 0 ? (
       <p class="text-[var(--color-muted)] text-sm italic">
-        No trips logged yet — drop a folder into <code class="font-mono text-xs bg-zinc-100 px-1.5 py-0.5 rounded">inbox/travels/</code> named <code class="font-mono text-xs bg-zinc-100 px-1.5 py-0.5 rounded">YYYY-MM-DD-city-country</code> with photos (and optionally notes.md).
+        No trips logged yet — drop a folder into <code class="font-mono text-xs bg-surface-2 px-1.5 py-0.5 rounded">inbox/travels/</code> named <code class="font-mono text-xs bg-surface-2 px-1.5 py-0.5 rounded">YYYY-MM-DD-city-country</code> with photos (and optionally notes.md).
       </p>
     ) : (
       <div class="space-y-10">
@@ -89,7 +86,7 @@ const tagColors: Record<string, string> = {
             </div>
             <div class="space-y-4">
               {countryTrips.map(trip => (
-                <a href={`${B}travels/${trip.id}`} class="flex gap-4 border border-[var(--color-border)] rounded-lg p-5 hover:border-zinc-300 transition-colors">
+                <a href={`${B}travels/${trip.id}`} class="flex gap-4 border border-[var(--color-border)] rounded-lg p-5 hover:border-faint transition-colors">
                   {trip.data.cover && (
                     <img
                       src={`${B}${trip.data.cover.replace(/^\//, '')}`}
@@ -108,7 +105,7 @@ const tagColors: Record<string, string> = {
                     <p class="text-sm text-[var(--color-muted)] leading-relaxed mb-3 line-clamp-2">{trip.data.highlights}</p>
                     <div class="flex flex-wrap gap-1.5">
                       {trip.data.tags.map(tag => (
-                        <span class={`text-[10px] px-1.5 py-0.5 rounded ${tagColors[tag] ?? 'bg-zinc-100 text-zinc-500'}`}>{tag}</span>
+                        <span class={`text-[10px] px-1.5 py-0.5 rounded ${tagColors[tag] ?? 'bg-surface-2 text-muted'}`}>{tag}</span>
                       ))}
                     </div>
                   </div>

@@ -2,7 +2,8 @@
 import Layout from '../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
 
-const papers = await getCollection('papers', ({ data }) => data.featured);
+const allPapers = await getCollection('papers');
+const papers = allPapers.filter(({ data }) => data.featured);
 const milestones = (await getCollection('milestones', ({ data }) => data.featured))
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 const sortedPapers = papers.sort((a, b) => b.data.year - a.data.year);
@@ -70,280 +71,277 @@ const languages = [
 // Key projects live in src/content/projects/ (featured: true), each with a detail page
 const projects = (await getCollection('projects', ({ data }) => data.featured))
   .sort((a, b) => a.data.order - b.data.order)
-  .map(p => ({ title: p.data.name, period: p.data.years, description: p.data.description, tags: p.data.tags, slug: p.id }));
+  .map(p => ({
+    title: p.data.name,
+    period: p.data.years,
+    description: p.data.description,
+    tags: p.data.tags,
+    slug: p.id,
+    cover: p.data.gallery[0]?.src ?? (p.data.youtube ? `https://i.ytimg.com/vi/${p.data.youtube}/mqdefault.jpg` : undefined),
+  }));
 
-const leftNav = [
-  { label: 'About', href: '#about' },
-  { label: 'Projects', href: '#projects' },
-  { label: 'Experience', href: '#experience' },
-  { label: 'Publications', href: '#publications' },
-  { label: 'Milestones', href: '#milestones' },
+const sections = [
+  { id: 'about', label: 'About' },
+  { id: 'projects', label: 'Projects' },
+  { id: 'experience', label: 'Experience' },
+  { id: 'publications', label: 'Publications' },
+  { id: 'milestones', label: 'Milestones' },
+  { id: 'background', label: 'Background' },
 ];
 
 const B = import.meta.env.BASE_URL.replace(/\/?$/, '/'); // always ends with /
-const leftNavPages = [
-  { label: 'Now', href: `${B}now` },
-  { label: 'Papers', href: `${B}papers` },
-  { label: 'Blog', href: `${B}blog` },
-  { label: 'Impossible List', href: `${B}impossible-list` },
+const asset = (p: string) => (p.startsWith('http') ? p : `${B}${p.replace(/^\//, '')}`);
+
+const links = [
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/merwan-birem-600a593a/' },
+  { label: 'Google Scholar', href: 'https://scholar.google.com/citations?user=oikUY4YAAAAJ' },
+  { label: 'GitHub', href: 'https://github.com/Merwanski' },
+  { label: 'Medium', href: 'https://medium.com/@just-merwan' },
+  { label: 'CV', href: `${B}cv/Merwan_Birem_CV.pdf` },
 ];
+
+const explore = [
+  { label: 'Now', href: `${B}now` },
+  { label: 'Travels', href: `${B}travels` },
+  { label: 'Impossible List', href: `${B}impossible-list` },
+  { label: 'Blog', href: `${B}blog` },
+];
+
+const fmtMilestone = (d: Date, precision: string) =>
+  d.toLocaleDateString('en-GB', precision === 'year' ? { year: 'numeric' } : { month: 'short', year: 'numeric' });
 ---
 
 <Layout title="Home" wide={true}>
-  <div class="grid grid-cols-1 lg:grid-cols-[180px_1fr_220px] gap-x-10 gap-y-12">
+  <div class="lg:flex lg:justify-between lg:gap-16">
 
-    <!-- ── LEFT NAV ── -->
-    <aside class="hidden lg:block">
-      <div class="sticky top-24 space-y-6">
-        <div>
-          <p class="text-[10px] font-medium uppercase tracking-widest text-[var(--color-faint)] mb-3">On this page</p>
-          <ul class="space-y-1">
-            {leftNav.map(({ label, href }) => (
+    <!-- ── LEFT: identity + section nav (sticky on large screens) ── -->
+    <header class="lg:sticky lg:top-14 lg:flex lg:h-[calc(100vh-3.5rem)] lg:w-[42%] lg:flex-col lg:justify-between lg:-mt-14 lg:py-20">
+      <div>
+        <h1 class="text-4xl sm:text-5xl font-bold tracking-tight text-ink">Merwan Birem</h1>
+        <p class="mt-3 text-lg font-medium text-ink">AI Innovation Leader</p>
+        <p class="mt-4 max-w-sm leading-relaxed text-muted">
+          Computer vision, industrial AI and autonomous perception, from research to the factory floor.
+        </p>
+        <p class="mt-2 text-sm text-faint">Sterrebeek, Belgium · Flanders Make</p>
+
+        <nav class="hidden lg:block mt-14" aria-label="On this page">
+          <ul class="w-max">
+            {sections.map(({ id, label }) => (
               <li>
-                <a href={href} class="block text-sm text-[var(--color-muted)] hover:text-[var(--color-accent)] transition-colors py-0.5">
-                  {label}
+                <a href={`#${id}`} data-section-link={id} class="group flex items-center py-2.5">
+                  <span class="mr-4 h-px w-8 bg-faint transition-all group-hover:w-16 group-hover:bg-ink group-[.active]:w-16 group-[.active]:bg-accent motion-reduce:transition-none"></span>
+                  <span class="text-xs font-bold uppercase tracking-widest text-faint group-hover:text-ink group-[.active]:text-accent">{label}</span>
                 </a>
               </li>
             ))}
           </ul>
-        </div>
-        <div class="border-t border-[var(--color-border)] pt-5">
-          <p class="text-[10px] font-medium uppercase tracking-widest text-[var(--color-faint)] mb-3">Explore</p>
-          <ul class="space-y-1">
-            {leftNavPages.map(({ label, href }) => (
-              <li>
-                <a href={href} class="flex items-center gap-1 text-sm text-[var(--color-muted)] hover:text-[var(--color-accent)] transition-colors py-0.5">
-                  {label}
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" fill="currentColor" class="w-2.5 h-2.5 opacity-40">
-                    <path d="M6.5 1.75a.75.75 0 0 0 0-1.5h-5A.75.75 0 0 0 .75 1v5a.75.75 0 0 0 1.5 0V2.56l7.22 7.22a.75.75 0 1 0 1.06-1.06L3.31 1.5H6.5Z"/>
-                  </svg>
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
+        </nav>
       </div>
-    </aside>
 
-    <!-- ── MAIN CONTENT ── -->
-    <div class="min-w-0 space-y-14">
-
-      <!-- Identity -->
-      <section id="about">
-        <h1 class="text-3xl font-semibold tracking-tight mb-1">Merwan Birem</h1>
-        <p class="text-[var(--color-muted)] mb-1">
-          AI Innovation Leader · Computer Vision, Industrial AI &amp; Autonomous Perception
-        </p>
-        <p class="text-sm text-[var(--color-faint)] mb-7">Sterrebeek, Belgium · Flanders Make</p>
-        <p class="text-[var(--color-ink)] leading-relaxed mb-3">
-          AI Innovation Leader with 10+ years of experience in computer vision, robotics, and industrial AI systems.
-          Proven track record of leading multi-million euro R&amp;D programs (4M€+) and delivering applied AI solutions
-          from research to industrial deployment.
-        </p>
-        <p class="text-[var(--color-muted)] leading-relaxed">
-          Specialized in perception systems, AI-driven quality inspection, and visual SLAM. Expanding into
-          AI systems engineering, MLOps, and workflow automation to bridge advanced research with scalable real-world deployment.
-        </p>
-
-        <!-- Links -->
-        <div class="flex flex-wrap gap-2.5 mt-7">
-          {[
-            { label: 'LinkedIn', href: 'https://www.linkedin.com/in/merwan-birem-600a593a/' },
-            { label: 'Google Scholar', href: 'https://scholar.google.com/citations?user=oikUY4YAAAAJ' },
-            { label: 'CV / Résumé', href: `${B}cv/Merwan_Birem_CV.pdf` },
-            { label: 'GitHub', href: 'https://github.com/Merwanski' },
-            { label: 'Medium', href: 'https://medium.com/@just-merwan' },
-          ].map(({ label, href }) => (
-            <a
-              href={href}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="inline-flex items-center gap-1.5 text-sm px-3 py-1.5 border border-[var(--color-border)] rounded-md text-[var(--color-muted)] hover:text-[var(--color-accent)] hover:border-[var(--color-accent)] transition-colors"
-            >
-              {label}
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-3 h-3 opacity-40">
-                <path d="M6.22 8.72a.75.75 0 0 0 1.06 1.06l5.22-5.22v1.69a.75.75 0 0 0 1.5 0v-3.5a.75.75 0 0 0-.75-.75h-3.5a.75.75 0 0 0 0 1.5h1.69L6.22 8.72Z" />
-                <path d="M3.5 6.75c0-.69.56-1.25 1.25-1.25H7A.75.75 0 0 0 7 4H4.75A2.75 2.75 0 0 0 2 6.75v4.5A2.75 2.75 0 0 0 4.75 14h4.5A2.75 2.75 0 0 0 12 11.25V9a.75.75 0 0 0-1.5 0v2.25c0 .69-.56 1.25-1.25 1.25h-4.5c-.69 0-1.25-.56-1.25-1.25v-4.5Z" />
-              </svg>
-            </a>
-          ))}
-        </div>
-      </section>
-
-      <!-- Key Projects -->
-      <section id="projects">
-        <h2 class="text-xs font-medium uppercase tracking-widest text-[var(--color-faint)] mb-5">Key Projects</h2>
-        <div class="space-y-4">
-          {projects.map(p => (
-            <a href={`${B}projects/${p.slug}`} class="group block border border-[var(--color-border)] rounded-lg p-5 hover:border-zinc-300 transition-colors">
-              <div class="flex items-start justify-between gap-4 mb-1.5">
-                <h3 class="text-sm font-medium text-[var(--color-ink)] group-hover:text-[var(--color-accent)] transition-colors">{p.title}</h3>
-                <span class="text-xs font-mono text-[var(--color-faint)] shrink-0">{p.period}</span>
-              </div>
-              <p class="text-sm text-[var(--color-muted)] leading-relaxed mb-3">{p.description}</p>
-              <div class="flex flex-wrap gap-1.5">
-                {p.tags.map(t => (
-                  <span class="text-xs px-2 py-0.5 bg-zinc-100 text-zinc-500 rounded-full">{t}</span>
-                ))}
-              </div>
-            </a>
-          ))}
-        </div>
-      </section>
-
-      <!-- Experience -->
-      <section id="experience">
-        <h2 class="text-xs font-medium uppercase tracking-widest text-[var(--color-faint)] mb-5">Experience</h2>
-        <ol class="relative border-l border-[var(--color-border)] ml-3 space-y-8">
-          {experience.map(role => (
-            <li class="ml-6">
-              <span class="absolute -left-1.5 w-3 h-3 rounded-full bg-white border-2 border-[var(--color-border)] mt-1"></span>
-              <div class="flex flex-wrap items-baseline gap-x-2 gap-y-0.5 mb-0.5">
-                <h3 class="text-sm font-medium text-[var(--color-ink)]">{role.title}</h3>
-                <span class="text-sm text-[var(--color-accent)]">· {role.org}</span>
-              </div>
-              <p class="text-xs text-[var(--color-faint)] font-mono mb-2">{role.period} · {role.location}</p>
-              {role.highlights.length > 0 && (
-                <ul class="space-y-1.5">
-                  {role.highlights.map(h => (
-                    <li class="flex items-start gap-2 text-sm text-[var(--color-muted)]">
-                      <span class="mt-2 w-1 h-1 rounded-full bg-[var(--color-faint)] shrink-0"></span>
-                      {h}
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </li>
-          ))}
-        </ol>
-      </section>
-
-      <!-- Featured Papers -->
-      <section id="publications">
-        <div class="flex items-center justify-between mb-5">
-          <h2 class="text-xs font-medium uppercase tracking-widest text-[var(--color-faint)]">Selected Publications</h2>
-          <a href={`${B}papers`} class="text-xs text-[var(--color-accent)] hover:underline">All 20 papers →</a>
-        </div>
-        <ul class="space-y-5">
-          {sortedPapers.map(paper => (
+      <div class="mt-8 lg:mt-0 space-y-4">
+        <ul class="flex flex-wrap gap-2" aria-label="Profiles">
+          {links.map(({ label, href }) => (
             <li>
-              <a href={`${B}papers/${paper.id}`} class="group block">
-                <p class="text-sm font-medium group-hover:text-[var(--color-accent)] transition-colors mb-1">
-                  {paper.data.title}
-                </p>
-                <p class="text-xs text-[var(--color-faint)]">
-                  {paper.data.authors.join(', ')} · {paper.data.year}
-                  {paper.data.venue && ` · ${paper.data.venue}`}
-                  {paper.data.citations && paper.data.citations > 0 && ` · ${paper.data.citations} citations`}
-                </p>
+              <a href={href} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-sm px-3 py-1.5 rounded-full border border-border text-muted hover:text-accent hover:border-accent transition-colors">
+                {label} <span aria-hidden="true" class="text-xs">↗</span>
               </a>
             </li>
           ))}
         </ul>
+        <p class="text-sm text-faint">
+          Also:{' '}
+          {explore.map(({ label, href }, i) => (
+            <>{i > 0 && ' · '}<a href={href} class="text-muted hover:text-accent transition-colors">{label}</a></>
+          ))}
+        </p>
+      </div>
+    </header>
+
+    <!-- ── RIGHT: scrolling content ── -->
+    <div class="pt-20 lg:w-[58%] lg:pt-6 space-y-24">
+
+      <section id="about" class="scroll-mt-20" aria-label="About">
+        <h2 class="section-title">About</h2>
+        <div class="space-y-4 leading-relaxed text-muted">
+          <p>
+            I'm an <strong class="text-ink font-medium">AI innovation leader</strong> with more than 10 years in computer vision,
+            robotics and industrial AI. I lead multi-million euro R&amp;D programmes (4M€+) at Flanders Make and take applied AI
+            from research all the way to industrial deployment.
+          </p>
+          <p>
+            My focus is perception: <strong class="text-ink font-medium">visual SLAM</strong>, AI-driven quality inspection and
+            pose estimation. Right now that means markerless, centimetre-level localisation for factories in
+            <a href={`${B}projects/alarmm`} class="text-accent hover:underline">ALARMM</a>, and AR and human–robot collaboration for
+            construction sites in <a href={`${B}projects/robocons`} class="text-accent hover:underline">ROBOCONS</a>.
+          </p>
+          <p>
+            I'm also exploring AI systems engineering, MLOps and workflow automation, to bridge advanced research and
+            scalable real-world deployment.
+          </p>
+        </div>
       </section>
 
-      <!-- Milestones -->
+      <section id="projects" class="scroll-mt-20" aria-label="Key projects">
+        <h2 class="section-title">Projects</h2>
+        <ul class="group/list space-y-4">
+          {projects.map(p => (
+            <li>
+              <a href={`${B}projects/${p.slug}`} class="card group">
+                {p.cover && (
+                  <img src={asset(p.cover)} alt="" loading="lazy" decoding="async" class="sm:col-span-2 order-2 sm:order-1 w-40 sm:w-full aspect-video object-cover rounded border border-border bg-surface transition group-hover:border-accent/40" />
+                )}
+                <div class={`order-1 sm:order-2 ${p.cover ? 'sm:col-span-6' : 'sm:col-span-8'}`}>
+                  <h3 class="font-medium leading-snug text-ink group-hover:text-accent transition-colors">
+                    {p.title} <span aria-hidden="true" class="inline-block transition-transform group-hover:translate-x-1">→</span>
+                  </h3>
+                  <p class="mt-1 text-xs font-mono text-faint">{p.period}</p>
+                  <p class="mt-2 text-sm leading-relaxed text-muted">{p.description}</p>
+                  <ul class="mt-3 flex flex-wrap gap-1.5" aria-label="Topics">
+                    {p.tags.map(t => <li class="chip">{t}</li>)}
+                  </ul>
+                </div>
+              </a>
+            </li>
+          ))}
+        </ul>
+        <a href={`${B}projects`} class="more-link">All projects</a>
+      </section>
+
+      <section id="experience" class="scroll-mt-20" aria-label="Experience">
+        <h2 class="section-title">Experience</h2>
+        <ol class="group/list space-y-4">
+          {experience.map(role => (
+            <li class="card cursor-default">
+              <p class="sm:col-span-2 mt-1 text-xs font-semibold uppercase tracking-wide text-faint">{role.period}</p>
+              <div class="sm:col-span-6">
+                <h3 class="font-medium leading-snug text-ink">{role.title} <span class="text-accent">· {role.org}</span></h3>
+                <p class="mt-1 text-xs text-faint">{role.location}</p>
+                {role.highlights.length > 0 && (
+                  <ul class="mt-3 space-y-1.5">
+                    {role.highlights.map(h => (
+                      <li class="flex items-start gap-2 text-sm leading-relaxed text-muted">
+                        <span class="mt-2 w-1 h-1 rounded-full bg-faint shrink-0" aria-hidden="true"></span>
+                        {h}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            </li>
+          ))}
+        </ol>
+        <a href={`${B}cv/Merwan_Birem_CV.pdf`} target="_blank" rel="noopener noreferrer" class="more-link">Full CV (PDF)</a>
+      </section>
+
+      <section id="publications" class="scroll-mt-20" aria-label="Selected publications">
+        <h2 class="section-title">Publications</h2>
+        <ul class="group/list space-y-4">
+          {sortedPapers.map(paper => (
+            <li>
+              <a href={`${B}papers/${paper.id}`} class="card group">
+                {(paper.data.figure ?? paper.data.thumbnail) && (
+                  <img src={asset((paper.data.figure ?? paper.data.thumbnail)!)} alt="" loading="lazy" decoding="async" class="sm:col-span-2 order-2 sm:order-1 w-32 sm:w-full aspect-[4/3] object-contain rounded border border-border bg-white p-1 transition group-hover:border-accent/40" />
+                )}
+                <div class="order-1 sm:order-2 sm:col-span-6">
+                  <h3 class="font-medium leading-snug text-ink group-hover:text-accent transition-colors">{paper.data.title}</h3>
+                  <p class="mt-1 text-xs text-faint">
+                    {paper.data.year}{paper.data.venue && ` · ${paper.data.venue}`}
+                  </p>
+                  {paper.data.citations != null && paper.data.citations > 0 && (
+                    <p class="mt-2 text-xs font-mono text-muted">{paper.data.citations} citations</p>
+                  )}
+                </div>
+              </a>
+            </li>
+          ))}
+        </ul>
+        <a href={`${B}papers`} class="more-link">All {allPapers.length} papers</a>
+      </section>
+
       {milestones.length > 0 && (
-        <section id="milestones">
-          <div class="flex items-center justify-between mb-5">
-            <h2 class="text-xs font-medium uppercase tracking-widest text-[var(--color-faint)]">Recent Milestones</h2>
-            <a href={`${B}milestones`} class="text-xs text-[var(--color-accent)] hover:underline">All →</a>
-          </div>
-          <ul class="space-y-3">
+        <section id="milestones" class="scroll-mt-20" aria-label="Recent milestones">
+          <h2 class="section-title">Milestones</h2>
+          <ol class="space-y-4">
             {milestones.map(m => (
-              <li class="flex items-start gap-4">
-                <span class="text-xs text-[var(--color-faint)] font-mono pt-0.5 shrink-0">
-                  {m.data.date.toLocaleDateString('en-GB', m.data.precision === 'year' ? { year: 'numeric' } : { month: 'short', year: 'numeric' })}
-                </span>
-                <span class="text-sm text-[var(--color-ink)]">{m.data.summary}</span>
+              <li class="grid sm:grid-cols-8 gap-1 sm:gap-4">
+                <span class="sm:col-span-2 text-xs font-mono text-faint pt-0.5">{fmtMilestone(m.data.date, m.data.precision)}</span>
+                <span class="sm:col-span-6 text-sm leading-relaxed text-muted"><strong class="font-medium text-ink">{m.data.title}.</strong> {m.data.summary}</span>
               </li>
             ))}
-          </ul>
+          </ol>
+          <a href={`${B}milestones`} class="more-link">All milestones</a>
         </section>
       )}
 
-      <!-- Philosophy -->
-      <blockquote class="border-l-2 border-[var(--color-border)] pl-5 pt-2">
-        <p class="text-sm italic text-[var(--color-faint)] leading-relaxed">
-          "Life is like riding a bicycle. To keep your balance, you must keep moving."
-        </p>
-        <footer class="text-xs text-[var(--color-faint)] mt-2">— Albert Einstein</footer>
-      </blockquote>
-
-    </div>
-
-    <!-- ── RIGHT SIDEBAR ── -->
-    <aside class="hidden lg:block">
-      <div class="sticky top-24 space-y-8">
-
-        <!-- Education -->
-        <div>
-          <p class="text-[10px] font-medium uppercase tracking-widest text-[var(--color-faint)] mb-4">Education</p>
-          <ul class="space-y-3">
-            {education.map(e => (
-              <li>
-                <p class="text-xs font-medium text-[var(--color-ink)] leading-snug">{e.degree}</p>
-                <p class="text-[10px] text-[var(--color-faint)] mt-0.5">{e.institution}</p>
-                <p class="text-[10px] text-[var(--color-faint)]">{e.year} · {e.location}</p>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div class="border-t border-[var(--color-border)]"></div>
-
-        <!-- Core Competencies -->
-        <div>
-          <p class="text-[10px] font-medium uppercase tracking-widest text-[var(--color-faint)] mb-4">Competencies</p>
-          <div class="space-y-3">
+      <section id="background" class="scroll-mt-20" aria-label="Background">
+        <h2 class="section-title">Background</h2>
+        <div class="grid sm:grid-cols-2 gap-10">
+          <div>
+            <h3 class="text-xs font-semibold uppercase tracking-wide text-faint mb-4">Education</h3>
+            <ul class="space-y-3">
+              {education.map(e => (
+                <li>
+                  <p class="text-sm font-medium text-ink leading-snug">{e.degree}</p>
+                  <p class="text-xs text-faint mt-0.5">{e.institution} · {e.year} · {e.location}</p>
+                </li>
+              ))}
+            </ul>
+            <h3 class="text-xs font-semibold uppercase tracking-wide text-faint mt-8 mb-4">Languages</h3>
+            <ul class="space-y-2.5 max-w-56">
+              {languages.map(({ name, level }) => (
+                <li class="flex items-center justify-between gap-3">
+                  <span class="text-sm text-muted">{name}</span>
+                  <span class="flex gap-1" role="img" aria-label={`${level} out of 5`}>
+                    {Array.from({ length: 5 }).map((_, i) => (
+                      <span class={`w-2 h-2 rounded-full ${i < level ? 'bg-accent' : 'bg-border'}`} />
+                    ))}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div class="space-y-5">
             <div>
-              <p class="text-[10px] text-[var(--color-faint)] mb-1.5">AI & Perception</p>
-              <div class="flex flex-wrap gap-1.5">
-                {skills.core.map(s => (
-                  <span class="text-[10px] px-1.5 py-0.5 bg-blue-50 text-blue-600 border border-blue-100 rounded">{s}</span>
-                ))}
-              </div>
+              <h3 class="text-xs font-semibold uppercase tracking-wide text-faint mb-3">AI &amp; perception</h3>
+              <ul class="flex flex-wrap gap-1.5">{skills.core.map(s => <li class="chip chip-accent">{s}</li>)}</ul>
             </div>
             <div>
-              <p class="text-[10px] text-[var(--color-faint)] mb-1.5">Tools</p>
-              <div class="flex flex-wrap gap-1.5">
-                {skills.tools.map(s => (
-                  <span class="text-[10px] px-1.5 py-0.5 bg-zinc-100 text-zinc-500 rounded">{s}</span>
-                ))}
-              </div>
+              <h3 class="text-xs font-semibold uppercase tracking-wide text-faint mb-3">Tools</h3>
+              <ul class="flex flex-wrap gap-1.5">{skills.tools.map(s => <li class="chip">{s}</li>)}</ul>
             </div>
             <div>
-              <p class="text-[10px] text-[var(--color-faint)] mb-1.5">Emerging</p>
-              <div class="flex flex-wrap gap-1.5">
-                {skills.emerging.map(s => (
-                  <span class="text-[10px] px-1.5 py-0.5 border border-dashed border-[var(--color-border)] text-[var(--color-faint)] rounded">{s}</span>
-                ))}
-              </div>
+              <h3 class="text-xs font-semibold uppercase tracking-wide text-faint mb-3">Learning now</h3>
+              <ul class="flex flex-wrap gap-1.5">{skills.emerging.map(s => <li class="chip border border-dashed border-border bg-transparent">{s}</li>)}</ul>
             </div>
           </div>
         </div>
+      </section>
 
-        <div class="border-t border-[var(--color-border)]"></div>
-
-        <!-- Languages -->
-        <div>
-          <p class="text-[10px] font-medium uppercase tracking-widest text-[var(--color-faint)] mb-4">Languages</p>
-          <ul class="space-y-2.5">
-            {languages.map(({ name, level }) => (
-              <li class="flex items-center justify-between gap-3">
-                <span class="text-xs text-[var(--color-muted)]">{name}</span>
-                <div class="flex gap-1">
-                  {Array.from({ length: 5 }).map((_, i) => (
-                    <span class={`w-2 h-2 rounded-full ${i < level ? 'bg-[var(--color-ink)]' : 'bg-[var(--color-border)]'}`} />
-                  ))}
-                </div>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-      </div>
-    </aside>
-
+      <blockquote class="border-l-2 border-accent/40 pl-5">
+        <p class="italic text-muted leading-relaxed">"Life is like riding a bicycle. To keep your balance, you must keep moving."</p>
+        <footer class="text-xs text-faint mt-2">Albert Einstein</footer>
+      </blockquote>
+    </div>
   </div>
 </Layout>
+
+<script>
+  // Highlight the section-nav entry for the section currently in view
+  const links = new Map(
+    [...document.querySelectorAll<HTMLAnchorElement>('[data-section-link]')].map(a => [a.dataset.sectionLink!, a]),
+  );
+  const observer = new IntersectionObserver(
+    entries => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue;
+        links.forEach(a => a.classList.remove('active'));
+        links.get(entry.target.id)?.classList.add('active');
+      }
+    },
+    { rootMargin: '-30% 0px -60% 0px' },
+  );
+  links.forEach((_, id) => {
+    const el = document.getElementById(id);
+    if (el) observer.observe(el);
+  });
+</script>

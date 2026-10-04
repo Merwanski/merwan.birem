@@ -82,7 +82,7 @@ const B = import.meta.env.BASE_URL.replace(/\/?$/, '/');
       href={PROFILE_URL}
       target="_blank"
       rel="noopener noreferrer"
-      class="block mb-10 rounded-xl overflow-hidden border border-[var(--color-border)] hover:border-zinc-300 transition-colors shadow-sm"
+      class="block mb-10 rounded-xl overflow-hidden border border-[var(--color-border)] hover:border-faint transition-colors shadow-sm"
     >
       <img
         src={`${B}medium-profile.png`}
@@ -144,7 +144,7 @@ const B = import.meta.env.BASE_URL.replace(/\/?$/, '/');
             {post.tags.length > 0 && (
               <div class="flex gap-2 mt-2 flex-wrap">
                 {post.tags.map(tag => (
-                  <span class="text-xs px-2 py-0.5 bg-zinc-100 text-zinc-500 rounded-full">{tag}</span>
+                  <span class="text-xs px-2 py-0.5 bg-surface-2 text-muted rounded-full">{tag}</span>
                 ))}
               </div>
             )}

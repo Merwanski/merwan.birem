@@ -63,7 +63,7 @@ const { trips, id = `travel-map-${Math.random().toString(36).slice(2, 8)}`, heig
       popup.href = trip.href;
       popup.style.textDecoration = 'none';
       popup.style.color = 'inherit';
-      popup.innerHTML = `<strong>${trip.title}</strong>${trip.subtitle ? `<br><span style="color:#71717a;">${trip.subtitle}</span>` : ''}`;
+      popup.innerHTML = `<strong>${trip.title}</strong>${trip.subtitle ? `<br><span style="color:var(--color-faint);">${trip.subtitle}</span>` : ''}`;
       marker.bindPopup(popup);
       return marker;
     });
