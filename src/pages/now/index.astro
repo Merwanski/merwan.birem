@@ -2,7 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 
 // Update this date whenever you update the page
-const lastUpdated = '2026-06-21';
+const lastUpdated = '2026-10-04';
 ---
 
 <Layout title="Now" description="What Merwan Birem is currently working on, learning, and thinking about.">
@@ -26,13 +26,25 @@ const lastUpdated = '2026-06-21';
       <ul class="space-y-5">
         {[
           {
-            title: 'ALARMM SBO — Visual SLAM for Large Environments',
-            body: 'Leading a 4M€ multi-partner research project on robust, low-cost visual SLAM systems for industrial environments. Coordinating 4 research groups and 7 industrial partners at national and EU level.',
+            title: 'ALARMM SBO — Markerless localisation for the factories of tomorrow',
+            body: 'Leading this 4M€ project (Accurate large-area Localisation and spatial Alignment with Robust Markerless Methods), with 4 research groups and 7 industrial partners. The target is about 1 cm accuracy over shop floors larger than 600 m², with little or no reliance on markers. The first year is done, a warehouse benchmark is in place, and the partner research groups are making steady progress on digital twins and SLAM.',
             tag: 'Research',
+            link: { label: 'Flanders Make article', href: 'https://www.flandersmake.be/en/insights/high-precision-markerless-localisation-for-the-factories-of-tomorrow' },
           },
           {
-            title: 'This website — personal brand & legacy',
-            body: 'Building a living portfolio that brings together my research, projects, writing, and personal milestones. Exploring automation to make publishing frictionless.',
+            title: 'ROBOCONS — Cooperative Robotics for Construction',
+            body: 'A Horizon Europe project on safer, more efficient construction sites with cooperating robots. Flanders Make is responsible for the P2 AR prototype and for the HMI and human–robot collaboration work, together with European research and technology organisations (RTOs) and technology providers.',
+            tag: 'EU project',
+            link: { label: 'robocons.eu', href: 'https://www.robocons.eu/' },
+          },
+          {
+            title: 'Next EU proposals',
+            body: 'Shaping new project ideas for the Horizon Europe Cluster 4 (Digital, Industry & Space) and Cluster 5 (Climate, Energy & Mobility) calls with 2027 deadlines.',
+            tag: 'Proposals',
+          },
+          {
+            title: 'Two personal projects',
+            body: 'Still cooking. I will announce them, or write about them, once they are in better shape.',
             tag: 'Personal',
           },
         ].map(item => (
@@ -43,10 +55,52 @@ const lastUpdated = '2026-06-21';
                 <span class="text-xs px-1.5 py-0.5 bg-zinc-100 text-zinc-500 rounded">{item.tag}</span>
               </div>
               <p class="text-sm text-[var(--color-muted)] leading-relaxed">{item.body}</p>
+              {item.link && (
+                <a href={item.link.href} target="_blank" rel="noopener noreferrer" class="inline-block mt-1.5 text-xs text-[var(--color-accent)] hover:underline">
+                  {item.link.label} ↗
+                </a>
+              )}
             </div>
           </li>
         ))}
       </ul>
+    </section>
+
+    <!-- Research threads -->
+    <section>
+      <h2 class="text-xs font-medium uppercase tracking-widest text-[var(--color-faint)] mb-5">Research Threads in ALARMM</h2>
+      <ul class="space-y-5">
+        {[
+          {
+            title: 'Digital-twin alignment',
+            body: 'Anchoring the visual map to 3D scans and CAD models of the factory, so positions stay consistent with the real layout.',
+          },
+          {
+            title: 'Deep-learning IMU models',
+            body: 'Learned inertial positioning that keeps localisation going when vision struggles: white corridors, dark warehouses, motion blur.',
+          },
+          {
+            title: 'Scene understanding with VLMs and LLMs',
+            body: 'Using vision-language and large language models (Qwen, Astra and others) to reason about the scene: what is static, what moves, and which geometric relationships can correct the pose.',
+          },
+          {
+            title: 'Object pose estimation with FoundationPose',
+            body: 'Getting the full 6D pose of an object from nothing more than its CAD file, with no object-specific training.',
+          },
+          {
+            title: 'Inside the SLAM engine',
+            body: 'A deep dive into the SLAM framework itself: how bundle adjustment works, and how new kinds of information and constraints can be added to the optimisation.',
+          },
+        ].map(item => (
+          <li>
+            <h3 class="text-sm font-medium mb-1">{item.title}</h3>
+            <p class="text-sm text-[var(--color-muted)] leading-relaxed">{item.body}</p>
+          </li>
+        ))}
+      </ul>
+      <p class="text-sm text-[var(--color-faint)] mt-5 italic">
+        Stay tuned: videos and images of the first results will be added here soon.
+      </p>
     </section>
 
     <!-- Learning -->
@@ -87,6 +141,7 @@ const lastUpdated = '2026-06-21';
       <ul class="space-y-3">
         {[
           'How AI will reshape R&D workflows in applied research institutes',
+          'Where foundation models (VLMs, FoundationPose) replace or complement classic perception pipelines',
           'The gap between academic AI research and industrial-grade deployment',
           'Building teams that bridge deep expertise and fast execution',
           'Legacy — what work and life mean beyond the immediate deliverable',
