@@ -44,7 +44,7 @@ Selected recent papers:
 - Website: https://merwanski.github.io/merwan.birem/
 - LinkedIn: https://www.linkedin.com/in/merwan-birem-600a593a/
 - Google Scholar: https://scholar.google.com/citations?user=oikUY4YAAAAJ
-- GitHub: https://github.com/merwanbirem
+- GitHub: https://github.com/Merwanski
 - Blog (Medium): https://medium.com/@just-merwan
 
 ## Languages

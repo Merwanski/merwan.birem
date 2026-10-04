@@ -59,4 +59,24 @@ const travels = defineCollection({
   }),
 });
 
-export const collections = { papers, milestones, 'impossible-list': impossibleList, travels };
+// Projects with a detail page. Projects without details stay in the list in
+// src/pages/projects/index.astro.
+const projects = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/projects' }),
+  schema: z.object({
+    name: z.string(),
+    years: z.string(),
+    description: z.string(),
+    tags: z.array(z.string()).default([]),
+    featured: z.boolean().default(false), // shown under "Key Projects" on the home page
+    order: z.number().default(100), // home page order, lowest first
+    role: z.string().optional(),
+    facts: z.array(z.object({ label: z.string(), value: z.string() })).default([]),
+    links: z.array(z.object({ label: z.string(), href: z.string() })).default([]),
+    youtube: z.string().optional(), // video id
+    gallery: z.array(z.object({ src: z.string(), caption: z.string() })).default([]),
+    papers: z.array(z.string()).default([]), // paper slugs in src/content/papers
+  }),
+});
+
+export const collections = { papers, milestones, 'impossible-list': impossibleList, travels, projects };
