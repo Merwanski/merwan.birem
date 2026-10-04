@@ -117,9 +117,9 @@ const B = import.meta.env.BASE_URL.replace(/\/?$/, '/');
         : 'No posts published yet.'}
     </p>
   ) : (
-    <ul class="space-y-10">
+    <ul class="focus-list space-y-4">
       {posts.map(post => (
-        <li>
+        <li class="-mx-4 p-4">
           <a href={post.url} target="_blank" rel="noopener noreferrer" class="group block">
             <div class="flex items-center gap-3 mb-2">
               {post.date && (

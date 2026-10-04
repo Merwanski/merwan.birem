@@ -33,7 +33,7 @@
   --color-tint-steel-ink: #3f5260;
   --color-tint-navy: #d2def0;
   --color-tint-navy-ink: #1c3875;
-  --color-spotlight: rgba(84, 118, 170, 0.08);
+  --color-spotlight: rgba(84, 118, 170, 0.1);
 }
 
 @layer base {
@@ -59,7 +59,7 @@
     --color-tint-steel-ink: #c2cccf;
     --color-tint-navy: #1c3875;
     --color-tint-navy-ink: #c7e0f2;
-    --color-spotlight: rgba(124, 164, 211, 0.12);
+    --color-spotlight: rgba(124, 164, 211, 0.16);
     color-scheme: dark;
   }
 
@@ -160,14 +160,28 @@ details > summary::-webkit-details-marker { display: none; }
   @media (min-width: 640px) {
     .card { grid-template-columns: repeat(8, minmax(0, 1fr)); }
   }
-  @media (min-width: 1024px) {
-    .group\/list:hover .card { opacity: 0.55; }
+  /* Hover-to-focus lists: the hovered (or keyboard-focused) item lights up,
+     the others fade back. Use .focus-list on any list; home cards use group/list. */
+  .focus-list > *,
+  .group\/list .card {
+    border-radius: 0.75rem;
+    transition: opacity 0.25s, background-color 0.25s, box-shadow 0.25s;
+  }
+  @media (hover: hover) and (min-width: 768px) {
+    .focus-list:hover > *,
+    .group\/list:hover .card { opacity: 0.4; }
+    /* Several lists on one page (papers by year, trips by country) dim together */
+    .focus-scope:has(.focus-list > *:hover) .focus-list > *:not(:hover):not(:focus-within) { opacity: 0.4; }
+    .focus-list > *:hover,
+    .focus-list > *:focus-within,
     .group\/list .card:hover,
     .group\/list .card:focus-visible,
     .group\/list :focus-visible > .card {
       opacity: 1;
       background: var(--color-surface);
-      box-shadow: inset 0 1px 0 0 color-mix(in srgb, var(--color-accent) 12%, transparent), 0 1px 3px rgb(0 0 0 / 0.06);
+      box-shadow:
+        0 0 0 1px color-mix(in srgb, var(--color-accent) 28%, transparent),
+        0 12px 32px -16px color-mix(in srgb, var(--color-accent) 45%, transparent);
     }
   }
 

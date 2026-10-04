@@ -97,12 +97,11 @@ const personSchema = {
       (() => {
         let t = null;
         try { t = localStorage.getItem('theme'); } catch {}
-        if (t !== 'light' && t !== 'dark') t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        if (t !== 'light' && t !== 'dark') t = 'dark'; // dark by default; the toggle can switch to light
         document.documentElement.dataset.theme = t;
       })();
     </script>
-    <meta name="theme-color" content="#f5f9fc" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#0b1730" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#0b1730" />
 
     <link rel="icon" type="image/svg+xml" href={`${B}favicon.svg`} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -192,9 +191,18 @@ const personSchema = {
       const spot = document.querySelector<HTMLElement>('.spotlight');
       if (spot && matchMedia('(pointer: fine)').matches && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
         spot.classList.remove('hidden');
+        let x = 0, y = 0, queued = false;
         window.addEventListener('pointermove', e => {
-          spot.style.setProperty('--spot-x', `${e.clientX}px`);
-          spot.style.setProperty('--spot-y', `${e.clientY}px`);
+          x = e.clientX;
+          y = e.clientY;
+          if (queued) return;
+          queued = true;
+          // At most one update per frame keeps it smooth on heavy pages (e.g. the map)
+          requestAnimationFrame(() => {
+            spot.style.setProperty('--spot-x', `${x}px`);
+            spot.style.setProperty('--spot-y', `${y}px`);
+            queued = false;
+          });
         }, { passive: true });
       }
     </script>
