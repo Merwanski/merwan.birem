@@ -3,7 +3,8 @@ import Layout from '../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
 
 const papers = await getCollection('papers', ({ data }) => data.featured);
-const milestones = await getCollection('milestones', ({ data }) => data.featured);
+const milestones = (await getCollection('milestones', ({ data }) => data.featured))
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 const sortedPapers = papers.sort((a, b) => b.data.year - a.data.year);
 
 const skills = {
@@ -252,7 +253,7 @@ const leftNavPages = [
             {milestones.map(m => (
               <li class="flex items-start gap-4">
                 <span class="text-xs text-[var(--color-faint)] font-mono pt-0.5 shrink-0">
-                  {m.data.date.toLocaleDateString('en-GB', { month: 'short', year: 'numeric' })}
+                  {m.data.date.toLocaleDateString('en-GB', m.data.precision === 'year' ? { year: 'numeric' } : { month: 'short', year: 'numeric' })}
                 </span>
                 <span class="text-sm text-[var(--color-ink)]">{m.data.summary}</span>
               </li>
