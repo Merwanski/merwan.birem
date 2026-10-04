@@ -30,7 +30,8 @@ async function sitemapUrls(url) {
 
 lines.push('## 🌐 Availability');
 try {
-  const urls = await sitemapUrls(`${SITE}sitemap-index.xml`);
+  // Files linked from the site that the sitemap doesn't list
+  const urls = [...await sitemapUrls(`${SITE}sitemap-index.xml`), `${SITE}cv/Merwan_Birem_CV.pdf`];
   const broken = [];
   for (const url of urls) {
     const res = await fetch(url, { redirect: 'follow' }).catch(() => null);
@@ -87,14 +88,13 @@ if (process.env.GITHUB_TOKEN && process.env.GITHUB_REPOSITORY) {
 
 // --- 4. Freshness ---
 const nowUpdated = fs.readFileSync('src/pages/now/index.astro', 'utf8').match(/lastUpdated = '([\d-]+)'/)?.[1];
-const cvFile = fs.readdirSync('src/pages/cv').find(f => f.endsWith('.pdf'));
-const cvDate = cvFile?.match(/(\d{4})(\d{2})(\d{2})\.pdf$/)?.slice(1).join('-') ?? (cvFile && gitDate(`src/pages/cv/${cvFile}`));
+const cvDate = gitDate('public/cv/Merwan_Birem_CV.pdf');
 const medium = JSON.parse(fs.readFileSync('src/data/medium-posts.json', 'utf8'));
 const lastPost = medium.map(p => p.date).sort().at(-1);
 
 const freshness = [
   ['/now page updated', nowUpdated, 90, 'Rewrite `src/pages/now/index.astro` and bump `lastUpdated`'],
-  ['CV refreshed', cvDate, 180, 'Upload a new CV PDF'],
+  ['CV refreshed', cvDate, 180, 'Replace `public/cv/Merwan_Birem_CV.pdf`'],
   ['Milestone added', gitDate('src/content/milestones'), 180, 'Add a milestone in `src/content/milestones/`'],
   ['Trip added', gitDate('src/content/travels'), 60, 'Drop a trip folder in `inbox/travels/`'],
   ['Paper added / updated', gitDate('src/content/papers'), 365, 'Drop a PDF in `inbox/papers/`'],
