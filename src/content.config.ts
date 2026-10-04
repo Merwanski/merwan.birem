@@ -27,6 +27,8 @@ const milestones = defineCollection({
     category: z.enum(['professional', 'personal', 'academic', 'travel', 'family']),
     summary: z.string(),
     featured: z.boolean().default(false),
+    // How precisely the date is known: shown as "2011", "Sep 2010" or "20 Jun 2026"
+    precision: z.enum(['year', 'month', 'day']).default('day'),
   }),
 });
 
