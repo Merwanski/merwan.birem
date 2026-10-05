@@ -48,7 +48,7 @@ const pdfHref = paper.data.pdf_url ? asset(paper.data.pdf_url) : null;
               href={pdfHref}
               target="_blank"
               rel="noopener noreferrer"
-              class="text-sm px-4 py-2 bg-[var(--color-accent)] text-white rounded-md hover:bg-[var(--color-accent-hover)] transition-colors"
+              class="text-sm px-4 py-2 bg-[var(--color-accent)] text-on-accent rounded-md hover:bg-[var(--color-accent-hover)] transition-colors"
             >
               Download PDF
             </a>
@@ -58,7 +58,7 @@ const pdfHref = paper.data.pdf_url ? asset(paper.data.pdf_url) : null;
         {paper.data.tags.length > 0 && (
           <div class="flex flex-wrap gap-2 mt-5">
             {paper.data.tags.map(tag => (
-              <span class="text-xs px-2 py-0.5 bg-zinc-100 text-zinc-500 rounded-full">{tag}</span>
+              <span class="text-xs px-2 py-0.5 bg-surface-2 text-muted rounded-full">{tag}</span>
             ))}
           </div>
         )}
@@ -69,7 +69,7 @@ const pdfHref = paper.data.pdf_url ? asset(paper.data.pdf_url) : null;
           href={pdfHref ?? undefined}
           target="_blank"
           rel="noopener noreferrer"
-          class="hidden sm:block shrink-0 w-36 rounded-md border border-[var(--color-border)] bg-white overflow-hidden shadow-sm hover:shadow-md transition-shadow"
+          class="hidden sm:block shrink-0 w-36 rounded-md border border-[var(--color-border)] bg-surface overflow-hidden shadow-sm hover:shadow-md transition-shadow"
           title="Open the PDF"
         >
           <img src={asset(paper.data.thumbnail)} alt={`First page of “${paper.data.title}”`} width="800" height="1035" loading="lazy" decoding="async" class="w-full h-auto" />
@@ -90,7 +90,7 @@ const pdfHref = paper.data.pdf_url ? asset(paper.data.pdf_url) : null;
           alt={`Figure from “${paper.data.title}”`}
           loading="lazy"
           decoding="async"
-          class="w-full h-auto max-h-[28rem] object-contain rounded-md border border-[var(--color-border)] bg-white p-2"
+          class="w-full h-auto max-h-[28rem] object-contain rounded-md border border-[var(--color-border)] bg-surface p-2"
         />
         <figcaption class="text-xs text-[var(--color-faint)] mt-2">Figure from the paper — see the PDF for full context.</figcaption>
       </figure>

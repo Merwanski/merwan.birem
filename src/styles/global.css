@@ -1,26 +1,218 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
 @import "tailwindcss";
 
+/*
+ * Design tokens. Palette: Ecoriz blues (light) and a deep-navy dark theme.
+ * Use the semantic names (bg-surface-2, text-muted, text-accent…), never raw
+ * palette classes like bg-zinc-100, so both themes stay consistent.
+ * Every text colour meets WCAG AA (4.5:1) on bg and surface-2 in both themes.
+ */
 @theme {
   --font-sans: 'Inter', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 
-  --color-ink: #18181b;
-  --color-muted: #71717a;
-  --color-faint: #a1a1aa;
-  --color-border: #e4e4e7;
-  --color-surface: #fafafa;
-  --color-accent: #2563eb;
-  --color-accent-hover: #1d4ed8;
+  --color-bg: #f5f9fc;
+  --color-surface: #ffffff;
+  --color-surface-2: #e6eff6;
+  --color-border: #d3e0ea;
+  --color-ink: #10264f;
+  --color-muted: #3b5276;
+  --color-faint: #56698a;
+  --color-accent: #305286;
+  --color-accent-hover: #1c3875;
+  --color-accent-soft: #dce9f6;
+  --color-on-accent: #ffffff;
+  --color-success: #1d6b4c;
+  --color-success-soft: #dff1e9;
+  --color-warning: #7f5300;
+  --color-warning-soft: #fbf1dc;
+  /* Extra tints for categories and tags, all from the same blue family */
+  --color-tint-sky: #d4e6ec;
+  --color-tint-sky-ink: #1f5568;
+  --color-tint-steel: #e3e9ed;
+  --color-tint-steel-ink: #3f5260;
+  --color-tint-navy: #d2def0;
+  --color-tint-navy-ink: #1c3875;
+  --color-spotlight: rgba(84, 118, 170, 0.1);
 }
 
-html {
-  font-family: var(--font-sans);
+@layer base {
+  :root[data-theme='dark'] {
+    --color-bg: #0b1730;
+    --color-surface: #10203f;
+    --color-surface-2: #172b52;
+    --color-border: #233a68;
+    --color-ink: #e3edf7;
+    --color-muted: #a8c6e4;
+    --color-faint: #84a4c7;
+    --color-accent: #99bceb;
+    --color-accent-hover: #c7e0f2;
+    --color-accent-soft: #1b3361;
+    --color-on-accent: #0b1730;
+    --color-success: #74d1a9;
+    --color-success-soft: #123a33;
+    --color-warning: #f0c56a;
+    --color-warning-soft: #3a2f14;
+    --color-tint-sky: #15384a;
+    --color-tint-sky-ink: #a8d5e6;
+    --color-tint-steel: #1f2d3d;
+    --color-tint-steel-ink: #c2cccf;
+    --color-tint-navy: #1c3875;
+    --color-tint-navy-ink: #c7e0f2;
+    --color-spotlight: rgba(124, 164, 211, 0.16);
+    color-scheme: dark;
+  }
+
+  html {
+    font-family: var(--font-sans);
+    color: var(--color-ink);
+    background-color: var(--color-bg);
+    -webkit-font-smoothing: antialiased;
+    color-scheme: light;
+  }
+
+  ::selection {
+    background-color: var(--color-accent-soft);
+    color: var(--color-ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* Leaflet map tiles: darken OpenStreetMap tiles in dark mode */
+:root[data-theme='dark'] .leaflet-tile {
+  filter: invert(1) hue-rotate(200deg) saturate(0.35) brightness(0.85) contrast(0.9);
+}
+
+/* Cursor spotlight (Brittany Chiang style); only on devices with a mouse */
+.spotlight {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background: radial-gradient(600px at var(--spot-x, -1000px) var(--spot-y, -1000px), var(--color-spotlight), transparent 80%);
+}
+
+/* Theme toggle icons */
+:root[data-theme='dark'] .dark-hide,
+:root:not([data-theme='dark']) .light-hide {
+  display: none;
+}
+
+details > summary::-webkit-details-marker { display: none; }
+
+/* Leaflet popups follow the theme */
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+  background: var(--color-surface);
   color: var(--color-ink);
-  background-color: #ffffff;
-  -webkit-font-smoothing: antialiased;
 }
 
-::selection {
-  background-color: #dbeafe;
+/* Shared components (Brittany Chiang-style cards and section titles) */
+@layer components {
+  /* On small screens the section title sticks under the header while scrolling its section */
+  .section-title {
+    position: sticky;
+    top: 3.5rem;
+    z-index: 5;
+    margin: 0 -1.5rem 1.5rem;
+    padding: 1rem 1.5rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--color-ink);
+    background: color-mix(in srgb, var(--color-bg) 85%, transparent);
+    backdrop-filter: blur(8px);
+  }
+  @media (min-width: 1024px) {
+    .section-title {
+      position: static;
+      margin: 0 0 1.5rem;
+      padding: 0;
+      background: none;
+      backdrop-filter: none;
+      color: var(--color-faint);
+    }
+  }
+
+  /* Card row: highlights on hover while its siblings dim (parent needs group/list) */
+  .card {
+    display: grid;
+    gap: 1rem;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin: 0 -1rem;
+    transition: background-color 0.2s, box-shadow 0.2s, opacity 0.2s;
+  }
+  @media (min-width: 640px) {
+    .card { grid-template-columns: repeat(8, minmax(0, 1fr)); }
+  }
+  /* Hover-to-focus lists: the hovered (or keyboard-focused) item lights up,
+     the others fade back. Use .focus-list on any list; home cards use group/list. */
+  .focus-list > *,
+  .group\/list .card {
+    border-radius: 0.75rem;
+    transition: opacity 0.25s, background-color 0.25s, box-shadow 0.25s;
+  }
+  @media (hover: hover) and (min-width: 768px) {
+    .focus-list:hover > *,
+    .group\/list:hover .card { opacity: 0.25; }
+    /* Several lists on one page (papers by year, trips by country) dim together */
+    .focus-scope:has(.focus-list > *:hover) .focus-list > *:not(:hover):not(:focus-within) { opacity: 0.25; }
+    .focus-list > *:hover,
+    .focus-list > *:focus-within,
+    .group\/list .card:hover,
+    .group\/list .card:focus-visible,
+    .group\/list :focus-visible > .card {
+      opacity: 1;
+      /* In-card spotlight: --mx/--my follow the cursor (set in Layout.astro) */
+      background:
+        radial-gradient(320px circle at var(--mx, 50%) var(--my, 50%), color-mix(in srgb, var(--color-accent) 20%, transparent), transparent 70%),
+        var(--color-surface);
+      box-shadow:
+        0 0 0 1px color-mix(in srgb, var(--color-accent) 45%, transparent),
+        0 16px 40px -14px color-mix(in srgb, var(--color-accent) 60%, transparent);
+    }
+  }
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 9999px;
+    padding: 0.125rem 0.625rem;
+    font-size: 0.75rem;
+    line-height: 1.25rem;
+    background: var(--color-surface-2);
+    color: var(--color-muted);
+  }
+  .chip-accent {
+    background: var(--color-accent-soft);
+    color: var(--color-accent);
+  }
+
+  .more-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    margin-top: 1.5rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-ink);
+  }
+  .more-link::after { content: '→'; transition: transform 0.2s; }
+  .more-link:hover { color: var(--color-accent); }
+  .more-link:hover::after { transform: translateX(4px); }
 }
