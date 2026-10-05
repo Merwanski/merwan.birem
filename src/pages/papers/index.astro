@@ -27,19 +27,19 @@ const asset = (p: string) => `${B}${p.replace(/^\//, '')}`;
 
   {years.length === 0 ? (
     <p class="text-[var(--color-muted)] text-sm italic">
-      No papers yet — drop a PDF into <code class="font-mono text-xs bg-zinc-100 px-1.5 py-0.5 rounded">inbox/papers/</code> to publish one automatically.
+      No papers yet — drop a PDF into <code class="font-mono text-xs bg-surface-2 px-1.5 py-0.5 rounded">inbox/papers/</code> to publish one automatically.
     </p>
   ) : (
-    <div class="space-y-12">
+    <div class="focus-scope space-y-12">
       {years.map(year => (
         <section>
           <h2 class="text-xs font-medium uppercase tracking-widest text-[var(--color-faint)] mb-6">{year}</h2>
-          <ul class="space-y-8">
+          <ul class="focus-list space-y-4">
             {byYear[year].map(paper => (
-              <li class="group">
+              <li class="group -mx-4 p-4">
                 <a href={`${B}papers/${paper.id}`} class="flex gap-5">
                   {(paper.data.figure || paper.data.thumbnail) && (
-                    <div class="hidden sm:block shrink-0 w-32 h-24 rounded-md border border-[var(--color-border)] bg-white overflow-hidden">
+                    <div class="hidden sm:block shrink-0 w-32 h-24 rounded-md border border-[var(--color-border)] bg-surface overflow-hidden">
                       <img
                         src={asset((paper.data.figure ?? paper.data.thumbnail)!)}
                         alt=""
@@ -60,10 +60,10 @@ const asset = (p: string) => `${B}${p.replace(/^\//, '')}`;
                     <p class="text-sm text-[var(--color-faint)] line-clamp-2 mb-3">{paper.data.abstract}</p>
                     <div class="flex flex-wrap items-center gap-2">
                       {paper.data.tags.map(tag => (
-                        <span class="text-xs px-2 py-0.5 bg-zinc-100 text-zinc-500 rounded-full">{tag}</span>
+                        <span class="text-xs px-2 py-0.5 bg-surface-2 text-muted rounded-full">{tag}</span>
                       ))}
                       {paper.data.pdf_url && (
-                        <span class="text-xs px-2 py-0.5 bg-blue-50 text-blue-500 rounded-full">PDF</span>
+                        <span class="text-xs px-2 py-0.5 bg-accent-soft text-accent rounded-full">PDF</span>
                       )}
                       {paper.data.citations != null && paper.data.citations > 0 && (
                         <span class="ml-auto text-xs text-[var(--color-faint)] font-mono">

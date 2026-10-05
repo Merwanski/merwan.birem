@@ -35,7 +35,7 @@ const papers = (await Promise.all(project.data.papers.map(id => getEntry('papers
       {tags.length > 0 && (
         <div class="flex flex-wrap gap-2 mt-4">
           {tags.map(tag => (
-            <span class="text-xs px-2.5 py-0.5 bg-zinc-100 text-zinc-500 rounded-full">{tag}</span>
+            <span class="text-xs px-2.5 py-0.5 bg-surface-2 text-muted rounded-full">{tag}</span>
           ))}
         </div>
       )}
@@ -74,7 +74,7 @@ const papers = (await Promise.all(project.data.papers.map(id => getEntry('papers
               alt={caption}
               loading="lazy"
               decoding="async"
-              class="w-full h-auto rounded-lg border border-[var(--color-border)] bg-white"
+              class="w-full h-auto rounded-lg border border-[var(--color-border)] bg-surface"
             />
             <figcaption class="text-xs text-[var(--color-faint)] mt-2 leading-relaxed">{caption}</figcaption>
           </figure>
