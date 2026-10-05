@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import Placeholder from '../../components/Placeholder.astro';
 
 const EMAIL = 'merwan.birem@gmail.com';
 const LINKEDIN = 'https://www.linkedin.com/in/merwan-birem-600a593a/';
@@ -8,11 +9,14 @@ const LINKEDIN = 'https://www.linkedin.com/in/merwan-birem-600a593a/';
 <Layout title="Contact" description="Get in touch with Merwan Birem.">
   <div class="max-w-lg">
 
-    <div class="mb-10">
-      <h1 class="text-2xl font-semibold tracking-tight mb-2">Contact</h1>
-      <p class="text-[var(--color-muted)] leading-relaxed">
-        Happy to connect about research, collaboration, or anything AI and perception.
-      </p>
+    <div class="mb-10 flex items-start gap-6">
+      <div class="flex-1">
+        <h1 class="text-2xl font-semibold tracking-tight mb-2">Contact</h1>
+        <p class="text-[var(--color-muted)] leading-relaxed">
+          Happy to connect about research, collaboration, or anything AI and perception.
+        </p>
+      </div>
+      <Placeholder label="A photo of me" kind="photo" aspect="square" compact class="w-24 shrink-0" />
     </div>
 
     <!-- Quick actions -->

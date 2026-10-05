@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { getCollection, getEntry, render } from 'astro:content';
+import Placeholder from '../../components/Placeholder.astro';
 
 export async function getStaticPaths() {
   const projects = await getCollection('projects');
@@ -14,7 +15,7 @@ const { project } = Astro.props;
 const { Content } = await render(project);
 const B = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 const asset = (p: string) => (p.startsWith('http') ? p : `${B}${p.replace(/^\//, '')}`);
-const { name, years, description, tags, role, facts, links, youtube, gallery } = project.data;
+const { name, years, description, tags, role, facts, links, youtube, gallery, pending } = project.data;
 const papers = (await Promise.all(project.data.papers.map(id => getEntry('papers', id)))).filter(p => p != null);
 ---
 
@@ -82,13 +83,19 @@ const papers = (await Promise.all(project.data.papers.map(id => getEntry('papers
       </div>
     )}
 
+    {pending.length > 0 && (
+      <div class={`grid gap-4 mb-8 ${pending.length > 1 ? 'sm:grid-cols-2' : ''}`}>
+        {pending.map(({ label, kind }) => <Placeholder label={label} kind={kind} />)}
+      </div>
+    )}
+
     <div class="project-body">
       <Content />
     </div>
 
     {papers.length > 0 && (
       <section class="border-t border-[var(--color-border)] pt-8 mt-10">
-        <h2 class="text-xs font-medium uppercase tracking-widest text-[var(--color-faint)] mb-4">Related papers</h2>
+        <h2 class="heading-label">Related publications</h2>
         <ul class="space-y-3">
           {papers.map(paper => (
             <li>
@@ -109,7 +116,7 @@ const papers = (await Promise.all(project.data.papers.map(id => getEntry('papers
 
     {links.length > 0 && (
       <section class="border-t border-[var(--color-border)] pt-8 mt-10">
-        <h2 class="text-xs font-medium uppercase tracking-widest text-[var(--color-faint)] mb-4">Links</h2>
+        <h2 class="heading-label">Learn more</h2>
         <ul class="space-y-2">
           {links.map(({ label, href }) => (
             <li>
@@ -125,12 +132,23 @@ const papers = (await Promise.all(project.data.papers.map(id => getEntry('papers
 
 <style>
   .project-body :global(h2) {
-    font-size: 0.75rem;
-    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.8125rem;
+    font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    color: var(--color-faint);
+    color: var(--color-ink);
     margin: 2.25rem 0 0.75rem;
+  }
+  .project-body :global(h2)::before {
+    content: '';
+    width: 1.5rem;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--color-accent);
+    flex-shrink: 0;
   }
   .project-body :global(h2:first-child) { margin-top: 0; }
   .project-body :global(p),

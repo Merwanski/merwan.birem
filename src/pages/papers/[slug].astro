@@ -78,13 +78,13 @@ const pdfHref = paper.data.pdf_url ? asset(paper.data.pdf_url) : null;
     </header>
 
     <div class="border-t border-[var(--color-border)] pt-8 mb-8">
-      <h2 class="text-xs font-medium uppercase tracking-widest text-[var(--color-faint)] mb-4">Abstract</h2>
+      <h2 class="heading-label">Abstract</h2>
       <p class="text-[var(--color-muted)] leading-relaxed">{paper.data.abstract}</p>
     </div>
 
     {paper.data.figure && (
       <figure class="border-t border-[var(--color-border)] pt-8 mb-8">
-        <h2 class="text-xs font-medium uppercase tracking-widest text-[var(--color-faint)] mb-4">Key figure</h2>
+        <h2 class="heading-label">Key figure from the paper</h2>
         <img
           src={asset(paper.data.figure)}
           alt={`Figure from “${paper.data.title}”`}

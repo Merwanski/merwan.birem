@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Placeholder from '../components/Placeholder.astro';
 import { getCollection } from 'astro:content';
 
 const allPapers = await getCollection('papers');
@@ -81,12 +82,12 @@ const projects = (await getCollection('projects', ({ data }) => data.featured))
   }));
 
 const sections = [
-  { id: 'about', label: 'About' },
-  { id: 'projects', label: 'Projects' },
-  { id: 'experience', label: 'Experience' },
-  { id: 'publications', label: 'Publications' },
-  { id: 'milestones', label: 'Milestones' },
-  { id: 'background', label: 'Background' },
+  { id: 'about', label: 'About me' },
+  { id: 'projects', label: 'Key projects' },
+  { id: 'experience', label: 'Work experience' },
+  { id: 'publications', label: 'Selected publications' },
+  { id: 'milestones', label: 'Recent milestones' },
+  { id: 'background', label: 'Education & skills' },
 ];
 
 const B = import.meta.env.BASE_URL.replace(/\/?$/, '/'); // always ends with /
@@ -161,7 +162,9 @@ const fmtMilestone = (d: Date, precision: string) =>
     <div class="pt-20 lg:w-[58%] lg:pt-6 space-y-24">
 
       <section id="about" class="scroll-mt-20" aria-label="About">
-        <h2 class="section-title">About</h2>
+        <h2 class="section-title">About me</h2>
+        <div class="sm:flex sm:items-start sm:gap-8">
+        <Placeholder label="A photo of me" kind="photo" aspect="portrait" class="w-44 shrink-0 mb-6 sm:mb-0 sm:order-2" />
         <div class="space-y-4 leading-relaxed text-muted">
           <p>
             I'm an <strong class="text-ink font-medium">AI innovation leader</strong> with more than 10 years in computer vision,
@@ -179,18 +182,21 @@ const fmtMilestone = (d: Date, precision: string) =>
             scalable real-world deployment.
           </p>
         </div>
+        </div>
       </section>
 
       <section id="projects" class="scroll-mt-20" aria-label="Key projects">
-        <h2 class="section-title">Projects</h2>
+        <h2 class="section-title">Key projects</h2>
         <ul class="group/list space-y-4">
           {projects.map(p => (
             <li>
               <a href={`${B}projects/${p.slug}`} class="card group">
-                {p.cover && (
+                {p.cover ? (
                   <img src={asset(p.cover)} alt="" loading="lazy" decoding="async" class="sm:col-span-2 order-2 sm:order-1 w-40 sm:w-full aspect-video object-cover rounded border border-border bg-surface transition group-hover:border-accent/40" />
+                ) : (
+                  <Placeholder label={`Images of ${p.title}`} compact class="sm:col-span-2 order-2 sm:order-1 w-40 sm:w-full" />
                 )}
-                <div class={`order-1 sm:order-2 ${p.cover ? 'sm:col-span-6' : 'sm:col-span-8'}`}>
+                <div class="order-1 sm:order-2 sm:col-span-6">
                   <h3 class="font-medium leading-snug text-ink group-hover:text-accent transition-colors">
                     {p.title} <span aria-hidden="true" class="inline-block transition-transform group-hover:translate-x-1">→</span>
                   </h3>
@@ -208,7 +214,7 @@ const fmtMilestone = (d: Date, precision: string) =>
       </section>
 
       <section id="experience" class="scroll-mt-20" aria-label="Experience">
-        <h2 class="section-title">Experience</h2>
+        <h2 class="section-title">Work experience</h2>
         <ol class="group/list space-y-4">
           {experience.map(role => (
             <li class="card cursor-default">
@@ -234,7 +240,7 @@ const fmtMilestone = (d: Date, precision: string) =>
       </section>
 
       <section id="publications" class="scroll-mt-20" aria-label="Selected publications">
-        <h2 class="section-title">Publications</h2>
+        <h2 class="section-title">Selected publications</h2>
         <ul class="group/list space-y-4">
           {sortedPapers.map(paper => (
             <li>
@@ -260,7 +266,7 @@ const fmtMilestone = (d: Date, precision: string) =>
 
       {milestones.length > 0 && (
         <section id="milestones" class="scroll-mt-20" aria-label="Recent milestones">
-          <h2 class="section-title">Milestones</h2>
+          <h2 class="section-title">Recent milestones</h2>
           <ol class="space-y-4">
             {milestones.map(m => (
               <li class="grid sm:grid-cols-8 gap-1 sm:gap-4">
@@ -274,7 +280,7 @@ const fmtMilestone = (d: Date, precision: string) =>
       )}
 
       <section id="background" class="scroll-mt-20" aria-label="Background">
-        <h2 class="section-title">Background</h2>
+        <h2 class="section-title">Education, skills &amp; languages</h2>
         <div class="grid sm:grid-cols-2 gap-10">
           <div>
             <h3 class="text-xs font-semibold uppercase tracking-wide text-faint mb-4">Education</h3>
