@@ -13,11 +13,11 @@ gallery:
 papers: ["2024-cad2graspmonitor"]
 ---
 
-## Why
+## Why this project
 
 In robotic kitting, a pick that looks successful can still be wrong: the part may have slipped, a different part may have been picked, a second part may have come along, or the pose may be off. Those errors cascade into the next steps. CAD2GraspMonitor validates each grasp **after** the pick, before the error spreads.
 
-## How
+## How it works
 
 The system combines the gripper controller's feedback, tactile sensing and computer vision into four inspection services:
 

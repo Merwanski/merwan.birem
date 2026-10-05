@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import Placeholder from '../../components/Placeholder.astro';
 import { getCollection } from 'astro:content';
 
 const allMilestones = await getCollection('milestones');
@@ -22,6 +23,8 @@ const categoryColors: Record<string, string> = {
       Moments worth marking — personal, professional, academic, and everything in between.
     </p>
   </div>
+
+  <Placeholder label="Photos from these moments: graduation, first conference, moving to Belgium…" kind="photo" aspect="wide" class="mb-12" />
 
   {sorted.length === 0 ? (
     <p class="text-[var(--color-muted)] text-sm italic">

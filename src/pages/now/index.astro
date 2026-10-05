@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import Placeholder from '../../components/Placeholder.astro';
 
 // Update this date whenever you update the page
 const lastUpdated = '2026-10-04';
@@ -23,7 +24,7 @@ const B = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 
     <!-- Working on -->
     <section>
-      <h2 class="text-xs font-medium uppercase tracking-widest text-[var(--color-faint)] mb-5">Working On</h2>
+      <h2 class="heading-label">What I'm working on</h2>
       <ul class="space-y-5">
         {[
           {
@@ -70,7 +71,15 @@ const B = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 
     <!-- Learning -->
     <section>
-      <h2 class="text-xs font-medium uppercase tracking-widest text-[var(--color-faint)] mb-5">Learning</h2>
+      <h2 class="heading-label">A glimpse of the results</h2>
+      <div class="grid sm:grid-cols-2 gap-4">
+        <Placeholder label="ALARMM: first results (video)" kind="video" />
+        <Placeholder label="ALARMM: localisation results (images)" kind="image" />
+      </div>
+    </section>
+
+    <section>
+      <h2 class="heading-label">What I'm learning</h2>
       <ul class="space-y-5">
         {[
           {
@@ -102,7 +111,7 @@ const B = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 
     <!-- Reading / Thinking -->
     <section>
-      <h2 class="text-xs font-medium uppercase tracking-widest text-[var(--color-faint)] mb-5">Reading & Thinking About</h2>
+      <h2 class="heading-label">What I'm reading &amp; thinking about</h2>
       <ul class="space-y-3">
         {[
           'How AI will reshape R&D workflows in applied research institutes',
@@ -121,7 +130,7 @@ const B = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 
     <!-- Where -->
     <section>
-      <h2 class="text-xs font-medium uppercase tracking-widest text-[var(--color-faint)] mb-5">Where</h2>
+      <h2 class="heading-label">Where I'm based</h2>
       <p class="text-sm text-[var(--color-muted)] leading-relaxed">
         Based in <strong class="text-[var(--color-ink)] font-medium">Sterrebeek, Belgium</strong>, working out of
         <strong class="text-[var(--color-ink)] font-medium">Flanders Make</strong> in Leuven.
@@ -131,7 +140,7 @@ const B = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 
     <!-- Not doing -->
     <section class="border-t border-[var(--color-border)] pt-10">
-      <h2 class="text-xs font-medium uppercase tracking-widest text-[var(--color-faint)] mb-5">Not Currently Taking</h2>
+      <h2 class="heading-label">Availability</h2>
       <p class="text-sm text-[var(--color-muted)] leading-relaxed">
         Not available for freelance or consulting engagements at the moment — fully committed to ongoing research programs.
         Happy to connect on LinkedIn to discuss ideas, collaborations, or future opportunities.

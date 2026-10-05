@@ -33,7 +33,7 @@ const asset = (p: string) => `${B}${p.replace(/^\//, '')}`;
     <div class="focus-scope space-y-12">
       {years.map(year => (
         <section>
-          <h2 class="text-xs font-medium uppercase tracking-widest text-[var(--color-faint)] mb-6">{year}</h2>
+          <h2 class="heading-label">Published in {year}</h2>
           <ul class="focus-list space-y-4">
             {byYear[year].map(paper => (
               <li class="group -mx-4 p-4">

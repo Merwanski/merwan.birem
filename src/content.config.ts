@@ -78,6 +78,8 @@ const projects = defineCollection({
     youtube: z.string().optional(), // video id
     gallery: z.array(z.object({ src: z.string(), caption: z.string() })).default([]),
     papers: z.array(z.string()).default([]), // paper slugs in src/content/papers
+    // Media still to come: shown as "under construction" placeholders
+    pending: z.array(z.object({ label: z.string(), kind: z.enum(['image', 'video', 'photo']).default('image') })).default([]),
   }),
 });
 

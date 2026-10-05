@@ -14,7 +14,7 @@ links:
   - { label: "Demo video on YouTube", href: "https://www.youtube.com/watch?v=NyIOtSOKing" }
 ---
 
-## Why
+## Why this project
 
 QUALMA brings quality inspection **inline**, to the assembly workers themselves, so mistakes in manual assembly are caught at the station instead of later in the process.
 
@@ -25,6 +25,6 @@ A **modular AI framework** for large-scale manual assembly inspection, combining
 - **Computer vision**: object detection, pose estimation and tracking.
 - **AR guidance**: instructions and feedback for the operator.
 
-## Results
+## Results and impact
 
 Improved inspection accuracy and reduced cycle time in industrial scenarios, plus **four technology transfers** from the project to industry, which have led to follow-up innovation initiatives.
