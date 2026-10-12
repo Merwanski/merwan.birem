@@ -16,7 +16,7 @@ tags:
   - real-time
   - ISCAS
 featured: false
-citations: 8
+citations: 45
 thumbnail: "/papers/thumbs/2012-fpga-visual-features-iscas.webp"
 figure: "/papers/figures/2012-fpga-visual-features-iscas.webp"
 ---
