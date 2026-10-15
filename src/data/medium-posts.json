@@ -1,5 +1,31 @@
 [
   {
+    "title": "I Built My Content Studio on a Jetson: n8n, Playwright and Local LLMs in 40 Minutes",
+    "url": "https://just-merwan.medium.com/i-built-my-content-studio-on-a-jetson-n8n-playwright-and-local-llms-in-40-minutes-bdb5dde543c3",
+    "date": "2026-10-13",
+    "summary": "AI Systems",
+    "tags": [
+      "nvidia-jetson",
+      "llm",
+      "automation",
+      "n8n-workflow"
+    ],
+    "readingTime": null
+  },
+  {
+    "title": "Particle Filters Explained: When the Kalman Filter Isn’t Enough",
+    "url": "https://just-merwan.medium.com/particle-filters-explained-when-the-kalman-filter-isnt-enough-2f6f93c16465",
+    "date": "2026-10-09",
+    "summary": "AI Update & More",
+    "tags": [
+      "localization",
+      "state-estimation",
+      "robotics",
+      "python"
+    ],
+    "readingTime": null
+  },
+  {
     "title": "Why Information Models Still Matter in 2026",
     "url": "https://just-merwan.medium.com/why-information-models-still-matter-in-2026-ae6cf8ffbacc",
     "date": "2026-09-29",
@@ -100,32 +126,6 @@
       "artificial-intelligence",
       "robotics",
       "computer-vision"
-    ],
-    "readingTime": null
-  },
-  {
-    "title": "What Is a Markov Decision Process? How Machines Make Smart Decisions",
-    "url": "https://just-merwan.medium.com/what-is-a-markov-decision-process-how-machines-make-smart-decisions-18fc9993047f",
-    "date": "2026-06-27",
-    "summary": "AI Update & More",
-    "tags": [
-      "reinforcement-learning",
-      "artificial-intelligence",
-      "deep-learning",
-      "machine-learning"
-    ],
-    "readingTime": null
-  },
-  {
-    "title": "The Beliefs That Are Quietly Keeping You Stuck",
-    "url": "https://just-merwan.medium.com/the-beliefs-that-are-quietly-keeping-you-stuck-a5948b15ba13",
-    "date": "2026-06-22",
-    "summary": "Personal Development",
-    "tags": [
-      "careers",
-      "self-improvement",
-      "personal-growth",
-      "mindset"
     ],
     "readingTime": null
   }
