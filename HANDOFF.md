@@ -1,6 +1,6 @@
 # Handoff: merwan.birem site
 
-_Last updated: 5 October 2026 (end of session). Read this first in the next session._
+_Last updated: 18 October 2026 (short session: housekeeping and #14.1–2). Read this first in the next session._
 
 ## Goal
 
@@ -44,14 +44,14 @@ A personal brand, portfolio and **legacy site for my kids**, at https://merwansk
 ## Next session: plan
 
 ### 1. Improvements from #14 (agreed 2026-10-05)
-1. **Maps back to the light style**: remove the dark filter on Leaflet tiles in `src/styles/global.css` (`:root[data-theme='dark'] .leaflet-tile`).
-2. **Milestones timeline**: a horizontal, clickable timeline at the top of `/milestones`, with dots per milestone coloured by category.
+1. ~~**Maps back to the light style**~~: done 2026-10-18 (`5dd6c85`).
+2. ~~**Milestones timeline**~~: done 2026-10-18 (`5dd6c85`), in `src/components/MilestoneTimeline.astro`. Dots are placed by date and stacked in lanes when they're close. Category colours: professional blue, academic amber, personal green.
 3. **Impossible List "memento mori" side panel**: weeks lived and weeks left until 80, until 100 and until average life expectancy, plus a weeks grid. **Needs your birth date or year**, and whether it can be shown publicly. Verify the life-expectancy source.
 4. **Travels visited-countries panel**: country flags joined in visit order, with years and trip counts, linking to each country's trips.
 
 ### 2. Quick checks at the start
-- [ ] **Dependabot still listed 24 open alerts** on 2026-10-05, although Astro 7.3.5, sharp 0.35.5 and the other merged versions fix all of them. Check whether they closed after a rescan; if not, look at `gh api repos/Merwanski/merwan.birem/dependabot/alerts` and dismiss them as fixed, or bump whatever is still flagged.
-- [ ] Delete the leftover folder `.claude/worktrees/agent-af79f44a3bd9cb2c5`. It's untracked, and was locked by the previous session.
+- [x] Dependabot (2026-10-18): `npm audit fix` bumped source-map-js, and 30 stale alerts were dismissed after checking installed versions with `npm ls`. Only **#32 http-cache-semantics** is still open: it has no patch, the advisory says "through 4.2.0" and we have 4.3.0. Dismiss it as "inaccurate" if it's still there.
+- [ ] Delete the leftover folder `.claude/worktrees/agent-af79f44a3bd9cb2c5`. Claude's delete was blocked by auto mode, so Merwan needs to run `! rm -rf .claude/worktrees`.
 - [ ] Read the latest health report issue (label `health`).
 
 ### 3. If Merwan has provided content (#13)
