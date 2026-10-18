@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import MementoMori from '../../components/MementoMori.astro';
 import { getCollection } from 'astro:content';
 
 const allItems = await getCollection('impossible-list');
@@ -26,7 +27,9 @@ const stats = {
 };
 ---
 
-<Layout title="Impossible List" description="The impossible list — things to achieve before I die. Merwan Birem">
+<Layout title="Impossible List" description="The impossible list — things to achieve before I die. Merwan Birem" wide>
+<div class="lg:grid lg:grid-cols-[minmax(0,1fr)_16.5rem] lg:gap-12">
+<div class="max-w-3xl">
 
   <div class="mb-10">
     <h1 class="text-2xl font-semibold tracking-tight mb-2">Impossible List</h1>
@@ -134,4 +137,9 @@ const stats = {
     </div>
   )}
 
+</div>
+  <div class="mt-12 lg:mt-0 lg:sticky lg:top-24 lg:self-start">
+    <MementoMori />
+  </div>
+</div>
 </Layout>
