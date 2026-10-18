@@ -46,7 +46,7 @@ A personal brand, portfolio and **legacy site for my kids**, at https://merwansk
 ### 1. Improvements from #14 (agreed 2026-10-05)
 1. ~~**Maps back to the light style**~~: done 2026-10-18 (`5dd6c85`).
 2. ~~**Milestones timeline**~~: done 2026-10-18 (`5dd6c85`), in `src/components/MilestoneTimeline.astro`. Dots are placed by date and stacked in lanes when they're close. Category colours: professional blue, academic amber, personal green.
-3. **Impossible List "memento mori" side panel**: weeks lived and weeks left until 80, until 100 and until average life expectancy, plus a weeks grid. **Needs your birth date or year**, and whether it can be shown publicly. Verify the life-expectancy source.
+3. **Impossible List "memento mori" side panel**: weeks lived and weeks left until 80, until 100 and until average life expectancy, plus a weeks grid. Birth year received (stored privately, not in the repo). **Rule: never show personal data such as birth year or age publicly, in the site or the repo.** Verify the life-expectancy source.
 4. **Travels visited-countries panel**: country flags joined in visit order, with years and trip counts, linking to each country's trips.
 
 ### 2. Quick checks at the start
@@ -58,7 +58,7 @@ A personal brand, portfolio and **legacy site for my kids**, at https://merwansk
 Swap the placeholders for the real files: put media in `public/projects/<id>/`, add them to `gallery` or `youtube`, and remove the matching `pending` entry in `src/content/projects/<id>.md`.
 
 ## Inputs needed from Merwan
-- **Birth date or year** (for memento mori), and whether it may be public.
+- ~~Birth year~~: received, kept private (never public).
 - **Profile photo**, ideally a 4:5 portrait.
 - **ALARMM** results video and images; **ROBOCONS** prototype images.
 - **Milestones**: personal and family moments, and photos.
