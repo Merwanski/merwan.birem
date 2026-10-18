@@ -46,7 +46,7 @@ A personal brand, portfolio and **legacy site for my kids**, at https://merwansk
 ### 1. Improvements from #14 (agreed 2026-10-05)
 1. ~~**Maps back to the light style**~~: done 2026-10-18 (`5dd6c85`).
 2. ~~**Milestones timeline**~~: done 2026-10-18 (`5dd6c85`), in `src/components/MilestoneTimeline.astro`. Dots are placed by date and stacked in lanes when they're close. Category colours: professional blue, academic amber, personal green.
-3. **Impossible List "memento mori" side panel**: weeks lived and weeks left until 80, until 100 and until average life expectancy, plus a weeks grid. Birth year received (stored privately, not in the repo). **Rule: never show personal data such as birth year or age publicly, in the site or the repo.** Verify the life-expectancy source.
+3. ~~**Impossible List "memento mori" side panel**~~: done 2026-10-18 as a **generic** panel in `src/components/MementoMori.astro`, with an 80/100-year weeks grid and the week counts. It never shows anything that depends on Merwan's age (decided with Merwan: a "weeks lived" count would give away the birth year). Original idea: weeks lived and weeks left until 80, until 100 and until average life expectancy, plus a weeks grid. Birth year received (stored privately, not in the repo). **Rule: never show personal data such as birth year or age publicly, in the site or the repo.** Verify the life-expectancy source.
 4. **Travels visited-countries panel**: country flags joined in visit order, with years and trip counts, linking to each country's trips.
 
 ### 2. Quick checks at the start

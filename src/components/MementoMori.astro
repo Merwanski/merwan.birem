@@ -1,0 +1,55 @@
+---
+// Memento mori: a generic weeks-of-a-life grid (one row per year, one square
+// per week). Deliberately age-independent: nothing here reveals personal data.
+const WEEKS_PER_YEAR = 52.1775;
+const round10 = (n: number) => Math.round(n / 10) * 10;
+const weeks80 = round10(80 * WEEKS_PER_YEAR);
+const weeks100 = round10(100 * WEEKS_PER_YEAR);
+
+const CELL = 4; // 3px square + 1px gap
+const LABEL = 22; // left gutter for decade labels
+const width = LABEL + 52 * CELL;
+const height = 100 * CELL;
+const decades = Array.from({ length: 11 }, (_, i) => i * 10);
+---
+
+<aside aria-labelledby="memento-title" class="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5">
+  <h2 id="memento-title" class="heading-label">Memento mori</h2>
+  <p class="text-sm text-[var(--color-muted)] leading-relaxed mb-4">
+    Remember that you will die. Not to be gloomy, but to choose what the weeks are for.
+  </p>
+
+  <svg viewBox={`0 0 ${width} ${height}`} width={width} height={height} class="max-w-full h-auto mb-4" role="img"
+    aria-label={`A grid of the weeks in a 100-year life: 52 squares per row, one row per year. The first 80 rows, about ${weeks80.toLocaleString('en-GB')} weeks, are highlighted.`}>
+    <defs>
+      <pattern id="mm-week" width={CELL} height={CELL} patternUnits="userSpaceOnUse">
+        <rect width="3" height="3" rx="0.6" fill="currentColor" />
+      </pattern>
+    </defs>
+    <g class="text-accent">
+      <rect x={LABEL} y="0" width={52 * CELL} height={80 * CELL} fill="url(#mm-week)" opacity="0.75" />
+    </g>
+    <g class="text-[var(--color-faint)]">
+      <rect x={LABEL} y={80 * CELL} width={52 * CELL} height={20 * CELL} fill="url(#mm-week)" opacity="0.35" />
+    </g>
+    {decades.map((d) => (
+      <text x={LABEL - 4} y={Math.min(d * CELL + 7, height)} text-anchor="end" font-size="9" class="fill-[var(--color-faint)] font-mono">{d}</text>
+    ))}
+  </svg>
+
+  <dl class="grid grid-cols-2 gap-3 text-center">
+    <div class="rounded-lg bg-surface-2 p-3">
+      <dt class="text-xs text-[var(--color-faint)]">80 years</dt>
+      <dd class="text-lg font-semibold text-accent">≈ {weeks80.toLocaleString('en-GB')}</dd>
+      <dd class="text-xs text-[var(--color-faint)]">weeks</dd>
+    </div>
+    <div class="rounded-lg bg-surface-2 p-3">
+      <dt class="text-xs text-[var(--color-faint)]">100 years</dt>
+      <dd class="text-lg font-semibold">≈ {weeks100.toLocaleString('en-GB')}</dd>
+      <dd class="text-xs text-[var(--color-faint)]">weeks</dd>
+    </div>
+  </dl>
+  <p class="text-xs text-[var(--color-faint)] mt-4 leading-relaxed">
+    Each square is one week, each row one year. It isn't many, so this list is about spending them well.
+  </p>
+</aside>
