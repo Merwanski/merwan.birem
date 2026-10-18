@@ -91,11 +91,6 @@
   }
 }
 
-/* Leaflet map tiles: darken OpenStreetMap tiles in dark mode */
-:root[data-theme='dark'] .leaflet-tile {
-  filter: invert(1) hue-rotate(200deg) saturate(0.35) brightness(0.85) contrast(0.9);
-}
-
 /* Cursor spotlight (Brittany Chiang style); only on devices with a mouse */
 .spotlight {
   pointer-events: none;
