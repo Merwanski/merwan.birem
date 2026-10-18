@@ -1,0 +1,72 @@
+---
+// Horizontal, clickable overview of the milestones: one dot per milestone,
+// placed by date and coloured by category. Each dot links to its list entry.
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  milestones: CollectionEntry<'milestones'>[];
+  dotColors: Record<string, string>;
+  formatDate: (m: CollectionEntry<'milestones'>) => string;
+}
+
+const { milestones, dotColors, formatDate } = Astro.props;
+
+const asc = [...milestones].sort((a, b) => a.data.date.getTime() - b.data.date.getTime());
+const firstYear = asc[0].data.date.getFullYear();
+const lastYear = asc[asc.length - 1].data.date.getFullYear();
+const start = new Date(firstYear, 0, 1).getTime();
+const end = new Date(lastYear + 1, 0, 1).getTime();
+const pos = (d: Date) => ((d.getTime() - start) / (end - start)) * 100;
+
+// Stack dots that would overlap: each goes into the lowest free lane
+const MIN_GAP = 3.5; // percent of the track width
+const laneEnds: number[] = [];
+const dots = asc.map((m) => {
+  const x = pos(m.data.date);
+  let lane = laneEnds.findIndex((e) => x - e >= MIN_GAP);
+  if (lane === -1) lane = laneEnds.length;
+  laneEnds[lane] = x;
+  return { m, x, lane };
+});
+const lanes = laneEnds.length;
+
+const years = Array.from({ length: lastYear - firstYear + 1 }, (_, i) => firstYear + i);
+const categories = [...new Set(asc.map((m) => m.data.category))];
+---
+
+<section aria-label="Timeline overview" class="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5 mb-12">
+  <div class="overflow-x-auto pb-1">
+    <div class="relative min-w-[480px] px-2" style={`padding-top: ${lanes * 20 + 44}px`}>
+      <div class="relative h-px bg-[var(--color-border)]">
+        {dots.map(({ m, x, lane }) => (
+          <a
+            href={`#${m.id}`}
+            class="group absolute -translate-x-1/2 rounded-full focus-visible:outline-offset-2"
+            style={`left: ${x}%; bottom: ${lane * 20 - 6}px`}
+            aria-label={`${formatDate(m)}: ${m.data.title}`}
+          >
+            <span class={`block w-3 h-3 rounded-full ring-2 ring-[var(--color-surface)] transition-transform group-hover:scale-150 group-focus-visible:scale-150 ${dotColors[m.data.category] ?? 'bg-[var(--color-faint)]'}`}></span>
+            <span class={`pointer-events-none absolute bottom-full mb-2 w-max max-w-[14rem] ${x < 25 ? 'left-0' : x > 75 ? 'right-0' : 'left-1/2 -translate-x-1/2'} rounded-md bg-surface-2 border border-[var(--color-border)] px-2 py-1 text-xs text-[var(--color-ink)] shadow-lg opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-opacity z-10`}>
+              <span class="font-mono text-[var(--color-faint)]">{formatDate(m)}</span> · {m.data.title}
+            </span>
+          </a>
+        ))}
+      </div>
+      <div class="relative h-6 mt-2" aria-hidden="true">
+        {years.map((y) => (
+          <span
+            class="absolute -translate-x-1/2 text-[10px] font-mono text-[var(--color-faint)]"
+            style={`left: ${pos(new Date(y, 6, 1))}%`}
+          >{y}</span>
+        ))}
+      </div>
+    </div>
+  </div>
+  <ul class="flex flex-wrap gap-4 mt-3 text-xs text-[var(--color-muted)]">
+    {categories.map((c) => (
+      <li class="flex items-center gap-1.5">
+        <span class={`w-2.5 h-2.5 rounded-full ${dotColors[c]}`}></span>{c}
+      </li>
+    ))}
+  </ul>
+</section>
