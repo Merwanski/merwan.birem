@@ -20,7 +20,7 @@ tags:
   - asset tracking
   - logistics
 featured: false
-citations: 2
+citations: 3
 thumbnail: "/papers/thumbs/2025-warehouse-monitoring-digital-twin.webp"
 figure: "/papers/figures/2025-warehouse-monitoring-digital-twin.webp"
 ---

@@ -16,7 +16,7 @@ tags:
   - embedded vision
   - monocular camera
 featured: true
-citations: 39
+citations: 26
 thumbnail: "/papers/thumbs/2017-visual-odometry-fourier.webp"
 figure: "/papers/figures/2017-visual-odometry-fourier.webp"
 ---
