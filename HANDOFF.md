@@ -25,7 +25,7 @@ A personal brand, portfolio and **legacy site for my kids**, at https://merwansk
 | **CV** | `public/cv/Merwan_Birem_CV.pdf`: keep this name and replace the file to update it. The old CV link had been broken since launch. |
 | **Milestones** | 14 career and academic milestones, 2010 → 2026. Dates have a `precision` field (year/month/day). |
 | **Impossible List** | 17 placeholder goals with an "under construction" banner. Only "publish a paper" is done. |
-| **Design** | Ecoriz blues. **Dark is the default**, and the toggle switches to light. Brittany Chiang-style home page (fixed left column, section nav, scrolling cards). Hovering an item lights it up with a spotlight while the rest dims. Clearer section titles with an accent bar. Accessibility scores 100. |
+| **Design** | Ecoriz blues. **Since 2026-10-25: cream light theme is the default** (storage key `theme-v2`), and the toggle switches to dark. Brittany Chiang-style home page (fixed left column, section nav, scrolling cards). Hovering an item lights it up with a spotlight while the rest dims. Clearer section titles with an accent bar. Accessibility scores 100. |
 | **Placeholders** | `src/components/Placeholder.astro` ("Under construction · will be updated soon") wherever content from you is missing. |
 | **Upkeep** | `site-health.yml` opens a **health report issue on the 1st of each month**. The README describes the upkeep routine. |
 
