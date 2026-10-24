@@ -1,6 +1,7 @@
 ---
-// Horizontal, clickable overview of the milestones: one dot per milestone,
-// placed by date and coloured by category. Each dot links to its list entry.
+// Horizontal, clickable overview of the milestones: one badge per milestone,
+// placed by date, ringed by category colour and showing its icon (flag, logo,
+// symbol or initials). Each badge links to its list entry.
 import type { CollectionEntry } from 'astro:content';
 
 interface Props {
@@ -10,6 +11,22 @@ interface Props {
 }
 
 const { milestones, dotColors, formatDate } = Astro.props;
+const B = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+
+// Heroicons (MIT), 24×24 outline paths
+const ICONS: Record<string, string> = {
+  paper: 'M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z',
+  degree: 'M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5',
+  globe: 'M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0 1 12 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 0 1 3 12c0-1.605.42-3.113 1.157-4.418',
+  rocket: 'M15.59 14.37a6 6 0 0 1-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 0 0 6.16-12.12A14.98 14.98 0 0 0 9.631 8.41m5.96 5.96a14.926 14.926 0 0 1-5.841 2.58m-.119-8.54a6 6 0 0 0-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 0 0-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 0 1-2.448-2.448 14.9 14.9 0 0 1 .06-.312m-2.24 2.39a4.493 4.493 0 0 0-1.757 4.306 4.493 4.493 0 0 0 4.306-1.758M16.5 9a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z',
+  factory: 'M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Z',
+};
+
+const badge = (icon?: string) => {
+  if (!icon) return null;
+  const [kind, ...rest] = icon.split(':');
+  return { kind, value: rest.join(':') };
+};
 
 const asc = [...milestones].sort((a, b) => a.data.date.getTime() - b.data.date.getTime());
 const firstYear = asc[0].data.date.getFullYear();
@@ -18,15 +35,16 @@ const start = new Date(firstYear, 0, 1).getTime();
 const end = new Date(lastYear + 1, 0, 1).getTime();
 const pos = (d: Date) => ((d.getTime() - start) / (end - start)) * 100;
 
-// Stack dots that would overlap: each goes into the lowest free lane
-const MIN_GAP = 3.5; // percent of the track width
+// Stack badges that would overlap: each goes into the lowest free lane
+const MIN_GAP = 4; // percent of the track width
+const LANE = 26; // px between lanes
 const laneEnds: number[] = [];
 const dots = asc.map((m) => {
   const x = pos(m.data.date);
   let lane = laneEnds.findIndex((e) => x - e >= MIN_GAP);
   if (lane === -1) lane = laneEnds.length;
   laneEnds[lane] = x;
-  return { m, x, lane };
+  return { m, x, lane, b: badge(m.data.icon) };
 });
 const lanes = laneEnds.length;
 
@@ -36,23 +54,32 @@ const categories = [...new Set(asc.map((m) => m.data.category))];
 
 <section aria-label="Timeline overview" class="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5 mb-12">
   <div class="overflow-x-auto pb-1">
-    <div class="relative min-w-[480px] px-2" style={`padding-top: ${lanes * 20 + 44}px`}>
+    <div class="relative min-w-[480px] px-3" style={`padding-top: ${lanes * LANE + 30}px`}>
       <div class="relative h-px bg-[var(--color-border)]">
-        {dots.map(({ m, x, lane }) => (
+        {dots.map(({ m, x, lane, b }) => (
           <a
             href={`#${m.id}`}
             class="group absolute -translate-x-1/2 rounded-full focus-visible:outline-offset-2"
-            style={`left: ${x}%; bottom: ${lane * 20 - 6}px`}
+            style={`left: ${x}%; bottom: ${lane * LANE - 11}px`}
             aria-label={`${formatDate(m)}: ${m.data.title}`}
           >
-            <span class={`block w-3 h-3 rounded-full ring-2 ring-[var(--color-surface)] transition-transform group-hover:scale-150 group-focus-visible:scale-150 ${dotColors[m.data.category] ?? 'bg-[var(--color-faint)]'}`}></span>
+            <span class={`block rounded-full p-[2px] transition-transform group-hover:scale-125 group-focus-visible:scale-125 ${dotColors[m.data.category] ?? 'bg-[var(--color-faint)]'}`}>
+              <span class="flex items-center justify-center w-[18px] h-[18px] rounded-full overflow-hidden bg-[var(--color-surface)] text-[var(--color-ink)]">
+                {b?.kind === 'flag' && <img src={`${B}flags/${b.value}.svg`} alt="" width="18" height="18" class="w-full h-full object-cover" />}
+                {b?.kind === 'logo' && <img src={`${B}milestones/logos/${b.value}`} alt="" width="18" height="18" class="w-full h-full object-contain bg-white p-[2px]" />}
+                {b?.kind === 'icon' && ICONS[b.value] && (
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="w-3 h-3" aria-hidden="true"><path d={ICONS[b.value]} /></svg>
+                )}
+                {b?.kind === 'text' && <span class="text-[7px] font-bold leading-none tracking-tight">{b.value}</span>}
+              </span>
+            </span>
             <span class={`pointer-events-none absolute bottom-full mb-2 w-max max-w-[14rem] ${x < 25 ? 'left-0' : x > 75 ? 'right-0' : 'left-1/2 -translate-x-1/2'} rounded-md bg-surface-2 border border-[var(--color-border)] px-2 py-1 text-xs text-[var(--color-ink)] shadow-lg opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-opacity z-10`}>
               <span class="font-mono text-[var(--color-faint)]">{formatDate(m)}</span> · {m.data.title}
             </span>
           </a>
         ))}
       </div>
-      <div class="relative h-6 mt-2" aria-hidden="true">
+      <div class="relative h-6 mt-4" aria-hidden="true">
         {years.map((y) => (
           <span
             class="absolute -translate-x-1/2 text-[10px] font-mono text-[var(--color-faint)]"

@@ -1,55 +1,165 @@
 ---
-// Memento mori: a generic weeks-of-a-life grid (one row per year, one square
-// per week). Deliberately age-independent: nothing here reveals personal data.
+// Memento mori: weeks-of-a-life grid (one row per year, one square per week).
+// Privacy: only an age (38 in 2026) is used, never a birth date or year.
+// Visitors can download their own grid as a PDF; their date stays in the browser.
+const AGE_IN_2026 = 38;
 const WEEKS_PER_YEAR = 52.1775;
-const round10 = (n: number) => Math.round(n / 10) * 10;
-const weeks80 = round10(80 * WEEKS_PER_YEAR);
-const weeks100 = round10(100 * WEEKS_PER_YEAR);
+const YEAR_MS = 365.2425 * 24 * 3600 * 1000;
+const REF = new Date(2026, 0, 1).getTime();
+const weeksLived = (now: number) => Math.floor((AGE_IN_2026 + (now - REF) / YEAR_MS) * WEEKS_PER_YEAR);
+const lived = weeksLived(Date.now());
+const left80 = Math.round(80 * WEEKS_PER_YEAR) - lived;
+const left100 = Math.round(100 * WEEKS_PER_YEAR) - lived;
+const fmt = (n: number) => n.toLocaleString('en-GB');
 
 const CELL = 4; // 3px square + 1px gap
 const LABEL = 22; // left gutter for decade labels
 const width = LABEL + 52 * CELL;
 const height = 100 * CELL;
 const decades = Array.from({ length: 11 }, (_, i) => i * 10);
+const fullRows = Math.floor(lived / 52);
+const partWeeks = lived % 52;
 ---
 
-<aside aria-labelledby="memento-title" class="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5">
+<aside aria-labelledby="memento-title" class="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5"
+  data-memento data-age={AGE_IN_2026} data-ref={REF}>
   <h2 id="memento-title" class="heading-label">Memento mori</h2>
   <p class="text-sm text-[var(--color-muted)] leading-relaxed mb-4">
     Remember that you will die. Not to be gloomy, but to choose what the weeks are for.
   </p>
 
   <svg viewBox={`0 0 ${width} ${height}`} width={width} height={height} class="max-w-full h-auto mb-4" role="img"
-    aria-label={`A grid of the weeks in a 100-year life: 52 squares per row, one row per year. The first 80 rows, about ${weeks80.toLocaleString('en-GB')} weeks, are highlighted.`}>
+    aria-label={`My life in weeks: 52 squares per row, one row per year up to 100. About ${fmt(lived)} weeks lived so far are filled in.`}>
     <defs>
       <pattern id="mm-week" width={CELL} height={CELL} patternUnits="userSpaceOnUse">
         <rect width="3" height="3" rx="0.6" fill="currentColor" />
       </pattern>
     </defs>
     <g class="text-accent">
-      <rect x={LABEL} y="0" width={52 * CELL} height={80 * CELL} fill="url(#mm-week)" opacity="0.75" />
+      <rect x={LABEL} y="0" width={52 * CELL} height={80 * CELL} fill="url(#mm-week)" opacity="0.35" />
+      <rect data-mm-rows x={LABEL} y="0" width={52 * CELL} height={fullRows * CELL} fill="url(#mm-week)" />
+      <rect data-mm-part x={LABEL} y={fullRows * CELL} width={partWeeks * CELL} height={CELL} fill="url(#mm-week)" />
     </g>
     <g class="text-[var(--color-faint)]">
-      <rect x={LABEL} y={80 * CELL} width={52 * CELL} height={20 * CELL} fill="url(#mm-week)" opacity="0.35" />
+      <rect x={LABEL} y={80 * CELL} width={52 * CELL} height={20 * CELL} fill="url(#mm-week)" opacity="0.14" />
     </g>
     {decades.map((d) => (
       <text x={LABEL - 4} y={Math.min(d * CELL + 7, height)} text-anchor="end" font-size="9" class="fill-[var(--color-faint)] font-mono">{d}</text>
     ))}
   </svg>
 
-  <dl class="grid grid-cols-2 gap-3 text-center">
-    <div class="rounded-lg bg-surface-2 p-3">
-      <dt class="text-xs text-[var(--color-faint)]">80 years</dt>
-      <dd class="text-lg font-semibold text-accent">≈ {weeks80.toLocaleString('en-GB')}</dd>
-      <dd class="text-xs text-[var(--color-faint)]">weeks</dd>
+  <dl class="grid grid-cols-3 gap-2 text-center">
+    <div class="rounded-lg bg-surface-2 px-1 py-2.5">
+      <dt class="text-[11px] text-[var(--color-faint)]">Lived</dt>
+      <dd class="text-base font-semibold text-accent" data-mm-lived>{fmt(lived)}</dd>
     </div>
-    <div class="rounded-lg bg-surface-2 p-3">
-      <dt class="text-xs text-[var(--color-faint)]">100 years</dt>
-      <dd class="text-lg font-semibold">≈ {weeks100.toLocaleString('en-GB')}</dd>
-      <dd class="text-xs text-[var(--color-faint)]">weeks</dd>
+    <div class="rounded-lg bg-surface-2 px-1 py-2.5">
+      <dt class="text-[11px] text-[var(--color-faint)]">Left to 80</dt>
+      <dd class="text-base font-semibold" data-mm-left80>{fmt(left80)}</dd>
+    </div>
+    <div class="rounded-lg bg-surface-2 px-1 py-2.5">
+      <dt class="text-[11px] text-[var(--color-faint)]">Left to 100</dt>
+      <dd class="text-base font-semibold" data-mm-left100>{fmt(left100)}</dd>
     </div>
   </dl>
-  <p class="text-xs text-[var(--color-faint)] mt-4 leading-relaxed">
-    Each square is one week, each row one year. It isn't many, so this list is about spending them well.
-  </p>
+  <p class="text-xs text-[var(--color-faint)] mt-2 text-center">weeks · each square is one week, each row one year</p>
+
+  <blockquote class="mt-5 border-l-2 border-[var(--color-accent)] pl-3">
+    <p class="text-sm italic text-[var(--color-ink)] leading-relaxed">
+      “It is not that we have a short space of time, but that we waste much of it.”
+    </p>
+    <footer class="text-xs text-[var(--color-faint)] mt-1">Seneca, <cite>On the Shortness of Life</cite></footer>
+  </blockquote>
+
+  <form class="mt-5 pt-5 border-t border-[var(--color-border)]" data-mm-form>
+    <p class="text-sm font-medium text-[var(--color-ink)] mb-1">Your own life in weeks</p>
+    <p class="text-xs text-[var(--color-faint)] leading-relaxed mb-3">
+      Download a printable PDF. Add your birth date to fill in your weeks, or leave it blank for an empty grid.
+      Your date never leaves your browser.
+    </p>
+    <label for="mm-birth" class="sr-only">Your birth date (optional)</label>
+    <input id="mm-birth" type="date" name="birth"
+      class="w-full rounded-md border border-[var(--color-border)] bg-[var(--color-bg)] px-2.5 py-1.5 text-sm text-[var(--color-ink)] mb-2" />
+    <button type="submit"
+      class="w-full rounded-md bg-accent text-on-accent px-3 py-2 text-sm font-medium hover:bg-accent-hover transition-colors disabled:opacity-60">
+      Download PDF
+    </button>
+  </form>
 </aside>
+
+<script>
+  const WEEKS_PER_YEAR = 52.1775;
+  const YEAR_MS = 365.2425 * 24 * 3600 * 1000;
+  const WEEK_MS = 7 * 24 * 3600 * 1000;
+  const fmt = (n: number) => n.toLocaleString('en-GB');
+
+  // Keep the panel current between deploys
+  const panel = document.querySelector<HTMLElement>('[data-memento]');
+  if (panel) {
+    const age = Number(panel.dataset.age);
+    const ref = Number(panel.dataset.ref);
+    const lived = Math.floor((age + (Date.now() - ref) / YEAR_MS) * WEEKS_PER_YEAR);
+    const set = (sel: string, v: number) => { const el = panel.querySelector(sel); if (el) el.textContent = fmt(v); };
+    set('[data-mm-lived]', lived);
+    set('[data-mm-left80]', Math.round(80 * WEEKS_PER_YEAR) - lived);
+    set('[data-mm-left100]', Math.round(100 * WEEKS_PER_YEAR) - lived);
+    const rows = panel.querySelector('[data-mm-rows]');
+    const part = panel.querySelector('[data-mm-part]');
+    rows?.setAttribute('height', String(Math.floor(lived / 52) * 4));
+    part?.setAttribute('y', String(Math.floor(lived / 52) * 4));
+    part?.setAttribute('width', String((lived % 52) * 4));
+  }
+
+  const form = document.querySelector<HTMLFormElement>('[data-mm-form]');
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const button = form.querySelector('button');
+    if (button) button.disabled = true;
+    try {
+      const value = (form.elements.namedItem('birth') as HTMLInputElement).value;
+      const birth = value ? new Date(value + 'T00:00:00') : null;
+      const valid = birth && !isNaN(birth.getTime()) && birth.getTime() < Date.now();
+      const lived = valid ? Math.floor((Date.now() - birth!.getTime()) / WEEK_MS) : 0;
+      await makePdf(lived, valid ? birth : null);
+    } finally {
+      if (button) button.disabled = false;
+    }
+  });
+
+  async function makePdf(lived: number, birth: Date | null) {
+    const { jsPDF } = await import('jspdf');
+    const doc = new jsPDF({ unit: 'mm', format: 'a4' });
+    const W = 210, ROWS = 80, COLS = 52, C = 2.9, S = 2.3;
+    const x0 = (W - COLS * C) / 2 + 3, y0 = 38;
+
+    doc.setFont('helvetica', 'bold').setFontSize(20).setTextColor(16, 38, 79);
+    doc.text('A life in weeks', W / 2, 18, { align: 'center' });
+    doc.setFont('helvetica', 'normal').setFontSize(9).setTextColor(86, 105, 138);
+    const sub = birth
+      ? `Born ${birth.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}. ${lived.toLocaleString('en-GB')} weeks lived; each filled square is one of them.`
+      : 'Each square is one week, each row one year, up to 80. Fill one in every week.';
+    doc.text(sub, W / 2, 25, { align: 'center' });
+
+    // Week numbers along the top, decade labels down the side
+    doc.setFontSize(6);
+    for (const wk of [1, 10, 20, 30, 40, 52]) doc.text(String(wk), x0 + (wk - 1) * C + S / 2, y0 - 2, { align: 'center' });
+    for (let r = 0; r < ROWS; r += 10) doc.text(String(r), x0 - 2, y0 + r * C + S, { align: 'right' });
+
+    doc.setLineWidth(0.15).setDrawColor(168, 186, 210).setFillColor(48, 82, 134);
+    for (let r = 0; r < ROWS; r++) {
+      for (let c = 0; c < COLS; c++) {
+        const filled = r * COLS + c < lived;
+        doc.rect(x0 + c * C, y0 + r * C, S, S, filled ? 'F' : 'S');
+      }
+    }
+
+    const yq = y0 + ROWS * C + 9;
+    doc.setFont('helvetica', 'italic').setFontSize(10).setTextColor(16, 38, 79);
+    doc.text('"It is not that we have a short space of time, but that we waste much of it."', W / 2, yq, { align: 'center' });
+    doc.setFont('helvetica', 'normal').setFontSize(8).setTextColor(86, 105, 138);
+    doc.text('Seneca, On the Shortness of Life', W / 2, yq + 5, { align: 'center' });
+    doc.text('Memento mori · merwanski.github.io/merwan.birem', W / 2, 290, { align: 'center' });
+
+    doc.save('life-in-weeks.pdf');
+  }
+</script>
