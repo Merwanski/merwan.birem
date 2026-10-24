@@ -96,12 +96,12 @@ const personSchema = {
     <script is:inline>
       (() => {
         let t = null;
-        try { t = localStorage.getItem('theme'); } catch {}
-        if (t !== 'light' && t !== 'dark') t = 'dark'; // dark by default; the toggle can switch to light
+        try { t = localStorage.getItem('theme-v2'); } catch {}
+        if (t !== 'light' && t !== 'dark') t = 'light'; // cream light by default; the toggle can switch to dark
         document.documentElement.dataset.theme = t;
       })();
     </script>
-    <meta name="theme-color" content="#0b1730" />
+    <meta name="theme-color" content="#faf6ee" />
 
     <link rel="icon" type="image/svg+xml" href={`${B}favicon.svg`} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -184,7 +184,7 @@ const personSchema = {
       document.getElementById('theme-toggle')?.addEventListener('click', () => {
         const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
         root.dataset.theme = next;
-        try { localStorage.setItem('theme', next); } catch {}
+        try { localStorage.setItem('theme-v2', next); } catch {}
       });
 
       // Cursor spotlight on devices with a fine pointer, unless reduced motion is requested

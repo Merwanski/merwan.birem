@@ -11,29 +11,30 @@
   --font-sans: 'Inter', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 
-  --color-bg: #f5f9fc;
-  --color-surface: #ffffff;
-  --color-surface-2: #e6eff6;
-  --color-border: #d3e0ea;
-  --color-ink: #10264f;
-  --color-muted: #3b5276;
-  --color-faint: #56698a;
+  /* Light (default): warm cream paper with blue accents */
+  --color-bg: #faf6ee;
+  --color-surface: #fffdf8;
+  --color-surface-2: #f2ebde;
+  --color-border: #e5dccb;
+  --color-ink: #1f2533;
+  --color-muted: #464d5c;
+  --color-faint: #636977;
   --color-accent: #305286;
   --color-accent-hover: #1c3875;
-  --color-accent-soft: #dce9f6;
+  --color-accent-soft: #e3eaf4;
   --color-on-accent: #ffffff;
   --color-success: #1d6b4c;
   --color-success-soft: #dff1e9;
   --color-warning: #7f5300;
-  --color-warning-soft: #fbf1dc;
+  --color-warning-soft: #f7ebd0;
   /* Extra tints for categories and tags, all from the same blue family */
-  --color-tint-sky: #d4e6ec;
+  --color-tint-sky: #e2edef;
   --color-tint-sky-ink: #1f5568;
-  --color-tint-steel: #e3e9ed;
+  --color-tint-steel: #ece7dd;
   --color-tint-steel-ink: #3f5260;
-  --color-tint-navy: #d2def0;
+  --color-tint-navy: #e1e7f1;
   --color-tint-navy-ink: #1c3875;
-  --color-spotlight: rgba(84, 118, 170, 0.1);
+  --color-spotlight: rgba(84, 118, 170, 0.07);
 }
 
 @layer base {
