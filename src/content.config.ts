@@ -29,6 +29,9 @@ const milestones = defineCollection({
     featured: z.boolean().default(false),
     // How precisely the date is known: shown as "2011", "Sep 2010" or "20 Jun 2026"
     precision: z.enum(['year', 'month', 'day']).default('day'),
+    // Badge on the timeline dot: "flag:be" (public/flags/be.svg), "logo:file.svg"
+    // (public/milestones/logos/), "icon:paper|degree|globe|rocket" or "text:FM"
+    icon: z.string().regex(/^(flag|logo|icon|text):.+$/).optional(),
   }),
 });
 
