@@ -54,7 +54,8 @@ A personal brand, portfolio and **legacy site for my kids**, at https://merwansk
 - Travels pages use emoji flags, which Windows shows as two letters. Switch them to the vendored SVGs in `public/flags/` (add the missing countries from flag-icons).
 
 ### 2. Quick checks at the start
-- [x] Dependabot (2026-10-18): `npm audit fix` bumped source-map-js, and 30 stale alerts were dismissed after checking installed versions with `npm ls`. Only **#32 http-cache-semantics** is still open: it has no patch, the advisory says "through 4.2.0" and we have 4.3.0. Dismiss it as "inaccurate" if it's still there.
+- [x] Dependabot (2026-10-18): `npm audit fix` bumped source-map-js, and 30 stale alerts were dismissed after checking installed versions with `npm ls`. Only **#32 http-cache-semantics** is still open: it has no patch, the advisory says "through 4.2.0" and we have 4.3.0. Dismiss it as "inaccurate" if it's still there (the advisory has since been withdrawn).
+- [ ] **New Dependabot alerts (seen 2026-11-01)**: #39/#40 astro (XSS in script/style content, medium), #34–#38 vite/launch-editor (dev-server only), #33 devalue (high). Run `npm audit`, update astro, vite and devalue to the patched versions (`npm update` or bump astro), rebuild, check the site, then dismiss whatever no longer applies.
 - [ ] Delete the leftover folder `.claude/worktrees/agent-af79f44a3bd9cb2c5`. Claude's delete was blocked by auto mode, so Merwan needs to run `! rm -rf .claude/worktrees`.
 - [ ] Read the latest health report issue (label `health`).
 
