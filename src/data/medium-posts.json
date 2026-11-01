@@ -1,5 +1,31 @@
 [
   {
+    "title": "How to Access an NVIDIA GPU from Docker in 2026",
+    "url": "https://just-merwan.medium.com/how-to-access-an-nvidia-gpu-from-docker-in-2026-507cc7de0737",
+    "date": "2026-10-23",
+    "summary": "Docker Tips & Tricks Series",
+    "tags": [
+      "deep-learning",
+      "artificial-intelligence",
+      "docker",
+      "cuda"
+    ],
+    "readingTime": null
+  },
+  {
+    "title": "6D Object Pose Estimation in 2026: What Changed Since 2022, and Which Method to Pick",
+    "url": "https://just-merwan.medium.com/6d-object-pose-estimation-in-2026-what-changed-since-2022-and-which-method-to-pick-311ae6c0728e",
+    "date": "2026-10-21",
+    "summary": "AI & Computer Vision",
+    "tags": [
+      "robotics",
+      "nvidia",
+      "6d-pose-estimation",
+      "ai"
+    ],
+    "readingTime": null
+  },
+  {
     "title": "I Built My Content Studio on a Jetson: n8n, Playwright and Local LLMs in 40 Minutes",
     "url": "https://just-merwan.medium.com/i-built-my-content-studio-on-a-jetson-n8n-playwright-and-local-llms-in-40-minutes-bdb5dde543c3",
     "date": "2026-10-13",
@@ -100,32 +126,6 @@
       "machine-learning",
       "artificial-intelligence",
       "object-detection"
-    ],
-    "readingTime": null
-  },
-  {
-    "title": "The Kalman Filter Explained: How Your Phone Knows Exactly Where You Are",
-    "url": "https://just-merwan.medium.com/the-kalman-filter-explained-how-your-phone-knows-exactly-where-you-are-e64341b5c0c3",
-    "date": "2026-08-30",
-    "summary": "AI Update & More",
-    "tags": [
-      "signal-processing",
-      "math",
-      "kalman-filter",
-      "robotics"
-    ],
-    "readingTime": null
-  },
-  {
-    "title": "Visual SLAM Under the Hood: Pose Graphs, Bundle Adjustment & More",
-    "url": "https://just-merwan.medium.com/visual-slam-under-the-hood-pose-graphs-bundle-adjustment-more-fed5b707a470",
-    "date": "2026-08-25",
-    "summary": "Computer Vision & AI Update",
-    "tags": [
-      "aml",
-      "artificial-intelligence",
-      "robotics",
-      "computer-vision"
     ],
     "readingTime": null
   }
