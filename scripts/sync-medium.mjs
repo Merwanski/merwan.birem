@@ -52,7 +52,11 @@ function parseMediumRSS(xml) {
     const readingMatch = rawDesc.match(/(\d+)\s*min\s*read/i);
     const readingTime  = readingMatch ? `${readingMatch[1]} min` : null;
 
-    return { title, url, date, summary, tags, readingTime };
+    // First image of the post (Medium CDN), used as the card thumbnail on /blog
+    const encoded = item.match(/<content:encoded><!\[CDATA\[([\s\S]*?)\]\]>/)?.[1] ?? rawDesc;
+    const image   = encoded.match(/<img[^>]+src="(https:\/\/[^"]+)"/)?.[1] ?? null;
+
+    return { title, url, date, summary, tags, readingTime, image };
   }).filter(p => p.title && p.url);
 }
 

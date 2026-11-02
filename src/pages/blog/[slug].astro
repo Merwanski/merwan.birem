@@ -1,0 +1,96 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection, render } from 'astro:content';
+import { Image, getImage } from 'astro:assets';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map(post => ({ params: { slug: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const { title, subtitle, date, category, tags, summary, medium_url, canonical, hero, hero_alt, article_no } = post.data;
+const B = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+const words = (post.body ?? '').split(/\s+/).length;
+const minutes = Math.max(1, Math.round(words / 230));
+const ogImage = hero ? new URL((await getImage({ src: hero, width: 1200 })).src, 'https://merwanski.github.io').href : undefined;
+---
+
+<Layout title={title} description={summary || subtitle} canonical={canonical || undefined} image={ogImage}>
+
+  <div class="mb-4">
+    <a href={`${B}blog`} class="text-xs text-[var(--color-muted)] hover:text-[var(--color-accent)] transition-colors">
+      ← All articles
+    </a>
+  </div>
+
+  <article>
+    <header class="mb-8">
+      <p class="text-xs font-mono text-[var(--color-faint)] mb-2">
+        {date.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}
+        {' · '}{category}{' · '}{minutes} min read{article_no && <> · #{article_no}</>}
+      </p>
+      <h1 class="text-2xl sm:text-3xl font-semibold tracking-tight leading-snug mb-3">{title}</h1>
+      {subtitle && <p class="text-[var(--color-muted)] leading-relaxed">{subtitle}</p>}
+      {medium_url && (
+        <a href={medium_url} target="_blank" rel="noopener noreferrer"
+           class="inline-flex items-center gap-2 mt-5 text-sm px-3.5 py-1.5 rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-ink)] hover:border-[var(--color-accent)] hover:text-[var(--color-accent)] transition-colors">
+          <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="currentColor"><circle cx="7" cy="12" r="5.5"/><ellipse cx="16.5" cy="12" rx="2.75" ry="5.25"/><ellipse cx="21.5" cy="12" rx="1" ry="4.75"/></svg>
+          Read on Medium ↗
+        </a>
+      )}
+    </header>
+
+    {hero && (
+      <figure class="mb-10">
+        <Image src={hero} alt={hero_alt} widths={[640, 960, 1280]} sizes="(max-width: 768px) 100vw, 768px"
+               class="w-full h-auto rounded-lg border border-[var(--color-border)]" loading="eager" />
+      </figure>
+    )}
+
+    <div class="post-body">
+      <Content />
+    </div>
+
+    {tags.length > 0 && (
+      <div class="flex flex-wrap gap-2 mt-10 pt-6 border-t border-[var(--color-border)]">
+        {tags.map(tag => <span class="text-xs px-2.5 py-0.5 bg-surface-2 text-muted rounded-full">{tag}</span>)}
+      </div>
+    )}
+  </article>
+
+</Layout>
+
+<style>
+  .post-body :global(h2) {
+    font-size: 1.3rem; font-weight: 650; letter-spacing: -0.01em; color: var(--color-ink);
+    margin: 2.75rem 0 0.9rem; padding-top: 0.5rem; border-top: 1px solid var(--color-border);
+  }
+  .post-body :global(h3) { font-size: 1.05rem; font-weight: 650; color: var(--color-ink); margin: 2rem 0 0.6rem; }
+  .post-body :global(p), .post-body :global(li) { font-size: 1rem; line-height: 1.75; color: var(--color-muted); }
+  .post-body :global(p) { margin-bottom: 1.1rem; }
+  .post-body :global(ul) { list-style: disc; padding-left: 1.4rem; margin-bottom: 1.1rem; }
+  .post-body :global(ol) { list-style: decimal; padding-left: 1.4rem; margin-bottom: 1.1rem; }
+  .post-body :global(li) { margin-bottom: 0.4rem; }
+  .post-body :global(strong) { color: var(--color-ink); font-weight: 600; }
+  .post-body :global(a) { color: var(--color-accent); text-decoration: underline; text-underline-offset: 2px; overflow-wrap: anywhere; }
+  .post-body :global(blockquote) {
+    border-left: 3px solid var(--color-accent); background: var(--color-surface-2);
+    padding: 0.9rem 1.1rem; margin: 1.5rem 0; border-radius: 0 0.5rem 0.5rem 0;
+  }
+  .post-body :global(blockquote p:last-child) { margin-bottom: 0; }
+  .post-body :global(img) { width: 100%; height: auto; border-radius: 0.5rem; border: 1px solid var(--color-border); margin: 1.5rem 0 0.4rem; }
+  .post-body :global(p:has(> img) + p > em:only-child) { font-size: 0.8rem; color: var(--color-faint); }
+  .post-body :global(pre) {
+    font-size: 0.82rem; line-height: 1.55; padding: 1rem 1.1rem; border-radius: 0.5rem;
+    overflow-x: auto; margin: 1.25rem 0 1.5rem;
+  }
+  .post-body :global(:not(pre) > code) {
+    font-size: 0.88em; background: var(--color-surface-2); padding: 0.1em 0.35em; border-radius: 0.25rem; color: var(--color-ink);
+  }
+  .post-body :global(table) { display: block; overflow-x: auto; border-collapse: collapse; font-size: 0.88rem; margin: 1.5rem 0; }
+  .post-body :global(th), .post-body :global(td) { border: 1px solid var(--color-border); padding: 0.45rem 0.7rem; text-align: left; vertical-align: top; }
+  .post-body :global(th) { background: var(--color-surface-2); color: var(--color-ink); font-weight: 600; }
+  .post-body :global(hr) { border: 0; border-top: 1px solid var(--color-border); margin: 2.5rem 0; }
+</style>
