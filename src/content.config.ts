@@ -86,4 +86,26 @@ const projects = defineCollection({
   }),
 });
 
-export const collections = { papers, milestones, 'impossible-list': impossibleList, travels, projects };
+// Full blog posts published on the site first (content-studio scripts/publish_to_site.py).
+// Images sit next to index.md in src/content/blog/<slug>/ so Astro optimises them.
+const blog = defineCollection({
+  loader: glob({ pattern: '**/index.md', base: './src/content/blog', generateId: ({ entry }) => entry.split('/')[0] }),
+  schema: ({ image }) => z.object({
+    title: z.string(),
+    subtitle: z.string().default(''),
+    date: z.coerce.date(),
+    article_no: z.number().optional(),
+    category: z.string().default('General'),
+    pillar: z.string().default(''),
+    tags: z.array(z.string()).default([]),
+    summary: z.string().default(''),
+    medium_url: z.string().default(''),
+    // Set when Medium was first (posts from before site-first publishing); empty = this page is the original.
+    canonical: z.string().default(''),
+    hero: image().optional(),
+    hero_alt: z.string().default(''),
+    thumb: image().optional(), // list thumbnail when there is no hero
+  }),
+});
+
+export const collections = { blog, papers, milestones, 'impossible-list': impossibleList, travels, projects };
