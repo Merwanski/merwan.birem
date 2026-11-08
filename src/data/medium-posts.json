@@ -1,5 +1,19 @@
 [
   {
+    "title": "What Is Camera Calibration? Intrinsics, Extrinsics and the Photos That Make or Break It",
+    "url": "https://just-merwan.medium.com/what-is-camera-calibration-intrinsics-extrinsics-and-the-photos-that-make-or-break-it-39d96dfe36f9",
+    "date": "2026-11-01",
+    "summary": "",
+    "tags": [
+      "python",
+      "cameras",
+      "calibration",
+      "robotics"
+    ],
+    "readingTime": null,
+    "image": "https://cdn-images-1.medium.com/max/1024/1*B3o37HWu_m4LiLiEBqYeZQ.png"
+  },
+  {
     "title": "How to Access an NVIDIA GPU from Docker in 2026",
     "url": "https://just-merwan.medium.com/how-to-access-an-nvidia-gpu-from-docker-in-2026-507cc7de0737",
     "date": "2026-10-23",
@@ -10,7 +24,8 @@
       "docker",
       "cuda"
     ],
-    "readingTime": null
+    "readingTime": null,
+    "image": "https://cdn-images-1.medium.com/max/1600/1*JnfeRE0vMuIxZcUCWcIfyg.png"
   },
   {
     "title": "6D Object Pose Estimation in 2026: What Changed Since 2022, and Which Method to Pick",
@@ -23,7 +38,8 @@
       "6d-pose-estimation",
       "ai"
     ],
-    "readingTime": null
+    "readingTime": null,
+    "image": "https://cdn-images-1.medium.com/max/1600/1*i9qZ6aXvtBBonnDoqmsnaA.png"
   },
   {
     "title": "I Built My Content Studio on a Jetson: n8n, Playwright and Local LLMs in 40 Minutes",
@@ -36,7 +52,8 @@
       "automation",
       "n8n-workflow"
     ],
-    "readingTime": null
+    "readingTime": null,
+    "image": "https://cdn-images-1.medium.com/max/1600/1*iqC8KAG3G_M6FvsB2sq5sw.png"
   },
   {
     "title": "Particle Filters Explained: When the Kalman Filter Isn’t Enough",
@@ -49,7 +66,8 @@
       "robotics",
       "python"
     ],
-    "readingTime": null
+    "readingTime": null,
+    "image": "https://cdn-images-1.medium.com/max/1536/1*U_fz8u1c35RhbHKrSh-IiQ.png"
   },
   {
     "title": "Why Information Models Still Matter in 2026",
@@ -62,7 +80,8 @@
       "design-systems",
       "semantic-search"
     ],
-    "readingTime": null
+    "readingTime": null,
+    "image": "https://cdn-images-1.medium.com/max/2600/0*cZjr_rMs-lFoHWyl"
   },
   {
     "title": "GitHub Pages: The Simple Way to Publish a Website from Your Repo",
@@ -75,7 +94,8 @@
       "github-pages",
       "portfolio"
     ],
-    "readingTime": null
+    "readingTime": null,
+    "image": "https://cdn-images-1.medium.com/max/1672/1*KJd1-bSQQQSF5pMFkd-MAw.png"
   },
   {
     "title": "Book Summary: The Baby Whisperer Solves All Your Problems",
@@ -88,7 +108,8 @@
       "children",
       "parenting"
     ],
-    "readingTime": null
+    "readingTime": null,
+    "image": "https://cdn-images-1.medium.com/max/1980/0*1LsS5pREuJTp96KY.jpg"
   },
   {
     "title": "What Is Poetry in Python? Another Python Library Package… Whaaat?",
@@ -101,7 +122,8 @@
       "software-engineering",
       "python"
     ],
-    "readingTime": null
+    "readingTime": null,
+    "image": "https://cdn-images-1.medium.com/max/600/0*Z2sBf3BwmNNfKnFx"
   },
   {
     "title": "How to Use Unit Tests in Python: A Practical Guide",
@@ -114,19 +136,7 @@
       "software-development",
       "coding"
     ],
-    "readingTime": null
-  },
-  {
-    "title": "Object Detection and Understanding with DINO-X: Open-World Applications",
-    "url": "https://just-merwan.medium.com/object-detection-and-understanding-with-dino-x-open-world-applications-42a922d8805e",
-    "date": "2026-08-30",
-    "summary": "Computer Vision & AI",
-    "tags": [
-      "python",
-      "machine-learning",
-      "artificial-intelligence",
-      "object-detection"
-    ],
-    "readingTime": null
+    "readingTime": null,
+    "image": "https://cdn-images-1.medium.com/max/668/1*Wb3T7nhp7fut5NbfEFCjAw.png"
   }
 ]
