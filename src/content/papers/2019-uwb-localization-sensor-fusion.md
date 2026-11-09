@@ -21,7 +21,7 @@ tags:
   - indoor positioning
   - outlier detection
 featured: true
-citations: 38
+citations: 33
 thumbnail: "/papers/thumbs/2019-uwb-localization-sensor-fusion.webp"
 figure: "/papers/figures/2019-uwb-localization-sensor-fusion.webp"
 ---
