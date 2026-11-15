@@ -1,5 +1,75 @@
 [
   {
+    "title": "How to Give a Project Update Leadership Remembers",
+    "url": "https://just-merwan.medium.com/how-to-give-a-project-update-leadership-remembers-f4059c8bc62c",
+    "date": "2026-11-09",
+    "summary": "",
+    "tags": [
+      "engineering",
+      "careers",
+      "project-management",
+      "leadership"
+    ],
+    "readingTime": null,
+    "image": "https://cdn-images-1.medium.com/max/1024/1*CCR2lGS270i0miIJ8aKmAg.png"
+  },
+  {
+    "title": "What Is Gaussian Splatting? From Drone Photos to a 3D Scene",
+    "url": "https://just-merwan.medium.com/what-is-gaussian-splatting-from-drone-photos-to-a-3d-scene-4906075351e6",
+    "date": "2026-11-09",
+    "summary": "",
+    "tags": [
+      "gaussian-splatting",
+      "3d-reconstruction",
+      "photogrammetry",
+      "computer-vision"
+    ],
+    "readingTime": null,
+    "image": "https://cdn-images-1.medium.com/max/1024/1*fe19UoW6UTLjX59xUG1Qkw.png"
+  },
+  {
+    "title": "Book Summary: Foresight Review of Resilience Engineering",
+    "url": "https://just-merwan.medium.com/book-summary-foresight-review-of-resilience-engineering-d931097a3b71",
+    "date": "2026-11-07",
+    "summary": "",
+    "tags": [
+      "resilience",
+      "safety",
+      "leadership",
+      "books"
+    ],
+    "readingTime": null,
+    "image": "https://cdn-images-1.medium.com/max/1024/1*B-DU_9G8dp-ecDLruCQ8YQ.png"
+  },
+  {
+    "title": "Is Manual Labelling Dead? Auto-Labelling for Computer Vision in 2026",
+    "url": "https://just-merwan.medium.com/is-manual-labelling-dead-auto-labelling-for-computer-vision-in-2026-f0e0c9652e4f",
+    "date": "2026-11-07",
+    "summary": "",
+    "tags": [
+      "data-labeling",
+      "machine-learning",
+      "computer-vision",
+      "foundation-models"
+    ],
+    "readingTime": null,
+    "image": "https://cdn-images-1.medium.com/max/1024/1*esnkvpOeyiMnUdaspy7BwQ.png"
+  },
+  {
+    "title": "TensorRT or OpenVINO? One Vision Model, NVIDIA and Intel Hardware, Measured",
+    "url": "https://just-merwan.medium.com/tensorrt-or-openvino-one-vision-model-nvidia-and-intel-hardware-measured-cb671cdf906a",
+    "date": "2026-11-04",
+    "summary": "",
+    "tags": [
+      "tensorrt",
+      "ai",
+      "openvino",
+      "nvidia"
+    ],
+    "readingTime": null,
+    "image": "https://cdn-images-1.medium.com/max/1024/0*0P0iA7b5tVw8uFGM.png"
+  },
+  {
     "title": "What Is Camera Calibration? Intrinsics, Extrinsics and the Photos That Make or Break It",
     "url": "https://just-merwan.medium.com/what-is-camera-calibration-intrinsics-extrinsics-and-the-photos-that-make-or-break-it-39d96dfe36f9",
     "date": "2026-11-01",
@@ -68,75 +138,5 @@
     ],
     "readingTime": null,
     "image": "https://cdn-images-1.medium.com/max/1536/1*U_fz8u1c35RhbHKrSh-IiQ.png"
-  },
-  {
-    "title": "Why Information Models Still Matter in 2026",
-    "url": "https://just-merwan.medium.com/why-information-models-still-matter-in-2026-ae6cf8ffbacc",
-    "date": "2026-09-29",
-    "summary": "Every system eventually pays a tax for unclear meaning.",
-    "tags": [
-      "data-modeling",
-      "ai-agent",
-      "design-systems",
-      "semantic-search"
-    ],
-    "readingTime": null,
-    "image": "https://cdn-images-1.medium.com/max/2600/0*cZjr_rMs-lFoHWyl"
-  },
-  {
-    "title": "GitHub Pages: The Simple Way to Publish a Website from Your Repo",
-    "url": "https://just-merwan.medium.com/github-pages-the-simple-way-to-publish-a-website-from-your-repo-0a385c2c4c5a",
-    "date": "2026-09-29",
-    "summary": "Software Tools & Tips",
-    "tags": [
-      "github",
-      "productivity",
-      "github-pages",
-      "portfolio"
-    ],
-    "readingTime": null,
-    "image": "https://cdn-images-1.medium.com/max/1672/1*KJd1-bSQQQSF5pMFkd-MAw.png"
-  },
-  {
-    "title": "Book Summary: The Baby Whisperer Solves All Your Problems",
-    "url": "https://just-merwan.medium.com/book-summary-the-baby-whisperer-solves-all-your-problems-eb539f481800",
-    "date": "2026-09-20",
-    "summary": "“Book’s Resume” series — Book n°14",
-    "tags": [
-      "book-summary",
-      "books",
-      "children",
-      "parenting"
-    ],
-    "readingTime": null,
-    "image": "https://cdn-images-1.medium.com/max/1980/0*1LsS5pREuJTp96KY.jpg"
-  },
-  {
-    "title": "What Is Poetry in Python? Another Python Library Package… Whaaat?",
-    "url": "https://just-merwan.medium.com/what-is-poetry-in-python-another-python-library-package-whaaat-954c66747f21",
-    "date": "2026-09-04",
-    "summary": "Software Development & More",
-    "tags": [
-      "software-development",
-      "product-management",
-      "software-engineering",
-      "python"
-    ],
-    "readingTime": null,
-    "image": "https://cdn-images-1.medium.com/max/600/0*Z2sBf3BwmNNfKnFx"
-  },
-  {
-    "title": "How to Use Unit Tests in Python: A Practical Guide",
-    "url": "https://just-merwan.medium.com/how-to-use-unit-tests-in-python-a-practical-guide-dff73c694f4d",
-    "date": "2026-08-31",
-    "summary": "Software Development & More",
-    "tags": [
-      "software-engineering",
-      "python",
-      "software-development",
-      "coding"
-    ],
-    "readingTime": null,
-    "image": "https://cdn-images-1.medium.com/max/668/1*Wb3T7nhp7fut5NbfEFCjAw.png"
   }
 ]
