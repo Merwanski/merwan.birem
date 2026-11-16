@@ -20,7 +20,7 @@ tags:
   - composite machining
   - condition monitoring
 featured: false
-citations: 18
+citations: 13
 thumbnail: "/papers/thumbs/2022-cloud-digital-twin-clamping.webp"
 figure: "/papers/figures/2022-cloud-digital-twin-clamping.webp"
 ---
