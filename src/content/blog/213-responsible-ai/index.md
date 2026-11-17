@@ -1,7 +1,7 @@
 ---
 title: 'Responsible AI in Practice: Debugging a Vision Model for Errors, Fairness and Explainability'
 subtitle: Where our auto-labeller fails, group by group, why one accuracy number hides it, and what a safety review will ask next
-date: '2026-11-22'
+date: '2026-11-17'
 article_no: 213
 category: AI & Computer Vision
 pillar: ai-systems
