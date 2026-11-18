@@ -12,7 +12,7 @@ tags:
 - error-analysis
 - machine-learning
 summary: '"Responsible AI" sounds like a compliance word, but for a vision engineer it comes down to three questions: where does my model fail, does it fail more for some groups than for others, and can I explain a single decis...'
-medium_url: ''
+medium_url: https://just-merwan.medium.com/responsible-ai-in-practice-debugging-a-vision-model-for-errors-fairness-and-explainability-38eb69c2ee3c
 canonical: ''
 hero: ./assets/hero.jpg
 hero_alt: 'The same street scene under six conditions, from the original photo (top left) to an almost black frame (bottom right). The frame colour is the detector''s measured recall for that condition on 100 test images: cyan = most objects found, red = almost none (own experiment [8]; photo CC BY 2.0 via COCO [16])'
@@ -271,12 +271,12 @@ Merwansky
 4. Microsoft, *Responsible AI Toolbox* (incl. `responsibleai-vision`), GitHub, MIT licence. https://github.com/microsoft/responsible-ai-toolbox
 5. J. A. Hanley, A. Lippman-Hand, *If nothing goes wrong, is everything all right? Interpreting zero numerators*, JAMA 249(13):1743–1745, 1983. https://pubmed.ncbi.nlm.nih.gov/6827763/
 6. Regulation (EU) 2024/1689 (Artificial Intelligence Act), Official Journal of the EU, 2024, Articles 6(1), 9, 10(2)(f), 15 and 113, https://eur-lex.europa.eu/eli/reg/2024/1689/oj; amended by Regulation (EU) 2026/1744 of 8 July 2026 (Digital Omnibus on AI), recital 40 (new dates: 2 December 2027 for Annex III, 2 August 2028 for Article 6(1)/Annex I), https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202601744. Both read on EUR-Lex 2026-11-17 (Cowork).
-7. M. Birem, *Is Manual Labelling Dead? Auto-Labelling for Computer Vision in 2026*, Medium, 2026-11-07. https://just-merwan.medium.com/is-manual-labelling-dead-auto-labelling-for-computer-vision-in-2026-f0e0c9652e4f
-8. M. Birem, cohort experiment for this article: Grounding DINO base (`IDEA-Research/grounding-dino-base`, Apache-2.0) on 600 COCO val2017 images, scripts and numbers in `assets/runs/` (`run213.py`, `score213.py`, `cohorts.json`). COCO annotations CC BY 4.0, images under their Flickr licences. https://cocodataset.org
+7. *Is Manual Labelling Dead? Auto-Labelling for Computer Vision in 2026*. https://just-merwan.medium.com/is-manual-labelling-dead-auto-labelling-for-computer-vision-in-2026-f0e0c9652e4f
+8. *Responsible AI on a vision model: cohort experiment* (Grounding DINO base, Apache-2.0, on 600 COCO val2017 images; code, split and numbers), GitHub gist. https://gist.github.com/Merwanski/7cec987b52769e060b81a6409432f7ec. COCO annotations CC BY 4.0, images under their Flickr licences: https://cocodataset.org
 9. D. Bolya, S. Foley, J. Hays, J. Hoffman, *TIDE: A General Toolbox for Identifying Object Detection Errors*, ECCV 2020. https://github.com/dbolya/tide
 10. S. Barocas, M. Hardt, A. Narayanan, *Fairness and Machine Learning: Limitations and Opportunities*, MIT Press, 2023, ch. 3 "Classification". https://fairmlbook.org
 11. R. R. Selvaraju, M. Cogswell, A. Das, R. Vedantam, D. Parikh, D. Batra, *Grad-CAM: Visual Explanations from Deep Networks via Gradient-based Localization*, ICCV 2017 / IJCV 2019. https://arxiv.org/abs/1610.02391
-12. M. Birem, *Why Should I Trust You? How LIME and SHAP Make Black-Box Models Transparent*, Medium. https://medium.com/p/5ab6520bf24a
+12. *Why Should I Trust You? How LIME and SHAP Make Black-Box Models Transparent*. https://medium.com/p/5ab6520bf24a
 13. Software Center, *Predictable Coordination for Safety-Critical Real-Time Systems* (talk on non-determinism in ROS 2 / Autoware.Auto and the Xronos framework), YouTube, 2022-08-26. https://www.youtube.com/watch?v=3NHjQLIYVK4
 14. exida, *exida's Pathway to Safe Machine Learning (ML)*, webinar, YouTube, 2023-04-13. https://www.youtube.com/watch?v=sHLACu5i9ss
 15. M. Mitchell, S. Wu, A. Zaldivar, P. Barnes, L. Vasserman, B. Hutchinson, E. Spitzer, I. D. Raji, T. Gebru, *Model Cards for Model Reporting*, FAT* 2019. https://arxiv.org/abs/1810.03993
