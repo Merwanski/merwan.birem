@@ -85,6 +85,10 @@ if (lat === null || lng === null) {
   }
 }
 
+// Privacy: round to 2 decimals (~1 km) so a photo taken at home never pins an address
+lat = Math.round(lat * 100) / 100;
+lng = Math.round(lng * 100) / 100;
+
 // --- 3. Optimize photos and copy to public/travels/<slug>/ ---
 const slug = folderName.toLowerCase();
 const publicDir = `public/travels/${slug}`;
@@ -136,6 +140,8 @@ const groqRes = await fetch('https://api.groq.com/openai/v1/chat/completions', {
   "highlights": "2-4 sentence first-person-adjacent narrative capturing the trip (warm, concise, no cliches)",
   "tags": ["pick 1-4 from this list, or add a new short one-word tag if none fit: ${knownTags.join(', ')}"]
 }
+
+Privacy rule: this is published on a public website. Never include birth dates, ages, street addresses, home towns or villages, or where relatives live; refer to them by region or country (e.g. "near Algiers", "visiting family") instead.
 
 Folder name: ${folderName} (guessed city: "${cityGuess}", guessed country: "${countryGuess}")
 Date: ${date}
