@@ -55,12 +55,34 @@ A personal brand, portfolio and **legacy site for my kids**, at https://merwansk
 
 ### 2. Quick checks at the start
 - [x] Dependabot (2026-10-18): `npm audit fix` bumped source-map-js, and 30 stale alerts were dismissed after checking installed versions with `npm ls`. Only **#32 http-cache-semantics** is still open: it has no patch, the advisory says "through 4.2.0" and we have 4.3.0. Dismiss it as "inaccurate" if it's still there (the advisory has since been withdrawn).
-- [ ] **New Dependabot alerts (seen 2026-11-01)**: #39/#40 astro (XSS in script/style content, medium), #34–#38 vite/launch-editor (dev-server only), #33 devalue (high). Run `npm audit`, update astro, vite and devalue to the patched versions (`npm update` or bump astro), rebuild, check the site, then dismiss whatever no longer applies.
+- [x] **Dependabot (2026-11-20)**: astro 7.3.5 → 7.4.13, `npm audit` reports 0 vulnerabilities. The vite, devalue and zod alerts were stale (the lockfile already had patched versions). If any of them is still open after merging, dismiss it as "inaccurate".
 - [ ] Delete the leftover folder `.claude/worktrees/agent-af79f44a3bd9cb2c5`. Claude's delete was blocked by auto mode, so Merwan needs to run `! rm -rf .claude/worktrees`.
 - [ ] Read the latest health report issue (label `health`).
 
 ### 3. If Merwan has provided content (#13)
 Swap the placeholders for the real files: put media in `public/projects/<id>/`, add them to `gallery` or `youtube`, and remove the matching `pending` entry in `src/content/projects/<id>.md`.
+
+## Roadmap: one element per session (agreed 2026-11-20)
+
+Merwan provides **one element per session**; Claude finishes it end to end (build, check, PR). Tick the row and move to the next. Order: quick wins first, then the items that need the most thinking.
+
+| # | Session | Merwan provides | Claude does | Status |
+|---|---|---|---|---|
+| 1 | **Housekeeping** | Run `! rm -rf .claude/worktrees` | Read the latest `health` issue, act on it, close stale Dependabot alerts | [ ] |
+| 2 | **Flags fix** | Nothing | Travels use the SVG flags in `public/flags/` instead of emoji (Windows shows two letters) | [ ] |
+| 3 | **Logos** | Flanders Make + Institut Pascal logos (SVG/PNG, square-ish) *or* permission to fetch the official ones | `public/milestones/logos/`, set `logo:` on the 3 milestones, company logos on the timeline | [ ] |
+| 4 | **Profile photo** | One 4:5 portrait | Contact page (and home if it fits), optimised WebP | [ ] |
+| 5 | **ALARMM media** | Results video (YouTube link or file) + 3–6 images | Project page gallery, remove the `pending` entries | [ ] |
+| 6 | **ROBOCONS media** | 3–6 prototype images | Same as 5; replaces the "Coming soon" card on the home page | [ ] |
+| 7 | **Projects batch A** | For each: 1–2 sentences, years, 2–4 tags — RETAIN VILICON, SMART VISION VIL, Vision-Coock, DRONE-AI, PILS | Fill `src/pages/projects/index.astro` | [ ] |
+| 8 | **Projects batch B** | Same — Product Counting, Box Counting v2, FAMAR, Vision Social Distancing, Ventilator – VUB | Same | [ ] |
+| 9 | **Projects batch C** | Same — Smart Cobot, Inwaredrones ICON, Smart Connectivity, Mobots, DVS | Same | [ ] |
+| 10 | **Projects batch D** | Same — HiL Setup, Indoor Drone Inspection, Locator, Mecha 4.0 / P-Laser, Blind Spot Detection | Same | [ ] |
+| 11 | **Impossible List** | Your own goals (replace the copied ones): each done / not done, public / private | Rewrite `src/content/impossible-list/`, drop the "under construction" banner | [ ] |
+| 12 | **Personal milestones** | 3–5 moments (year + one line + optional photo). **Privacy rule**: year and country only, no birth dates, no kids' names or schools, no addresses | Add to `src/content/milestones/` | [ ] |
+| 13+ | **Travels backlog (#4)** | One trip per session in `inbox/travels/YYYY-MM-DD-City-Country/` (photos + a few lines of notes) | Pipeline runs; check text and pin. Once 5+ countries: build the visited-countries panel | [ ] |
+
+Optional, any time: fix the CV at its source (no phone, no village); ask GitHub Support to purge cached views and old PR refs (#1–#19) after the 2026-11-19 history rewrite.
 
 ## Inputs needed from Merwan
 - ~~Birth year~~: received, kept private (never public).
@@ -69,7 +91,7 @@ Swap the placeholders for the real files: put media in `public/projects/<id>/`, 
 - **ALARMM** results video and images; **ROBOCONS** prototype images.
 - **Milestones**: personal and family moments, and photos.
 - **Impossible List**: your own goals, each marked done or not done, and public or private.
-- **Projects**: 1–2 sentences, years and tags for the projects still saying "Details to be added".
+- **Projects**: 1–2 sentences, years and tags for the 20 projects still saying "Details to be added" (split into batches A–D in the roadmap above).
 
 ## Working notes for Claude
 - Repo: `Merwanski/merwan.birem`, branch `main`. A push to `main` deploys, so check `gh run list -w deploy.yml`.
